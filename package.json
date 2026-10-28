@@ -1,6 +1,6 @@
 {
   "name": "mhxy-getcash-box",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "梦幻搞钱工具箱 PC 单页版：跑环记录 + 收益账本",
   "scripts": {

@@ -21,6 +21,7 @@
 </script>
 <style>
 :root{
+  --ui-scale:1;
   --bg:#080c14; --surface:#0f1623; --surface2:#151d2e; --border:#1a2740;
   --text:#c8d6e5; --text2:#6b7d95; --accent:#00d4aa; --accent2:#00b4d8;
   --warn:#f59e0b; --danger:#ef4444; --purple:#8b5cf6; --accent3:#4f6ef6; --accent4:#7c5cfc; --radius:6px;
@@ -29,7 +30,7 @@
 html,body{height:100%;overflow:hidden;}
 body{
   font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
-  background:var(--bg);color:var(--text);font-size:13px;line-height:1.4;
+  background:var(--bg);color:var(--text);font-size:calc(13px * var(--ui-scale));line-height:1.4;
 }
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -41,32 +42,32 @@ body::before{
 /* ===== Header ===== */
 .header{display:flex;align-items:center;justify-content:space-between;min-height:40px;padding:0 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0;margin-bottom:4px;gap:6px;}
 .header-l{display:flex;align-items:center;gap:8px;flex-shrink:0;}
-.header-l h1{font-size:15px;font-weight:700;white-space:nowrap;}
+.header-l h1{font-size:calc(15px * var(--ui-scale));font-weight:700;white-space:nowrap;}
 .header-l h1 span{color:var(--accent);}
 .header-r{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
-.header .clock{font-size:11px;color:var(--text2);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:115px;flex-shrink:0;}
+.header .clock{font-size:calc(11px * var(--ui-scale));color:var(--text2);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:115px;flex-shrink:0;}
 
-.btn{padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:11px;font-weight:500;transition:all .12s;white-space:nowrap;flex-shrink:0;}
+.btn{padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:calc(11px * var(--ui-scale));font-weight:500;transition:all .12s;white-space:nowrap;flex-shrink:0;}
 .btn:hover{border-color:var(--accent2);color:#fff;}
 .btn-a{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600;}
 .btn-a:hover{background:#00e0b4;}
 .btn-d{background:transparent;border-color:var(--danger);color:var(--danger);}
 .btn-d:hover{background:var(--danger);color:#fff;}
-.btn-xs{padding:2px 5px;font-size:10px;border-radius:3px;}
-.lv{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--text2);white-space:nowrap;}
-.lv input{width:54px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:13px;font-weight:600;text-align:center;}
+.btn-xs{padding:2px 5px;font-size:calc(10px * var(--ui-scale));border-radius:3px;}
+.lv{display:flex;align-items:center;gap:3px;font-size:calc(11px * var(--ui-scale));color:var(--text2);white-space:nowrap;}
+.lv input{width:54px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:calc(13px * var(--ui-scale));font-weight:600;text-align:center;}
 .lv input:focus{outline:none;border-color:var(--accent);}
 
 /* ===== Tabs ===== */
 .tabs{display:flex;gap:1px;flex-shrink:0;margin-bottom:4px;height:30px;}
-.tab{flex:1;display:flex;align-items:center;justify-content:center;padding:0 10px;background:var(--surface);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:11px;font-weight:500;transition:all .12s;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tab{flex:1;display:flex;align-items:center;justify-content:center;padding:0 10px;background:var(--surface);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:calc(11px * var(--ui-scale));font-weight:500;transition:all .12s;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .tab:first-child{border-radius:4px 0 0 4px;}
 .tab:last-child{border-radius:0 4px 4px 0;}
 .tab.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600;}
 .tab:hover:not(.active){color:#fff;}
 
 /* ===== Score / Progress strips ===== */
-.strip{display:flex;gap:6px;flex-shrink:0;min-height:28px;align-items:center;padding:0 8px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:3px;font-size:10px;flex-wrap:wrap;}
+.strip{display:flex;gap:6px;flex-shrink:0;min-height:28px;align-items:center;padding:0 8px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:3px;font-size:calc(10px * var(--ui-scale));flex-wrap:wrap;}
 .strip .si{display:flex;align-items:center;gap:3px;}
 .strip .sl{color:var(--text2);white-space:nowrap;}
 .strip .sv{font-weight:700;white-space:nowrap;}
@@ -74,7 +75,7 @@ body::before{
 .strip .sv.w{color:var(--warn);}
 .strip .sv.p{color:var(--purple);}
 .strip .sd{width:1px;height:14px;background:var(--border);}
-.strip .sr{font-size:9px;color:var(--text2);margin-left:1px;}
+.strip .sr{font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-left:1px;}
 .prog-inline{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;min-width:40px;}
 .prog-inline .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .3s;}
 
@@ -90,23 +91,23 @@ body::before{
 
 /* ===== Quick bar ===== */
 .quick-bar{display:flex;gap:3px;flex-shrink:0;min-height:48px;padding:4px 6px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:4px;flex-wrap:wrap;align-items:center;}
-.quick-bar .qb-num{font-size:20px;font-weight:800;color:var(--accent);min-width:32px;text-align:center;line-height:1;flex-shrink:0;}
+.quick-bar .qb-num{font-size:calc(20px * var(--ui-scale));font-weight:800;color:var(--accent);min-width:32px;text-align:center;line-height:1;flex-shrink:0;}
 .quick-bar .qb-tasks{display:flex;gap:2px;flex-wrap:wrap;flex:1;align-items:center;}
-.quick-bar .qb-t{padding:3px 6px;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:10px;font-weight:500;transition:all .1s;white-space:nowrap;}
+.quick-bar .qb-t{padding:3px 6px;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:calc(10px * var(--ui-scale));font-weight:500;transition:all .1s;white-space:nowrap;}
 .quick-bar .qb-t:hover{border-color:var(--accent);color:var(--accent);}
 .quick-bar .qb-t.sel{border-color:var(--accent);background:rgba(0,212,170,0.15);color:var(--accent);}
-.quick-bar .qb-input{padding:3px 6px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;width:90px;}
+.quick-bar .qb-input{padding:3px 6px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(10px * var(--ui-scale));width:90px;}
 .quick-bar .qb-input:focus{outline:none;border-color:var(--accent);}
-.quick-bar .qb-go{padding:3px 12px;border-radius:3px;border:2px solid var(--accent);background:var(--accent);color:#000;cursor:pointer;font-size:11px;font-weight:700;}
-.quick-bar .qb-skip{padding:3px 8px;border-radius:3px;border:1px solid var(--danger);background:transparent;color:var(--danger);cursor:pointer;font-size:10px;}
+.quick-bar .qb-go{padding:3px 12px;border-radius:3px;border:2px solid var(--accent);background:var(--accent);color:#000;cursor:pointer;font-size:calc(11px * var(--ui-scale));font-weight:700;}
+.quick-bar .qb-skip{padding:3px 8px;border-radius:3px;border:1px solid var(--danger);background:transparent;color:var(--danger);cursor:pointer;font-size:calc(10px * var(--ui-scale));}
 
 /* ===== Ring grid ===== */
 .ring-grid-wrap{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3px;overflow:hidden;}
-.ring-grid-h{display:flex;justify-content:space-between;align-items:center;padding:1px 3px 3px;flex-shrink:0;font-size:9px;color:var(--text2);flex-wrap:wrap;gap:4px;}
+.ring-grid-h{display:flex;justify-content:space-between;align-items:center;padding:1px 3px 3px;flex-shrink:0;font-size:calc(9px * var(--ui-scale));color:var(--text2);flex-wrap:wrap;gap:4px;}
 .ring-grid{flex:1;display:grid;gap:2px;min-height:0;}
 .ring-grid.x10{grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(10,1fr);}
 .ring-grid.x15{grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(20,1fr);}
-.ring-grid .cell{display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);transition:all .1s;position:relative;min-width:0;min-height:0;user-select:none;overflow:hidden;}
+.ring-grid .cell{display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:calc(12px * var(--ui-scale));font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);transition:all .1s;position:relative;min-width:0;min-height:0;user-select:none;overflow:hidden;}
 .ring-grid .cell:hover{border-color:var(--accent2);z-index:2;transform:scale(1.05);}
 .ring-grid .cell.df{background:#162535;color:#6b8aaa;}
 .ring-grid .cell.d1,.ring-grid .cell.d2{background:#162a24;color:#5a9a8a;}
@@ -119,7 +120,7 @@ body::before{
 
 /* ===== Segments ===== */
 .seg-badges{display:flex;gap:4px;flex-shrink:0;margin-bottom:3px;height:20px;}
-.seg-badge{flex:1;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:9px;font-weight:600;background:var(--surface2);border:1px solid var(--border);color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px;}
+.seg-badge{flex:1;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:calc(9px * var(--ui-scale));font-weight:600;background:var(--surface2);border:1px solid var(--border);color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px;}
 .seg-badge.done{background:rgba(0,212,170,0.1);border-color:var(--accent);color:var(--accent);}
 .seg-badge.cur{background:rgba(0,180,216,0.1);border-color:var(--accent2);color:var(--accent2);}
 
@@ -130,88 +131,88 @@ body::before{
 .hub-bg .orb:nth-child(1){width:600px;height:600px;background:radial-gradient(circle,rgba(79,110,246,0.2),transparent);top:-200px;left:-100px;}
 .hub-bg .orb:nth-child(2){width:500px;height:500px;background:radial-gradient(circle,rgba(124,92,252,0.15),transparent);bottom:-150px;right:-100px;}
 .hub-bg .orb:nth-child(3){width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.1),transparent);top:50%;left:50%;transform:translate(-50%,-50%);}
-.hub-main{position:relative;z-index:1;text-align:center;padding:24px;max-width:640px;width:100%;}
-.hub-icon{display:inline-block;width:60px;height:60px;line-height:60px;font-size:32px;background:linear-gradient(135deg,var(--accent3),var(--accent4));border-radius:18px;margin-bottom:12px;box-shadow:0 8px 28px rgba(79,110,246,0.25);}
-.hub-title{font-size:32px;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,#e8e8ed,#a0a0c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;word-break:break-all;}
-.hub-sub{font-size:14px;color:var(--text2);margin-top:6px;}
+.hub-main{position:relative;z-index:1;text-align:center;padding:24px;max-width:calc(640px * var(--ui-scale));width:100%;}
+.hub-icon{display:inline-block;width:60px;height:60px;line-height:60px;font-size:calc(32px * var(--ui-scale));background:linear-gradient(135deg,var(--accent3),var(--accent4));border-radius:18px;margin-bottom:12px;box-shadow:0 8px 28px rgba(79,110,246,0.25);}
+.hub-title{font-size:calc(32px * var(--ui-scale));font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,#e8e8ed,#a0a0c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;word-break:break-all;}
+.hub-sub{font-size:calc(14px * var(--ui-scale));color:var(--text2);margin-top:6px;}
 .hub-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
 .hub-card{display:block;text-decoration:none;color:inherit;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:24px 20px;cursor:pointer;transition:all .3s cubic-bezier(.25,.8,.25,1.2);text-align:left;position:relative;overflow:hidden;}
 .hub-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;background:radial-gradient(ellipse at 50% 0%,rgba(79,110,246,0.12),transparent 70%);}
 .hub-card:hover{border-color:rgba(79,110,246,0.3);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,0.4);}
 .hub-card:hover::before{opacity:1;}
-.hub-card .ci{font-size:36px;display:block;margin-bottom:10px;position:relative;z-index:1;}
-.hub-card .ct{font-size:17px;font-weight:700;margin-bottom:4px;position:relative;z-index:1;}
-.hub-card .cd{font-size:12px;color:var(--text2);line-height:1.5;position:relative;z-index:1;}
+.hub-card .ci{font-size:calc(36px * var(--ui-scale));display:block;margin-bottom:10px;position:relative;z-index:1;}
+.hub-card .ct{font-size:calc(17px * var(--ui-scale));font-weight:700;margin-bottom:4px;position:relative;z-index:1;}
+.hub-card .cd{font-size:calc(12px * var(--ui-scale));color:var(--text2);line-height:1.5;position:relative;z-index:1;}
 .hub-card .tg{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;position:relative;z-index:1;}
-.hub-card .tg span{font-size:9px;padding:2px 7px;border-radius:9px;background:rgba(255,255,255,0.04);color:var(--text2);border:1px solid var(--border);}
-.hub-ft{font-size:10px;color:rgba(255,255,255,0.3);margin-top:32px;line-height:1.8;}
+.hub-card .tg span{font-size:calc(9px * var(--ui-scale));padding:2px 7px;border-radius:9px;background:rgba(255,255,255,0.04);color:var(--text2);border:1px solid var(--border);}
+.hub-ft{font-size:calc(10px * var(--ui-scale));color:rgba(255,255,255,0.3);margin-top:32px;line-height:1.8;}
 .hub-ft i{margin:0 6px;}
 
 /* ===== Empty state ===== */
 .empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text2);gap:10px;text-align:center;padding:20px;}
-.empty-state .icon{font-size:48px;opacity:0.2;}
+.empty-state .icon{font-size:calc(48px * var(--ui-scale));opacity:0.2;}
 
 /* ===== Modal ===== */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:12px;}
-.modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;max-width:440px;width:100%;max-height:85vh;overflow-y:auto;}
-.modal h3{margin-bottom:10px;font-size:14px;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;max-width:calc(440px * var(--ui-scale));width:100%;max-height:85vh;overflow-y:auto;}
+.modal h3{margin-bottom:10px;font-size:calc(14px * var(--ui-scale));}
 .modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;max-height:35vh;overflow-y:auto;margin-bottom:8px;}
-.modal-item{padding:6px 7px;background:var(--surface2);border-radius:3px;cursor:pointer;font-size:11px;border:1px solid transparent;transition:all .1s;word-break:break-all;}
+.modal-item{padding:6px 7px;background:var(--surface2);border-radius:3px;cursor:pointer;font-size:calc(11px * var(--ui-scale));border:1px solid transparent;transition:all .1s;word-break:break-all;}
 .modal-item:hover{background:var(--surface);}
 .modal-item.sel{border-color:var(--accent);background:rgba(0,212,170,0.08);color:var(--accent);}
 
 /* ===== Report ===== */
 .report-sec{margin-bottom:12px;}
-.report-sec h4{font-size:11px;color:var(--accent);margin-bottom:5px;}
-.stat-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(26,39,64,0.5);font-size:11px;gap:8px;}
+.report-sec h4{font-size:calc(11px * var(--ui-scale));color:var(--accent);margin-bottom:5px;}
+.stat-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(26,39,64,0.5);font-size:calc(11px * var(--ui-scale));gap:8px;}
 .stat-row .val{font-weight:600;text-align:right;word-break:break-all;}
 
 /* ===== Tables & Cards ===== */
-.rw-table{width:100%;border-collapse:collapse;font-size:11px;}
-.rw-table th{text-align:left;padding:4px 6px;border-bottom:1px solid var(--border);color:var(--text2);font-weight:500;font-size:9px;}
+.rw-table{width:100%;border-collapse:collapse;font-size:calc(11px * var(--ui-scale));}
+.rw-table th{text-align:left;padding:4px 6px;border-bottom:1px solid var(--border);color:var(--text2);font-weight:500;font-size:calc(9px * var(--ui-scale));}
 .rw-table td{padding:4px 6px;border-bottom:1px solid rgba(26,39,64,0.5);}
 .rw-table tr.hl{background:rgba(0,212,170,0.06);}
 .rw-table tr.hl td:first-child{color:var(--accent);font-weight:600;}
-.hist-item{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:4px;margin-bottom:3px;border:1px solid transparent;font-size:11px;gap:8px;}
+.hist-item{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:4px;margin-bottom:3px;border:1px solid transparent;font-size:calc(11px * var(--ui-scale));gap:8px;}
 .hist-item:hover{border-color:var(--border);}
-.hist-item .score,.hist-item .cost{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.hist-item .score,.hist-item .cost{font-size:calc(13px * var(--ui-scale));font-weight:700;color:var(--accent);white-space:nowrap;}
 .stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
 .stat-card{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:8px;text-align:center;}
-.stat-card .lbl{font-size:9px;color:var(--text2);}
-.stat-card .val{font-size:16px;font-weight:700;margin-top:1px;}
+.stat-card .lbl{font-size:calc(9px * var(--ui-scale));color:var(--text2);}
+.stat-card .val{font-size:calc(16px * var(--ui-scale));font-weight:700;margin-top:1px;}
 
 /* ===== Utilities ===== */
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
-.tag{display:inline-block;padding:1px 5px;border-radius:2px;font-size:9px;font-weight:500;}
+.tag{display:inline-block;padding:1px 5px;border-radius:2px;font-size:calc(9px * var(--ui-scale));font-weight:500;}
 .tag-g{background:rgba(0,212,170,0.15);color:var(--accent);}
 .tag-b{background:rgba(0,180,216,0.15);color:var(--accent2);}
 .tag-r{background:rgba(239,68,68,0.15);color:var(--danger);}
 .tag-y{background:rgba(245,158,11,0.15);color:var(--warn);}
-.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:5px 14px;border-radius:14px;font-size:11px;font-weight:600;z-index:200;animation:ti .3s ease;}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:5px 14px;border-radius:14px;font-size:calc(11px * var(--ui-scale));font-weight:600;z-index:200;animation:ti .3s ease;}
 @keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(8px);}}
 
 /* ==================== MOBILE ==================== */
 @media(max-width:768px){
   .app{padding:2px 4px;}
-  body{font-size:12px;}
+  body{font-size:calc(12px * var(--ui-scale));}
 
   .header{min-height:36px;padding:0 6px;gap:4px;flex-wrap:wrap;}
-  .header-l h1{font-size:12px;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
-  .header-l h1 span{font-size:9px;}
+  .header-l h1{font-size:calc(12px * var(--ui-scale));overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+  .header-l h1 span{font-size:calc(9px * var(--ui-scale));}
   .header-r{gap:3px;}
-  .header-r .btn{padding:3px 6px;font-size:9px;}
-  .header-r .btn-a{padding:3px 8px;font-size:10px;}
-  #user-select{max-width:66px;font-size:10px;}
-  .header .clock{font-size:9px;min-width:auto;}
-  .lv{font-size:9px;gap:2px;}
-  .lv input{width:40px;font-size:10px;padding:2px;}
+  .header-r .btn{padding:3px 6px;font-size:calc(9px * var(--ui-scale));}
+  .header-r .btn-a{padding:3px 8px;font-size:calc(10px * var(--ui-scale));}
+  #user-select{max-width:66px;font-size:calc(10px * var(--ui-scale));}
+  .header .clock{font-size:calc(9px * var(--ui-scale));min-width:auto;}
+  .lv{font-size:calc(9px * var(--ui-scale));gap:2px;}
+  .lv input{width:40px;font-size:calc(10px * var(--ui-scale));padding:2px;}
 
   .tabs{height:26px;}
-  .tab{font-size:9px;padding:0 6px;overflow:hidden;}
+  .tab{font-size:calc(9px * var(--ui-scale));padding:0 6px;overflow:hidden;}
 
-  .strip{min-height:24px;gap:2px 5px;padding:3px 6px;font-size:9px;}
+  .strip{min-height:24px;gap:2px 5px;padding:3px 6px;font-size:calc(9px * var(--ui-scale));}
   .strip .sd:nth-child(8),.strip .sd:nth-child(10){display:none;}
   .prog-inline{flex:1 1 100%;height:2px;margin-top:1px;}
 
@@ -220,70 +221,70 @@ body::before{
   .minimap{margin-bottom:2px;}
 
   .seg-badges{height:16px;gap:2px;}
-  .seg-badge{font-size:7px;padding:0 2px;}
+  .seg-badge{font-size:calc(7px * var(--ui-scale));padding:0 2px;}
 
   .quick-bar{padding:3px 4px;gap:2px;min-height:auto;}
-  .quick-bar .qb-num{font-size:16px;min-width:28px;}
-  .quick-bar .qb-t{padding:2px 4px;font-size:9px;}
-  .quick-bar .qb-input{width:56px;font-size:9px;padding:2px 4px;}
-  .quick-bar .qb-go{padding:3px 8px;font-size:10px;}
-  .quick-bar .qb-skip{padding:2px 5px;font-size:9px;}
+  .quick-bar .qb-num{font-size:calc(16px * var(--ui-scale));min-width:28px;}
+  .quick-bar .qb-t{padding:2px 4px;font-size:calc(9px * var(--ui-scale));}
+  .quick-bar .qb-input{width:56px;font-size:calc(9px * var(--ui-scale));padding:2px 4px;}
+  .quick-bar .qb-go{padding:3px 8px;font-size:calc(10px * var(--ui-scale));}
+  .quick-bar .qb-skip{padding:2px 5px;font-size:calc(9px * var(--ui-scale));}
 
   .ring-grid-wrap{padding:2px;}
   .ring-grid.x10{gap:1px;}
   .ring-grid.x15{grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(30,1fr);gap:1px;}
-  .ring-grid .cell{font-size:8px;border-radius:2px;border-width:0.5px;}
+  .ring-grid .cell{font-size:calc(8px * var(--ui-scale));border-radius:2px;border-width:0.5px;}
 
   .hub-main{padding:16px 12px;}
-  .hub-icon{width:48px;height:48px;line-height:48px;font-size:26px;border-radius:14px;}
-  .hub-title{font-size:22px;}
-  .hub-sub{font-size:12px;}
+  .hub-icon{width:48px;height:48px;line-height:48px;font-size:calc(26px * var(--ui-scale));border-radius:14px;}
+  .hub-title{font-size:calc(22px * var(--ui-scale));}
+  .hub-sub{font-size:calc(12px * var(--ui-scale));}
   .hub-cards{grid-template-columns:1fr;gap:10px;margin-top:20px;}
   .hub-card{padding:18px 14px;border-radius:10px;}
-  .hub-card .ci{font-size:28px;}
-  .hub-card .ct{font-size:15px;}
-  .hub-card .cd{font-size:11px;}
+  .hub-card .ci{font-size:calc(28px * var(--ui-scale));}
+  .hub-card .ct{font-size:calc(15px * var(--ui-scale));}
+  .hub-card .cd{font-size:calc(11px * var(--ui-scale));}
 
   .modal{max-width:100%!important;width:98%;padding:12px;border-radius:8px;max-height:90vh;}
-  .modal h3{font-size:13px;margin-bottom:8px;overflow-wrap:break-word;}
-  .modal-item{font-size:10px;padding:6px 5px;}
+  .modal h3{font-size:calc(13px * var(--ui-scale));margin-bottom:8px;overflow-wrap:break-word;}
+  .modal-item{font-size:calc(10px * var(--ui-scale));padding:6px 5px;}
   .modal-grid{grid-template-columns:1fr 1fr;gap:2px;}
   .modal-grid[style*="repeat(3"]{grid-template-columns:repeat(2,1fr)!important;}
 
   .stat-cards{grid-template-columns:repeat(2,1fr);gap:4px;}
   .stat-card{padding:6px;}
-  .stat-card .val{font-size:14px;}
-  .stat-card .lbl{font-size:8px;}
+  .stat-card .val{font-size:calc(14px * var(--ui-scale));}
+  .stat-card .lbl{font-size:calc(8px * var(--ui-scale));}
 
   .hist-item{flex-direction:column;align-items:flex-start;gap:4px;}
-  .hist-item .score,.hist-item .cost{font-size:12px;}
+  .hist-item .score,.hist-item .cost{font-size:calc(12px * var(--ui-scale));}
 
-  .btn-xs{padding:3px 6px;font-size:9px;}
-  .toast{font-size:10px;padding:4px 12px;bottom:10px;}
-  .report-sec h4{font-size:10px;}
-  .stat-row{font-size:10px;}
-  .rw-table{font-size:9px;}
+  .btn-xs{padding:3px 6px;font-size:calc(9px * var(--ui-scale));}
+  .toast{font-size:calc(10px * var(--ui-scale));padding:4px 12px;bottom:10px;}
+  .report-sec h4{font-size:calc(10px * var(--ui-scale));}
+  .stat-row{font-size:calc(10px * var(--ui-scale));}
+  .rw-table{font-size:calc(9px * var(--ui-scale));}
   .rw-table th,.rw-table td{padding:3px 4px;}
-  .ring-grid-h{font-size:8px;}
+  .ring-grid-h{font-size:calc(8px * var(--ui-scale));}
 
   #bf-track{height:28px;}
-  .hub-ft{font-size:9px;margin-top:24px;line-height:2;}
+  .hub-ft{font-size:calc(9px * var(--ui-scale));margin-top:24px;line-height:2;}
 }
 
-@media(max-width:400px){
-  .header-l h1{font-size:10px;max-width:100px;}
+@media(max-width:calc(400px * var(--ui-scale))){
+  .header-l h1{font-size:calc(10px * var(--ui-scale));max-width:100px;}
   #btn-help,#live-clock,.header .clock{display:none;}
   .header-r{gap:2px;}
-  .header-r .btn{padding:2px 4px;font-size:8px;}
-  #user-select{max-width:52px;font-size:9px;}
-  .lv input{width:34px;font-size:9px;}
+  .header-r .btn{padding:2px 4px;font-size:calc(8px * var(--ui-scale));}
+  #user-select{max-width:52px;font-size:calc(9px * var(--ui-scale));}
+  .lv input{width:34px;font-size:calc(9px * var(--ui-scale));}
   .tabs{height:24px;}
-  .tab{font-size:8px;padding:0 3px;}
-  .ring-grid .cell{font-size:6px;}
-  .ring-grid.x15 .cell{font-size:6px;}
-  .quick-bar .qb-t{font-size:8px;padding:2px 3px;}
-  .hub-title{font-size:18px;}
-  .seg-badge{font-size:6px;}
+  .tab{font-size:calc(8px * var(--ui-scale));padding:0 3px;}
+  .ring-grid .cell{font-size:calc(6px * var(--ui-scale));}
+  .ring-grid.x15 .cell{font-size:calc(6px * var(--ui-scale));}
+  .quick-bar .qb-t{font-size:calc(8px * var(--ui-scale));padding:2px 3px;}
+  .hub-title{font-size:calc(18px * var(--ui-scale));}
+  .seg-badge{font-size:calc(6px * var(--ui-scale));}
   .hub-bg .orb:nth-child(1){width:300px;height:300px;}
   .hub-bg .orb:nth-child(2){width:250px;height:250px;}
 }
@@ -295,16 +296,23 @@ body::before{
   .bf-task{min-height:32px;padding:4px 8px;}
 }
 
+
+/* ===== 大屏字号自适应：2K/4K 上不再缩成蚂蚁字 ===== */
+@media(min-width:1600px){:root{--ui-scale:1.12;}}
+@media(min-width:1920px){:root{--ui-scale:1.28;}}
+@media(min-width:2400px){:root{--ui-scale:1.45;}}
+@media(min-width:3400px){:root{--ui-scale:1.7;}}
+
 /* ===== 收益账本 ===== */
 .period-bar{display:flex;gap:4px;align-items:center;margin-bottom:8px;flex-wrap:wrap;}
-.seg-btn{padding:3px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text2);font-size:11px;cursor:pointer;transition:all .15s;}
+.seg-btn{padding:3px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text2);font-size:calc(11px * var(--ui-scale));cursor:pointer;transition:all .15s;}
 .seg-btn:hover{border-color:var(--accent2);color:var(--text);}
 .seg-btn.on{background:rgba(0,212,170,.12);border-color:var(--accent);color:var(--accent);font-weight:600;}
 .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:8px;}
 .kpi{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:7px 9px;}
-.kpi .k{font-size:9px;color:var(--text2);margin-bottom:2px;letter-spacing:.5px;}
-.kpi .v{font-size:17px;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;}
-.kpi .s{font-size:9px;color:var(--text2);margin-top:1px;}
+.kpi .k{font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-bottom:2px;letter-spacing:.5px;}
+.kpi .v{font-size:calc(17px * var(--ui-scale));font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;}
+.kpi .s{font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-top:1px;}
 .kpi.hl{border-color:rgba(0,212,170,.45);background:linear-gradient(135deg,rgba(0,212,170,.10),rgba(0,180,216,.04));}
 .pos{color:var(--accent);}
 .neg{color:var(--danger);}
@@ -313,39 +321,39 @@ body::before{
 .ledger-row{display:flex;align-items:center;gap:10px;padding:7px 9px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;margin-bottom:4px;cursor:pointer;transition:border-color .15s;}
 .ledger-row:hover{border-color:var(--accent2);}
 .ledger-row .lr-l{flex:1;min-width:0;}
-.ledger-row .lr-t{font-weight:600;font-size:12px;display:flex;align-items:center;gap:6px;}
-.ledger-row .lr-d{font-size:9px;color:var(--text2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ledger-row .lr-t{font-weight:600;font-size:calc(12px * var(--ui-scale));display:flex;align-items:center;gap:6px;}
+.ledger-row .lr-d{font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .ledger-row .lr-n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
-.ledger-row .lr-n b{font-size:13px;}
-.ledger-row .lr-n span{display:block;font-size:9px;color:var(--text2);}
-.tag-un{display:inline-block;padding:1px 5px;border-radius:3px;background:rgba(245,158,11,.15);color:var(--warn);font-size:9px;font-weight:600;}
-.tag-tool{display:inline-block;padding:1px 5px;border-radius:3px;background:rgba(0,180,216,.14);color:var(--accent2);font-size:9px;}
+.ledger-row .lr-n b{font-size:calc(13px * var(--ui-scale));}
+.ledger-row .lr-n span{display:block;font-size:calc(9px * var(--ui-scale));color:var(--text2);}
+.tag-un{display:inline-block;padding:1px 5px;border-radius:3px;background:rgba(245,158,11,.15);color:var(--warn);font-size:calc(9px * var(--ui-scale));font-weight:600;}
+.tag-tool{display:inline-block;padding:1px 5px;border-radius:3px;background:rgba(0,180,216,.14);color:var(--accent2);font-size:calc(9px * var(--ui-scale));}
 .cost-bar{height:8px;display:flex;border-radius:4px;overflow:hidden;margin:4px 0 6px;background:var(--bg);}
 .cost-bar i{display:block;height:100%;}
-.cost-legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:10px;color:var(--text2);}
+.cost-legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:calc(10px * var(--ui-scale));color:var(--text2);}
 .cost-legend em{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:4px;vertical-align:middle;}
 .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 8px;}
 .price-row{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:2px 0;}
-.price-row label{font-size:10px;color:var(--text2);white-space:nowrap;}
-.price-row input{width:74px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;text-align:right;}
-.gold-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:9px 11px;margin-top:10px;max-width:520px;width:100%;}
-.gold-card .gt{font-size:11px;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
-.gold-row{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:5px;flex-wrap:wrap;}
-.gold-row input{width:88px;padding:3px 5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;text-align:right;}
-.gold-row .eq{color:var(--text2);font-size:10px;}
+.price-row label{font-size:calc(10px * var(--ui-scale));color:var(--text2);white-space:nowrap;}
+.price-row input{width:74px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(10px * var(--ui-scale));text-align:right;}
+.gold-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:9px 11px;margin-top:10px;max-width:calc(520px * var(--ui-scale));width:100%;}
+.gold-card .gt{font-size:calc(11px * var(--ui-scale));font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+.gold-row{display:flex;align-items:center;gap:6px;font-size:calc(11px * var(--ui-scale));margin-bottom:5px;flex-wrap:wrap;}
+.gold-row input{width:88px;padding:3px 5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:calc(11px * var(--ui-scale));text-align:right;}
+.gold-row .eq{color:var(--text2);font-size:calc(10px * var(--ui-scale));}
 .gold-res{color:var(--warn);font-weight:700;font-variant-numeric:tabular-nums;}
 .detail-sec{margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
-.detail-sec h4{font-size:10px;color:var(--accent2);margin-bottom:4px;letter-spacing:.5px;}
+.detail-sec h4{font-size:calc(10px * var(--ui-scale));color:var(--accent2);margin-bottom:4px;letter-spacing:.5px;}
 .undo-btn{color:var(--warn);border-color:rgba(245,158,11,.45)!important;}
 .item-chips-row{display:flex;gap:4px;align-items:center;padding:0 2px 3px;flex-wrap:wrap;flex-shrink:0;}
-.item-chips-row .lbl{font-size:9px;color:var(--text2);margin-right:2px;}
-.chip-item{padding:1px 7px;border-radius:9px;background:rgba(0,180,216,.10);border:1px solid rgba(0,180,216,.28);color:var(--accent2);font-size:10px;cursor:pointer;}
+.item-chips-row .lbl{font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-right:2px;}
+.chip-item{padding:1px 7px;border-radius:9px;background:rgba(0,180,216,.10);border:1px solid rgba(0,180,216,.28);color:var(--accent2);font-size:calc(10px * var(--ui-scale));cursor:pointer;}
 .chip-item:hover{background:rgba(0,180,216,.2);}
-.kbd-hint{font-size:9px;color:var(--text2);opacity:.75;margin-left:6px;white-space:nowrap;}
-.kbd-hint kbd{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:0 3px;font-family:inherit;font-size:9px;}
+.kbd-hint{font-size:calc(9px * var(--ui-scale));color:var(--text2);opacity:.75;margin-left:6px;white-space:nowrap;}
+.kbd-hint kbd{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:0 3px;font-family:inherit;font-size:calc(9px * var(--ui-scale));}
 @keyframes jumpFlash{0%{box-shadow:0 0 0 0 rgba(0,212,170,.9);background:rgba(0,212,170,.35);}100%{box-shadow:0 0 0 10px rgba(0,212,170,0);background:transparent;}}
 .cell.jump-hl{animation:jumpFlash .9s ease-out;}
-.pause-tag{font-size:9px;color:var(--warn);border:1px solid rgba(245,158,11,.4);border-radius:3px;padding:0 4px;}
+.pause-tag{font-size:calc(9px * var(--ui-scale));color:var(--warn);border:1px solid rgba(245,158,11,.4);border-radius:3px;padding:0 4px;}
 @media(pointer:coarse){.kbd-hint{display:none;}}
 @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr);}.price-grid{grid-template-columns:repeat(2,1fr);}}
 </style>
@@ -649,6 +657,27 @@ function togglePause(cur,tool){
 }
 function modalOpen(){return !!document.querySelector('.modal-overlay');}
 
+// ===== 界面缩放：大屏自动放大，也可手动锁定 =====
+const UI_SCALE_STEPS=[1,1.15,1.3,1.45];
+function uiScaleChoice(){const v=ld('mhxy_ui_scale',null);return (typeof v==='number'&&v>0)?v:null;}
+function applyUiScale(){
+  const v=uiScaleChoice(),root=document.documentElement;
+  if(v===null)root.style.removeProperty('--ui-scale');
+  else root.style.setProperty('--ui-scale',String(v));
+}
+function uiScaleBtn(){
+  const v=uiScaleChoice();
+  return`<button class="btn btn-xs" id="btn-ui-scale" title="界面缩放：大屏字太小就点这里">Aa ${v===null?'自动':Math.round(v*100)+'%'}</button>`;
+}
+function cycleUiScale(){
+  const v=uiScaleChoice();
+  let next;
+  if(v===null)next=UI_SCALE_STEPS[1];
+  else{const i=UI_SCALE_STEPS.indexOf(v);next=(i<0||i===UI_SCALE_STEPS.length-1)?null:UI_SCALE_STEPS[i+1];}
+  if(next===null)localStorage.removeItem('mhxy_ui_scale');else sv('mhxy_ui_scale',next);
+  applyUiScale();renderAll();toast('界面缩放 '+(next===null?'自动（随屏宽）':Math.round(next*100)+'%'));
+}
+
 function pSave(k,d){sv(ukey(k),d);}
 function cSave(k,d){sv(ukey3(k),d);}
 
@@ -872,17 +901,17 @@ function renderAll(){
 }
 
 function renderHubHeader(){
-  return`<div class="header"><div class="header-l"><h1>梦幻搞钱工具箱</h1></div><div class="header-r"><span class="clock" id="live-clock"></span><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" style="margin-left:4px;" title="帮助指南">📖 帮助</button></div></div>`;
+  return`<div class="header"><div class="header-l"><h1>梦幻搞钱工具箱</h1></div><div class="header-r">${uiScaleBtn()}<span class="clock" id="live-clock"></span><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" style="margin-left:4px;" title="帮助指南">📖 帮助</button></div></div>`;
 }
 function renderPetHeader(){
-  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:14px;padding:2px 6px;">←</button><h1>宠环助手</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-user-mgr" title="管理角色">👥</button><div class="lv"><label>等级</label><input type="number" id="char-level" value="${pCfg.level}" min="65" max="175"></div>${pCur?`<button class="btn btn-a btn-xs" id="btn-complete">结算</button><button class="btn btn-xs" id="btn-pause">${pCur.pausedAt?'▶ 继续':'⏸ 暂停'}</button><button class="btn btn-xs btn-d" id="btn-abandon">放弃</button>`:`<button class="btn btn-a btn-xs" id="btn-new-run">+ 新跑环</button>`}<button class="btn btn-xs" id="btn-prices" title="价格设置">💰</button><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" title="帮助指南">📖</button>${undoBtn()}<span class="clock" id="live-clock"></span></div></div>`;
+  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:calc(14px * var(--ui-scale));padding:2px 6px;">←</button><h1>宠环助手</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:calc(11px * var(--ui-scale));font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-user-mgr" title="管理角色">👥</button><div class="lv"><label>等级</label><input type="number" id="char-level" value="${pCfg.level}" min="65" max="175"></div>${pCur?`<button class="btn btn-a btn-xs" id="btn-complete">结算</button><button class="btn btn-xs" id="btn-pause">${pCur.pausedAt?'▶ 继续':'⏸ 暂停'}</button><button class="btn btn-xs btn-d" id="btn-abandon">放弃</button>`:`<button class="btn btn-a btn-xs" id="btn-new-run">+ 新跑环</button>`}<button class="btn btn-xs" id="btn-prices" title="价格设置">💰</button><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" title="帮助指南">📖</button>${undoBtn()}${uiScaleBtn()}<span class="clock" id="live-clock"></span></div></div>`;
 }
 function renderChainHeader(){
-  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:14px;padding:2px 6px;">←</button><h1>人环助手</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-user-mgr" title="管理角色">👥</button><div class="lv"><label>等级</label><input type="number" id="char-level" value="${cCfg.level}" min="60" max="175"></div>${cCur?`<button class="btn btn-a btn-xs" id="btn-complete">结算</button><button class="btn btn-xs" id="btn-pause">${cCur.pausedAt?'▶ 继续':'⏸ 暂停'}</button><button class="btn btn-xs btn-d" id="btn-abandon">放弃</button>`:`<button class="btn btn-a btn-xs" id="btn-new-run">+ 新任务链</button>`}<button class="btn btn-xs" id="btn-prices" title="价格设置">💰</button><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" title="帮助指南">📖</button>${undoBtn()}<span class="clock" id="live-clock"></span></div></div>`;
+  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:calc(14px * var(--ui-scale));padding:2px 6px;">←</button><h1>人环助手</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:calc(11px * var(--ui-scale));font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-user-mgr" title="管理角色">👥</button><div class="lv"><label>等级</label><input type="number" id="char-level" value="${cCfg.level}" min="60" max="175"></div>${cCur?`<button class="btn btn-a btn-xs" id="btn-complete">结算</button><button class="btn btn-xs" id="btn-pause">${cCur.pausedAt?'▶ 继续':'⏸ 暂停'}</button><button class="btn btn-xs btn-d" id="btn-abandon">放弃</button>`:`<button class="btn btn-a btn-xs" id="btn-new-run">+ 新任务链</button>`}<button class="btn btn-xs" id="btn-prices" title="价格设置">💰</button><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" title="帮助指南">📖</button>${undoBtn()}${uiScaleBtn()}<span class="clock" id="live-clock"></span></div></div>`;
 }
 
 function renderLedgerHeader(){
-  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:14px;padding:2px 6px;">←</button><h1>收益账本</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-reward-prices" title="奖励价目表">🏷️ 价目表</button><button class="btn btn-xs" id="btn-export-all" title="导出全部角色数据">📥 导出</button><button class="btn btn-xs" id="btn-import-all" title="导入 JSON">📤 导入</button><span class="clock" id="live-clock"></span></div></div>`;
+  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:calc(14px * var(--ui-scale));padding:2px 6px;">←</button><h1>收益账本</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:calc(11px * var(--ui-scale));font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-reward-prices" title="奖励价目表">🏷️ 价目表</button><button class="btn btn-xs" id="btn-export-all" title="导出全部角色数据">📥 导出</button><button class="btn btn-xs" id="btn-import-all" title="导入 JSON">📤 导入</button>${uiScaleBtn()}<span class="clock" id="live-clock"></span></div></div>`;
 }
 
 function renderHubBG(){
@@ -920,9 +949,9 @@ function renderHub(){
       </div>
     </div>
     <div class="gold-card">
-      <div class="gt"><span>💱 金价计算器</span><span style="font-weight:400;font-size:9px;color:var(--text2);">${ratioText(moneyCfg)}</span></div>
+      <div class="gt"><span>💱 金价计算器</span><span style="font-weight:400;font-size:calc(9px * var(--ui-scale));color:var(--text2);">${ratioText(moneyCfg)}</span></div>
       <div class="gold-row"><input type="number" id="gold-wan" value="3000" min="0" step="10"> 万两<span class="eq">≈</span><input type="number" id="gold-yuan" value="${(wanToYuan(3000,moneyCfg)||0).toFixed(2)}" min="0" step="1"> 元</div>
-      <div class="gold-row" style="border-top:1px dashed var(--border);margin-top:2px;"><span style="font-size:10px;color:var(--text2);">比例</span><input type="number" id="gold-rw" value="${moneyCfg.ratioWan}" min="1" step="10" style="width:70px;"> 万两 = <input type="number" id="gold-ry" value="${moneyCfg.ratioYuan}" min="0.01" step="1" style="width:62px;"> 元<label style="font-size:10px;color:var(--text2);margin-left:8px;">目标时薪</label><input type="number" id="gold-target" value="${moneyCfg.targetHourlyYuan}" min="0" step="1" style="width:52px;"> 元/时<button class="btn btn-xs btn-a" id="btn-gold-save" style="margin-left:auto;">保存比例</button><button class="btn btn-xs" id="btn-gold-reset" title="恢复默认 3000 万两 = 202 元">默认</button></div>
+      <div class="gold-row" style="border-top:1px dashed var(--border);margin-top:2px;"><span style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">比例</span><input type="number" id="gold-rw" value="${moneyCfg.ratioWan}" min="1" step="10" style="width:70px;"> 万两 = <input type="number" id="gold-ry" value="${moneyCfg.ratioYuan}" min="0.01" step="1" style="width:62px;"> 元<label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);margin-left:8px;">目标时薪</label><input type="number" id="gold-target" value="${moneyCfg.targetHourlyYuan}" min="0" step="1" style="width:52px;"> 元/时<button class="btn btn-xs btn-a" id="btn-gold-save" style="margin-left:auto;">保存比例</button><button class="btn btn-xs" id="btn-gold-reset" title="恢复默认 3000 万两 = 202 元">默认</button></div>
     </div>
     <div class="hub-ft">梦幻搞钱工具箱<i>·</i>数据只存本地浏览器<i>·</i>PC &amp; 移动端通用<i>·</i><span id="hub-clock"></span><br><button class="btn btn-xs" id="btn-kb" onclick="showKnowledgeBase()" style="margin-top:8px;border-color:var(--accent2);color:var(--accent2);">📚 跑环知识库</button> <button class="btn btn-xs" id="btn-hub-prices" onclick="showRewardPricesModal()" style="margin-top:8px;border-color:var(--purple);color:var(--purple);">🏷️ 奖励价目表</button></div>
   </div></div>`;
@@ -950,19 +979,19 @@ function renderPetRecord(){
   const sc=pScore(),comp=pComp(),rem=100-comp,exp=pExp(pCur.rings),bl=pBookLevel(sc,pCur.level),tier=pGetTier(sc,pCur.level);
   const maxP=sc+rem*10,minP=Math.max(0,sc+rem*(-20)),cost=totalCost(pCur.rings,pCost),nr=pCur.rings.findIndex(r=>!r.t)+1,sk=pSkip();
   return`
-    <div class="strip"><div class="si"><span class="sl">总分</span><span class="sv a">${sc}</span><span class="sr">(${minP}~${maxP})</span></div><div class="sd"></div><div class="si"><span class="sl">进度</span><span class="sv">${comp}/100</span></div><div class="sd"></div><div class="si"><span class="sl">书铁</span><span class="sv w">${bl}级</span></div><div class="sd"></div><div class="si"><span class="sl">经验</span><span class="sv p">${exp}</span></div><div class="sd"></div><div class="si"><span class="sl">费用</span><span class="sv" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div><div class="sd"></div><div class="si"><span class="sl">跳过</span><span class="sv" style="color:var(--text2);">${sk}</span></div><div class="sd"></div><div class="si"><span class="sl">用时</span><span class="sv" data-elapsed="pet">${elapsedText(pCur)}</span></div><div class="sd"></div><div class="si"><span class="sl">档位</span><span style="color:${tier.color};font-weight:600;font-size:10px;">${tier.label}</span></div><div class="prog-inline"><div class="fill" style="width:${comp}%"></div></div></div>
+    <div class="strip"><div class="si"><span class="sl">总分</span><span class="sv a">${sc}</span><span class="sr">(${minP}~${maxP})</span></div><div class="sd"></div><div class="si"><span class="sl">进度</span><span class="sv">${comp}/100</span></div><div class="sd"></div><div class="si"><span class="sl">书铁</span><span class="sv w">${bl}级</span></div><div class="sd"></div><div class="si"><span class="sl">经验</span><span class="sv p">${exp}</span></div><div class="sd"></div><div class="si"><span class="sl">费用</span><span class="sv" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div><div class="sd"></div><div class="si"><span class="sl">跳过</span><span class="sv" style="color:var(--text2);">${sk}</span></div><div class="sd"></div><div class="si"><span class="sl">用时</span><span class="sv" data-elapsed="pet">${elapsedText(pCur)}</span></div><div class="sd"></div><div class="si"><span class="sl">档位</span><span style="color:${tier.color};font-weight:600;font-size:calc(10px * var(--ui-scale));">${tier.label}</span></div><div class="prog-inline"><div class="fill" style="width:${comp}%"></div></div></div>
     <div class="minimap pet">${pCur.rings.map((r,i)=>{let c='dot';if(r.t){c+=' done';if(r.sc>=10)c+=' hi';else if(r.sc<0)c+=' neg';}return`<div class="${c}" title="#${i+1}${r.t?': '+(pGetT(r.t)?.name||'')+' ('+(r.sc>0?'+':'')+r.sc+')':''}"></div>`;}).join('')}</div>
-    ${itemMemory.length?`<div class="item-chips-row"><span class="lbl">常用物品</span>${itemMemory.map(n=>`<button class="chip-item" data-item="${n}">${n}</button>`).join("")}</div>`:''}<div class="quick-bar"><span class="qb-num">#${nr||'✓'}</span><div class="qb-tasks">${sortedTypes('pet').map(t=>`<button class="qb-t${modalTask===t.id?' sel':''}" data-task="${t.id}" data-action="qp">${t.icon} ${t.name}<span style="font-size:8px;color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span></button>`).join('')}</div><input type="text" class="qb-input" id="qb-item" placeholder="物品名"><button class="qb-go" id="btn-qb-go">记录</button><button class="qb-skip" id="btn-qb-skip">跳过(${sk})</button><span class="kbd-hint"><kbd>1</kbd>-<kbd>9</kbd> 选任务 <kbd>Enter</kbd> 记录 <kbd>←</kbd><kbd>→</kbd> 切页</span></div>
-    <div class="ring-grid-wrap"><div class="ring-grid-h"><span>点击格子编辑 | 已录${comp}/100</span><div style="display:flex;gap:3px;align-items:center;"><input type="number" id="jump-ring" min="1" max="100" placeholder="环号" style="width:58px;padding:1px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;"><button class="btn btn-xs" id="btn-jump">定位</button><button class="btn btn-xs" id="btn-batch">批量填充</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" id="btn-clear-all">清除全部</button></div></div><div class="ring-grid x10" id="ring-grid">${pCur.rings.map((r,i)=>{let cls='cell';if(r.t)cls+=' '+cellClassPet(r.sc);return`<div class="${cls}" data-ring="${i+1}" title="第${i+1}环${r.t?': '+pGetT(r.t)?.icon+' '+(pGetT(r.t)?.name||'')+' ('+(r.sc>0?'+':'')+r.sc+') 费'+(pCost(r)/10000).toFixed(0)+'万':''}">${i+1}</div>`;}).join('')}</div></div>`;
+    ${itemMemory.length?`<div class="item-chips-row"><span class="lbl">常用物品</span>${itemMemory.map(n=>`<button class="chip-item" data-item="${n}">${n}</button>`).join("")}</div>`:''}<div class="quick-bar"><span class="qb-num">#${nr||'✓'}</span><div class="qb-tasks">${sortedTypes('pet').map(t=>`<button class="qb-t${modalTask===t.id?' sel':''}" data-task="${t.id}" data-action="qp">${t.icon} ${t.name}<span style="font-size:calc(8px * var(--ui-scale));color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span></button>`).join('')}</div><input type="text" class="qb-input" id="qb-item" placeholder="物品名"><button class="qb-go" id="btn-qb-go">记录</button><button class="qb-skip" id="btn-qb-skip">跳过(${sk})</button><span class="kbd-hint"><kbd>1</kbd>-<kbd>9</kbd> 选任务 <kbd>Enter</kbd> 记录 <kbd>←</kbd><kbd>→</kbd> 切页</span></div>
+    <div class="ring-grid-wrap"><div class="ring-grid-h"><span>点击格子编辑 | 已录${comp}/100</span><div style="display:flex;gap:3px;align-items:center;"><input type="number" id="jump-ring" min="1" max="100" placeholder="环号" style="width:58px;padding:1px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(10px * var(--ui-scale));"><button class="btn btn-xs" id="btn-jump">定位</button><button class="btn btn-xs" id="btn-batch">批量填充</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" id="btn-clear-all">清除全部</button></div></div><div class="ring-grid x10" id="ring-grid">${pCur.rings.map((r,i)=>{let cls='cell';if(r.t)cls+=' '+cellClassPet(r.sc);return`<div class="${cls}" data-ring="${i+1}" title="第${i+1}环${r.t?': '+pGetT(r.t)?.icon+' '+(pGetT(r.t)?.name||'')+' ('+(r.sc>0?'+':'')+r.sc+') 费'+(pCost(r)/10000).toFixed(0)+'万':''}">${i+1}</div>`;}).join('')}</div></div>`;
 }
 
 // ---- Pet Predict ----
 function renderPetPredict(){
   const lv=pCur?pCur.level:pCfg.level,sc=pCur?pScore():0,lo=Math.floor(lv/3);
   const lvls=[80,90,100,110,120,130,140,150];
-  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">奖励预测 — Lv.${lv}（偏移${lo}）<span style="font-size:9px;color:var(--text2);margin-left:6px;">书铁=总分+${lo}-130，保底80级</span></div>
-  <table class="rw-table"><thead><tr><th>书铁等级</th><th>需积分</th><th>状态</th><th>奖励</th></tr></thead><tbody>${lvls.map(l2=>{const need=Math.max(0,l2+130-lo),ok=sc>=need;let cls=ok&&pCur?'hl':'';return`<tr class="${cls}"><td>${l2===150?'150级+战魄':l2+'级'}</td><td><strong>${need}分</strong></td><td>${ok&&pCur?'<span class="tag tag-g">已达标</span>':(pCur?(need-sc>50?'<span class="tag tag-r">差距大</span>':'<span class="tag tag-y">可冲刺</span>'):'<span class="tag tag-b">—</span>')}</td><td style="font-size:10px;">${l2===80?'80书铁(保底)':l2===150?'150书铁/160战魄/修炼果':`${l2}制造书/铁+修炼果`}</td></tr>`;}).join('')}</tbody></table>
-  ${pCur?`<div style="margin-top:6px;padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:11px;">当前<strong style="color:var(--accent);">${sc}分</strong>→预计<strong style="color:var(--warn);">${pBookLevel(sc,lv)}级</strong>书铁</div>`:''}</div>`;
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">奖励预测 — Lv.${lv}（偏移${lo}）<span style="font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-left:6px;">书铁=总分+${lo}-130，保底80级</span></div>
+  <table class="rw-table"><thead><tr><th>书铁等级</th><th>需积分</th><th>状态</th><th>奖励</th></tr></thead><tbody>${lvls.map(l2=>{const need=Math.max(0,l2+130-lo),ok=sc>=need;let cls=ok&&pCur?'hl':'';return`<tr class="${cls}"><td>${l2===150?'150级+战魄':l2+'级'}</td><td><strong>${need}分</strong></td><td>${ok&&pCur?'<span class="tag tag-g">已达标</span>':(pCur?(need-sc>50?'<span class="tag tag-r">差距大</span>':'<span class="tag tag-y">可冲刺</span>'):'<span class="tag tag-b">—</span>')}</td><td style="font-size:calc(10px * var(--ui-scale));">${l2===80?'80书铁(保底)':l2===150?'150书铁/160战魄/修炼果':`${l2}制造书/铁+修炼果`}</td></tr>`;}).join('')}</tbody></table>
+  ${pCur?`<div style="margin-top:6px;padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:calc(11px * var(--ui-scale));">当前<strong style="color:var(--accent);">${sc}分</strong>→预计<strong style="color:var(--warn);">${pBookLevel(sc,lv)}级</strong>书铁</div>`:''}</div>`;
 }
 
 // ---- Pet Control ----
@@ -971,15 +1000,15 @@ function renderPetControl(){
   const sc=pScore(),comp=pComp(),rem=100-comp,lo=Math.floor(pCur.level/3);
   const targets=[{lv:80,label:'80书铁(保底)'},{lv:90,label:'90书铁'},{lv:100,label:'100书铁'},{lv:110,label:'110书铁'},{lv:120,label:'120书铁'},{lv:130,label:'130书铁'},{lv:140,label:'140书铁'},{lv:150,label:'150书铁/战魄'}].map(({lv,label})=>{const need=Math.max(0,lv+130-lo),diff=Math.max(0,need-sc),ppr=rem>0?Math.max(0,(need-sc)/rem):0;return{label,need,diff,pr:ppr.toFixed(1),ok:sc>=need,feasible:rem>0?(ppr<=10):(sc>=need)};});
   return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:4px;">控分预测 — Lv.${pCur.level} | 剩余${rem}环</div>
-  <div class="stat-cards" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;"><div class="stat-card"><div class="lbl">当前总分</div><div class="val" style="color:var(--accent);">${sc}</div></div><div class="stat-card"><div class="lbl">已完成</div><div class="val">${comp}/100</div></div><div class="stat-card"><div class="lbl">每环需得分</div><div class="val" style="color:var(--warn);font-size:14px;">${targets.find(t=>!t.ok)?.pr||'—'}</div></div></div>
-  <table class="rw-table"><thead><tr><th>目标</th><th>需积分</th><th>还需</th><th>每环</th><th>可行性</th><th>建议</th></tr></thead><tbody>${targets.map(t=>{let ft,sg;if(t.ok){ft='<span class="tag tag-g">已达成</span>';sg='保持即可';}else if(t.feasible){ft='<span class="tag tag-g">可行</span>';const an=parseFloat(t.pr);sg=an<=3?'常规任务':an<=5?'多交80环/2家':an<=7?'需指定变异+高分':'困难，需连续高分';}else{ft='<span class="tag tag-r">不可行</span>';sg='降低目标或下轮再冲';}return`<tr class="${t.ok?'hl':''}"><td><strong>${t.label}</strong></td><td>${t.need}分</td><td style="color:${t.diff<=0?'var(--accent)':'var(--danger)'};">${t.diff<=0?'—':'+'+t.diff}</td><td>${t.ok?'—':t.pr}</td><td>${ft}</td><td style="font-size:9px;">${sg}</td></tr>`;}).join('')}</tbody></table>
-  <div style="margin-top:6px;padding:5px 8px;background:var(--surface2);border-radius:4px;font-size:9px;color:var(--text2);"><strong>策略：</strong>拉分→指定变异(+10)&gt;80环/2家(+5)&gt;乐器花卉(+4)&gt;70环(+3) | 控分→找人(+1)/小物品(+2)/替变异(-15) | 跳环(-20)慎用</div></div>`;
+  <div class="stat-cards" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;"><div class="stat-card"><div class="lbl">当前总分</div><div class="val" style="color:var(--accent);">${sc}</div></div><div class="stat-card"><div class="lbl">已完成</div><div class="val">${comp}/100</div></div><div class="stat-card"><div class="lbl">每环需得分</div><div class="val" style="color:var(--warn);font-size:calc(14px * var(--ui-scale));">${targets.find(t=>!t.ok)?.pr||'—'}</div></div></div>
+  <table class="rw-table"><thead><tr><th>目标</th><th>需积分</th><th>还需</th><th>每环</th><th>可行性</th><th>建议</th></tr></thead><tbody>${targets.map(t=>{let ft,sg;if(t.ok){ft='<span class="tag tag-g">已达成</span>';sg='保持即可';}else if(t.feasible){ft='<span class="tag tag-g">可行</span>';const an=parseFloat(t.pr);sg=an<=3?'常规任务':an<=5?'多交80环/2家':an<=7?'需指定变异+高分':'困难，需连续高分';}else{ft='<span class="tag tag-r">不可行</span>';sg='降低目标或下轮再冲';}return`<tr class="${t.ok?'hl':''}"><td><strong>${t.label}</strong></td><td>${t.need}分</td><td style="color:${t.diff<=0?'var(--accent)':'var(--danger)'};">${t.diff<=0?'—':'+'+t.diff}</td><td>${t.ok?'—':t.pr}</td><td>${ft}</td><td style="font-size:calc(9px * var(--ui-scale));">${sg}</td></tr>`;}).join('')}</tbody></table>
+  <div style="margin-top:6px;padding:5px 8px;background:var(--surface2);border-radius:4px;font-size:calc(9px * var(--ui-scale));color:var(--text2);"><strong>策略：</strong>拉分→指定变异(+10)&gt;80环/2家(+5)&gt;乐器花卉(+4)&gt;70环(+3) | 控分→找人(+1)/小物品(+2)/替变异(-15) | 跳环(-20)慎用</div></div>`;
 }
 
 // ---- Pet History ----
 function renderPetHistory(){
   if(!pHist.length)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📜</div><p>暂无跑环记录</p></div></div>`;
-  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:600;">历史记录（${pHist.length}条）</span>${pHist.length>200?'<span class="tag-un" style="margin-left:6px;">超过 200 轮，建议导出归档</span>':''}<div style="display:flex;gap:3px;"><button class="btn btn-xs" id="btn-import">📤 导入</button><button class="btn btn-xs" id="btn-export">📥 导出</button></div></div>${pHist.map((r,i)=>{const tier=pGetTier(r.totalScore||0,r.level||175),comp=r.rings?r.rings.filter(x=>x.t).length:0;return`<div class="hist-item"><div><div style="font-weight:600;">${r.done?'✅':'🔄'} #${i+1} <span style="font-size:9px;color:var(--text2);">Lv.${r.level} | ${comp}/100 | 费${fmtWan(r.totalCost||0,0)}万</span></div><div style="font-size:9px;color:var(--text2);">${fmtDate(r.startedAt)}${r.doneAt?'→'+fmtDate(r.doneAt):''}${r.reward?.length?' | 🎁 '+r.reward.join(', '):''}</div></div><div style="display:flex;align-items:center;gap:6px;"><div style="text-align:right;"><div class="score">${r.totalScore||'-'}分</div><div style="font-size:9px;color:${tier.color};">${tier.label}</div></div><button class="btn btn-xs" onclick="pShowReport(${r.id})">📊</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" onclick="pDelete(${r.id})">✕</button></div></div>`;}).join('')}</div>`;
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:600;">历史记录（${pHist.length}条）</span>${pHist.length>200?'<span class="tag-un" style="margin-left:6px;">超过 200 轮，建议导出归档</span>':''}<div style="display:flex;gap:3px;"><button class="btn btn-xs" id="btn-import">📤 导入</button><button class="btn btn-xs" id="btn-export">📥 导出</button></div></div>${pHist.map((r,i)=>{const tier=pGetTier(r.totalScore||0,r.level||175),comp=r.rings?r.rings.filter(x=>x.t).length:0;return`<div class="hist-item"><div><div style="font-weight:600;">${r.done?'✅':'🔄'} #${i+1} <span style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">Lv.${r.level} | ${comp}/100 | 费${fmtWan(r.totalCost||0,0)}万</span></div><div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">${fmtDate(r.startedAt)}${r.doneAt?'→'+fmtDate(r.doneAt):''}${r.reward?.length?' | 🎁 '+r.reward.join(', '):''}</div></div><div style="display:flex;align-items:center;gap:6px;"><div style="text-align:right;"><div class="score">${r.totalScore||'-'}分</div><div style="font-size:calc(9px * var(--ui-scale));color:${tier.color};">${tier.label}</div></div><button class="btn btn-xs" onclick="pShowReport(${r.id})">📊</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" onclick="pDelete(${r.id})">✕</button></div></div>`;}).join('')}</div>`;
 }
 
 // ---- Pet Stats ----
@@ -990,9 +1019,9 @@ function renderPetStats(){
   const costs=pHist.map(r=>r.totalCost||0).filter(c=>c>0),avgCost=costs.length?(costs.reduce((a,b)=>a+b,0)/costs.length/10000).toFixed(0):0,totalAll=costs.reduce((a,b)=>a+b,0);
   const tCnt={};pHist.forEach(r=>{if(r.totalScore!=null){const t=pGetTier(r.totalScore,r.level||175);tCnt[t.label]=(tCnt[t.label]||0)+1;}});
   return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">统计分析</div>
-  <div class="stat-cards"><div class="stat-card"><div class="lbl">总次数</div><div class="val" style="color:var(--accent);">${pHist.length}</div></div><div class="stat-card"><div class="lbl">平均分</div><div class="val">${avg}</div></div><div class="stat-card"><div class="lbl">总费用</div><div class="val" style="color:#f472b6;font-size:14px;">${(totalAll/10000).toFixed(0)}万</div></div><div class="stat-card"><div class="lbl">均次费用</div><div class="val" style="color:#f472b6;font-size:14px;">${avgCost}万</div></div></div>
+  <div class="stat-cards"><div class="stat-card"><div class="lbl">总次数</div><div class="val" style="color:var(--accent);">${pHist.length}</div></div><div class="stat-card"><div class="lbl">平均分</div><div class="val">${avg}</div></div><div class="stat-card"><div class="lbl">总费用</div><div class="val" style="color:#f472b6;font-size:calc(14px * var(--ui-scale));">${(totalAll/10000).toFixed(0)}万</div></div><div class="stat-card"><div class="lbl">均次费用</div><div class="val" style="color:#f472b6;font-size:calc(14px * var(--ui-scale));">${avgCost}万</div></div></div>
   <div class="stat-cards" style="grid-template-columns:repeat(2,1fr);"><div class="stat-card"><div class="lbl">最高分</div><div class="val" style="color:var(--warn);">${mx}</div></div><div class="stat-card"><div class="lbl">最低分</div><div class="val" style="color:var(--danger);">${mn}</div></div></div>
-  <div style="margin-bottom:8px;"><h4 style="font-size:10px;color:var(--accent);margin-bottom:3px;">奖励档位分布</h4>${Object.entries(tCnt).map(([l,c])=>`<div class="stat-row"><span>${l}</span><span class="val">${c}次 (${(c/pHist.length*100).toFixed(0)}%)</span></div>`).join('')}</div><canvas id="scoreChart" width="400" height="160" style="width:100%;max-height:180px;"></canvas></div>`;
+  <div style="margin-bottom:8px;"><h4 style="font-size:calc(10px * var(--ui-scale));color:var(--accent);margin-bottom:3px;">奖励档位分布</h4>${Object.entries(tCnt).map(([l,c])=>`<div class="stat-row"><span>${l}</span><span class="val">${c}次 (${(c/pHist.length*100).toFixed(0)}%)</span></div>`).join('')}</div><canvas id="scoreChart" width="400" height="160" style="width:100%;max-height:calc(180px * var(--ui-scale));"></canvas></div>`;
 }
 
 // ---- Chain Record ----
@@ -1004,23 +1033,23 @@ function renderChainRecord(){
     <div class="strip"><div class="si"><span class="sl">进度</span><span class="sv a">${comp}/300</span></div><div class="sd"></div><div class="si"><span class="sl">完成</span><span class="sv">${(comp/3).toFixed(0)}%</span></div><div class="sd"></div><div class="si"><span class="sl">剩余</span><span class="sv w">${rem}环</span></div><div class="sd"></div><div class="si"><span class="sl">费用</span><span class="sv" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div><div class="sd"></div><div class="si"><span class="sl">用时</span><span class="sv" data-elapsed="chain">${elapsedText(cCur)}</span></div><div class="sd"></div><div class="si"><span class="sl">等级</span><span class="sv p">Lv.${cCur.level}</span></div><div class="prog-inline"><div class="fill" style="width:${(comp/3).toFixed(0)}%"></div></div></div>
     <div class="seg-badges"><div class="seg-badge${s1?' done':''}${comp>=0&&comp<100?' cur':''}">1-100 ${s1?'✅':comp>=100?'⚠️':''}</div><div class="seg-badge${s2?' done':''}${comp>=100&&comp<200?' cur':''}">101-200 ${s2?'✅':comp>=200?'⚠️':''}</div><div class="seg-badge${s3?' done':''}${comp>=200&&comp<300?' cur':''}">201-300 ${s3?'✅':''}</div></div>
     <div class="minimap chain">${cCur.rings.map((r,i)=>{let c='dot';if(r.t){c+=' done';if((i+1)%100===0)c+=' ck';}return`<div class="${c}" title="#${i+1}${r.t?': '+(cGetT(r.t)?.name||''):''}"></div>`;}).join('')}</div>
-    ${itemMemory.length?`<div class="item-chips-row"><span class="lbl">常用物品</span>${itemMemory.map(n=>`<button class="chip-item" data-item="${n}">${n}</button>`).join("")}</div>`:''}<div class="quick-bar"><span class="qb-num">#${nr||'✓'}</span><div class="qb-tasks">${sortedTypes('chain').map(t=>`<button class="qb-t${modalTask===t.id?' sel':''}" data-task="${t.id}" data-action="qp">${t.icon} ${t.name}<span style="font-size:8px;color:var(--text2);">${t.cost>0?(t.cost/10000).toFixed(0)+"万":"免费"}</span></button>`).join("")}</div><input type="text" class="qb-input" id="qb-item" placeholder="物品名"><button class="qb-go" id="btn-qb-go">记录</button><span class="kbd-hint"><kbd>1</kbd>-<kbd>9</kbd> 选任务 <kbd>Enter</kbd> 记录 <kbd>←</kbd><kbd>→</kbd> 切页</span></div>
-    <div class="ring-grid-wrap"><div class="ring-grid-h"><span>点击格子编辑 | 已录${comp}/300</span><div style="display:flex;gap:3px;align-items:center;"><input type="number" id="jump-ring" min="1" max="300" placeholder="环号" style="width:58px;padding:1px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;"><button class="btn btn-xs" id="btn-jump">定位</button><button class="btn btn-xs" id="btn-batch">批量填充</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" id="btn-clear-all">清除全部</button></div></div><div class="ring-grid x15" id="ring-grid">${cCur.rings.map((r,i)=>{let cls='cell';if(r.t)cls+=' '+cellClassChain(r.t);return`<div class="${cls}" data-ring="${i+1}" title="第${i+1}环${r.t?': '+cGetT(r.t)?.icon+' '+(cGetT(r.t)?.name||'')+' 费'+(cCost(r)/10000).toFixed(0)+'万':''}">${i+1}</div>`;}).join('')}</div></div>`;
+    ${itemMemory.length?`<div class="item-chips-row"><span class="lbl">常用物品</span>${itemMemory.map(n=>`<button class="chip-item" data-item="${n}">${n}</button>`).join("")}</div>`:''}<div class="quick-bar"><span class="qb-num">#${nr||'✓'}</span><div class="qb-tasks">${sortedTypes('chain').map(t=>`<button class="qb-t${modalTask===t.id?' sel':''}" data-task="${t.id}" data-action="qp">${t.icon} ${t.name}<span style="font-size:calc(8px * var(--ui-scale));color:var(--text2);">${t.cost>0?(t.cost/10000).toFixed(0)+"万":"免费"}</span></button>`).join("")}</div><input type="text" class="qb-input" id="qb-item" placeholder="物品名"><button class="qb-go" id="btn-qb-go">记录</button><span class="kbd-hint"><kbd>1</kbd>-<kbd>9</kbd> 选任务 <kbd>Enter</kbd> 记录 <kbd>←</kbd><kbd>→</kbd> 切页</span></div>
+    <div class="ring-grid-wrap"><div class="ring-grid-h"><span>点击格子编辑 | 已录${comp}/300</span><div style="display:flex;gap:3px;align-items:center;"><input type="number" id="jump-ring" min="1" max="300" placeholder="环号" style="width:58px;padding:1px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(10px * var(--ui-scale));"><button class="btn btn-xs" id="btn-jump">定位</button><button class="btn btn-xs" id="btn-batch">批量填充</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" id="btn-clear-all">清除全部</button></div></div><div class="ring-grid x15" id="ring-grid">${cCur.rings.map((r,i)=>{let cls='cell';if(r.t)cls+=' '+cellClassChain(r.t);return`<div class="${cls}" data-ring="${i+1}" title="第${i+1}环${r.t?': '+cGetT(r.t)?.icon+' '+(cGetT(r.t)?.name||'')+' 费'+(cCost(r)/10000).toFixed(0)+'万':''}">${i+1}</div>`;}).join('')}</div></div>`;
 }
 
 // ---- Chain Reward ----
 function renderChainReward(){
   const lv=cCur?cCur.level:cCfg.level;const rule=cRewardRange(lv);const lvls=cBookLevels(lv);
   return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:4px;">奖励规则 — Lv.${lv}${cCur?` | 当前${cComp()}/300`:''}</div>
-  <div style="margin-bottom:8px;padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:11px;color:var(--text2);"><p><strong style="color:var(--text);">规则：</strong>${lv>=156?'130~140书铁随机，300环几率150书铁/战魄':lv>=140?'130~140书铁（100书/200铁/300随机）':`${rule.min}~${rule.max}书铁（100书/200铁/300随机）`}${rule.hasLingshi?'，几率灵饰书/元灵晶石(120/140)':''}</p><p style="margin-top:2px;"><strong style="color:var(--text);">NPC：</strong>长寿村陆萧然 | ≥60级 | 200环后无战斗，寻物必80环装</p></div>
-  <div style="font-weight:600;margin-bottom:4px;">各段奖励记录</div><div style="display:flex;gap:6px;margin-bottom:8px;">${[100,200,300].map(s=>`<div style="flex:1;padding:8px;background:var(--surface2);border-radius:4px;border:1px solid ${cCur&&cSegDone(s)?'var(--accent)':'var(--border)'};"><div style="font-weight:600;font-size:12px;${cCur&&cSegDone(s)?'color:var(--accent);':''}">第${s}环</div><div style="font-size:9px;color:var(--text2);">${s===100?'制造指南书':s===200?'百炼精铁':'书/铁随机'}</div>${cCur&&cCur.rewards[s]?.length?`<div style="font-size:9px;color:var(--accent);margin-top:2px;">${cCur.rewards[s].join(', ')}</div>`:'<div style="font-size:9px;color:var(--text2);margin-top:2px;">未记录</div>'}</div>`).join('')}</div>
+  <div style="margin-bottom:8px;padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:calc(11px * var(--ui-scale));color:var(--text2);"><p><strong style="color:var(--text);">规则：</strong>${lv>=156?'130~140书铁随机，300环几率150书铁/战魄':lv>=140?'130~140书铁（100书/200铁/300随机）':`${rule.min}~${rule.max}书铁（100书/200铁/300随机）`}${rule.hasLingshi?'，几率灵饰书/元灵晶石(120/140)':''}</p><p style="margin-top:2px;"><strong style="color:var(--text);">NPC：</strong>长寿村陆萧然 | ≥60级 | 200环后无战斗，寻物必80环装</p></div>
+  <div style="font-weight:600;margin-bottom:4px;">各段奖励记录</div><div style="display:flex;gap:6px;margin-bottom:8px;">${[100,200,300].map(s=>`<div style="flex:1;padding:8px;background:var(--surface2);border-radius:4px;border:1px solid ${cCur&&cSegDone(s)?'var(--accent)':'var(--border)'};"><div style="font-weight:600;font-size:calc(12px * var(--ui-scale));${cCur&&cSegDone(s)?'color:var(--accent);':''}">第${s}环</div><div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">${s===100?'制造指南书':s===200?'百炼精铁':'书/铁随机'}</div>${cCur&&cCur.rewards[s]?.length?`<div style="font-size:calc(9px * var(--ui-scale));color:var(--accent);margin-top:2px;">${cCur.rewards[s].join(', ')}</div>`:'<div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-top:2px;">未记录</div>'}</div>`).join('')}</div>
   <table class="rw-table"><thead><tr><th>书铁等级</th><th>100环(书)</th><th>200环(铁)</th><th>300环(随机)</th></tr></thead><tbody>${lvls.map(l=>`<tr class="${l===rule.max?'hl':''}"><td><strong>${l}级</strong></td><td>${lv>=156?'可能':(l>=rule.min&&l<=rule.max?'可能':'—')}</td><td>${lv>=156?'可能':(l>=rule.min&&l<=rule.max?'可能':'—')}</td><td>可能</td></tr>`).join('')}${rule.has150?`<tr class="hl"><td><strong>160战魄</strong></td><td>—</td><td>—</td><td>lv≥156极高分可能</td></tr>`:''}</tbody></table></div>`;
 }
 
 // ---- Chain History ----
 function renderChainHistory(){
   if(!cHist.length)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📜</div><p>暂无任务链记录</p></div></div>`;
-  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:600;">历史记录（${cHist.length}条）</span>${cHist.length>200?'<span class="tag-un" style="margin-left:6px;">超过 200 轮，建议导出归档</span>':''}<div style="display:flex;gap:3px;"><button class="btn btn-xs" id="btn-import">📤 导入</button><button class="btn btn-xs" id="btn-export">📥 导出</button></div></div>${cHist.map((r,i)=>{const comp=r.rings?r.rings.filter(x=>x.t).length:0;return`<div class="hist-item"><div><div style="font-weight:600;">${r.done?'✅':'🔄'} #${i+1} <span style="font-size:9px;color:var(--text2);">Lv.${r.level} | ${comp}/300 | 费${fmtWan(r.totalCost||0,0)}万</span></div><div style="font-size:9px;color:var(--text2);">${fmtDate(r.startedAt)}${r.doneAt?'→'+fmtDate(r.doneAt):''}${r.rewards?` | 🎁100:${(r.rewards[100]||['-']).join(',')} 200:${(r.rewards[200]||['-']).join(',')} 300:${(r.rewards[300]||['-']).join(',')}`:''}</div></div><div style="display:flex;align-items:center;gap:6px;"><div class="cost">${fmtWan(r.totalCost||0,0)}万</div><button class="btn btn-xs" onclick="cShowReport(${r.id})">📊</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" onclick="cDelete(${r.id})">✕</button></div></div>`;}).join('')}</div>`;
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:600;">历史记录（${cHist.length}条）</span>${cHist.length>200?'<span class="tag-un" style="margin-left:6px;">超过 200 轮，建议导出归档</span>':''}<div style="display:flex;gap:3px;"><button class="btn btn-xs" id="btn-import">📤 导入</button><button class="btn btn-xs" id="btn-export">📥 导出</button></div></div>${cHist.map((r,i)=>{const comp=r.rings?r.rings.filter(x=>x.t).length:0;return`<div class="hist-item"><div><div style="font-weight:600;">${r.done?'✅':'🔄'} #${i+1} <span style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">Lv.${r.level} | ${comp}/300 | 费${fmtWan(r.totalCost||0,0)}万</span></div><div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">${fmtDate(r.startedAt)}${r.doneAt?'→'+fmtDate(r.doneAt):''}${r.rewards?` | 🎁100:${(r.rewards[100]||['-']).join(',')} 200:${(r.rewards[200]||['-']).join(',')} 300:${(r.rewards[300]||['-']).join(',')}`:''}</div></div><div style="display:flex;align-items:center;gap:6px;"><div class="cost">${fmtWan(r.totalCost||0,0)}万</div><button class="btn btn-xs" onclick="cShowReport(${r.id})">📊</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" onclick="cDelete(${r.id})">✕</button></div></div>`;}).join('')}</div>`;
 }
 
 // ---- Chain Stats ----
@@ -1029,8 +1058,8 @@ function renderChainStats(){
   const costs=cHist.map(r=>r.totalCost||0).filter(c=>c>0),avgCost=costs.length?(costs.reduce((a,b)=>a+b,0)/costs.length/10000).toFixed(0):0,totalAll=costs.reduce((a,b)=>a+b,0),avgComp=cHist.length?(cHist.reduce((s,r)=>s+(r.rings?r.rings.filter(x=>x.t).length:0),0)/cHist.length).toFixed(0):0;
   const tDist={};CT.forEach(t=>{tDist[t.name]=0;});cHist.forEach(r=>{if(r.rings)r.rings.forEach(x=>{if(x.t){const n=cGetT(x.t)?.name||x.t;tDist[n]=(tDist[n]||0)+1;}});});
   return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">统计分析</div>
-  <div class="stat-cards"><div class="stat-card"><div class="lbl">总次数</div><div class="val" style="color:var(--accent);">${cHist.length}</div></div><div class="stat-card"><div class="lbl">平均完成</div><div class="val">${avgComp}环</div></div><div class="stat-card"><div class="lbl">总费用</div><div class="val" style="color:#f472b6;font-size:14px;">${(totalAll/10000).toFixed(0)}万</div></div><div class="stat-card"><div class="lbl">均次费用</div><div class="val" style="color:#f472b6;font-size:14px;">${avgCost}万</div></div></div>
-  <div style="margin-bottom:8px;"><h4 style="font-size:10px;color:var(--accent);margin-bottom:3px;">任务类型分布</h4>${Object.entries(tDist).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row"><span>${n}</span><span class="val">${c}次 (${(c/Object.values(tDist).reduce((a,b)=>a+b,0)*100).toFixed(0)}%)</span></div>`).join('')}</div></div>`;
+  <div class="stat-cards"><div class="stat-card"><div class="lbl">总次数</div><div class="val" style="color:var(--accent);">${cHist.length}</div></div><div class="stat-card"><div class="lbl">平均完成</div><div class="val">${avgComp}环</div></div><div class="stat-card"><div class="lbl">总费用</div><div class="val" style="color:#f472b6;font-size:calc(14px * var(--ui-scale));">${(totalAll/10000).toFixed(0)}万</div></div><div class="stat-card"><div class="lbl">均次费用</div><div class="val" style="color:#f472b6;font-size:calc(14px * var(--ui-scale));">${avgCost}万</div></div></div>
+  <div style="margin-bottom:8px;"><h4 style="font-size:calc(10px * var(--ui-scale));color:var(--accent);margin-bottom:3px;">任务类型分布</h4>${Object.entries(tDist).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row"><span>${n}</span><span class="val">${c}次 (${(c/Object.values(tDist).reduce((a,b)=>a+b,0)*100).toFixed(0)}%)</span></div>`).join('')}</div></div>`;
 }
 
 // ==================== 收益账本 ====================
@@ -1067,7 +1096,7 @@ const COST_COLORS=['#00d4aa','#00b4d8','#4f6ef6','#8b5cf6','#e879f9','#f472b6','
 function renderLedger(){
   const rows=ledgerRows();
   if(!rows.length){
-    return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📒</div><p>账本还是空的</p><p style="font-size:11px;color:var(--text2);">跑完一轮，在结算时记下奖励，这里就会出成本、收入、利润和时薪</p><button class="btn btn-a" id="btn-ledger-new-pet" style="margin-top:4px;">去记一轮宠环</button></div></div>`;
+    return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📒</div><p>账本还是空的</p><p style="font-size:calc(11px * var(--ui-scale));color:var(--text2);">跑完一轮，在结算时记下奖励，这里就会出成本、收入、利润和时薪</p><button class="btn btn-a" id="btn-ledger-new-pet" style="margin-top:4px;">去记一轮宠环</button></div></div>`;
   }
   const start=periodStart(ledgerPeriod,Date.now());
   const inPeriod=start===null?rows:rows.filter(r=>r.t>=start);
@@ -1102,9 +1131,9 @@ function renderLedger(){
       <div class="kpi"><div class="k">平均时薪</div><div class="v" style="color:var(--purple);">${hourly===null?'—':fmtMoney(hourly)}</div><div class="s">${(()=>{if(hours<=0)return '时长不足 5 分钟不计';const y=wanToYuan(hourly/10000,moneyCfg),t=moneyCfg.targetHourlyYuan;return hours.toFixed(1)+' 小时 · '+(y>=t?'达标':'未达 '+t+' 元/时');})()}</div></div>
       <div class="kpi"><div class="k">胜率 ${unbooked?`· 未记账 ${unbooked}`:''}</div><div class="v">${booked.length?Math.round(wins/booked.length*100)+'%':'—'}</div><div class="s">${wins} 赚 / ${booked.length-wins} 亏</div></div>
     </div>
-    ${struct.length?`<div style="font-size:10px;color:var(--text2);margin:2px 0 0;">成本结构</div><div class="cost-bar">${struct.map((x,i)=>`<i style="width:${(x.amount/structTotal*100).toFixed(1)}%;background:${COST_COLORS[i%COST_COLORS.length]};" title="${x.name} ${fmtMoney(x.amount)}"></i>`).join('')}</div><div class="cost-legend">${struct.map((x,i)=>`<span><em style="background:${COST_COLORS[i%COST_COLORS.length]};"></em>${x.name} ${fmtMoney(x.amount)} (${(x.amount/structTotal*100).toFixed(0)}%)</span>`).join('')}</div>`:''}
+    ${struct.length?`<div style="font-size:calc(10px * var(--ui-scale));color:var(--text2);margin:2px 0 0;">成本结构</div><div class="cost-bar">${struct.map((x,i)=>`<i style="width:${(x.amount/structTotal*100).toFixed(1)}%;background:${COST_COLORS[i%COST_COLORS.length]};" title="${x.name} ${fmtMoney(x.amount)}"></i>`).join('')}</div><div class="cost-legend">${struct.map((x,i)=>`<span><em style="background:${COST_COLORS[i%COST_COLORS.length]};"></em>${x.name} ${fmtMoney(x.amount)} (${(x.amount/structTotal*100).toFixed(0)}%)</span>`).join('')}</div>`:''}
     ${best&&worst?`<div class="cost-legend" style="margin-top:6px;"><span>最佳单轮 <b class="pos">${fmtMoney(best.profit)}</b>（${best.tool==='pet'?'宠环':'人环'} ${fmtDate(best.t).slice(0,10)}）</span><span>最差单轮 <b class="neg">${fmtMoney(worst.profit)}</b>（${worst.tool==='pet'?'宠环':'人环'} ${fmtDate(worst.t).slice(0,10)}）</span></div>`:''}
-    <div style="display:flex;align-items:center;justify-content:space-between;margin:10px 0 5px;"><span style="font-weight:600;font-size:12px;">轮次明细（${inPeriod.length}）</span><span style="font-size:9px;color:var(--text2);">点一行看成本与收益明细</span></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:10px 0 5px;"><span style="font-weight:600;font-size:calc(12px * var(--ui-scale));">轮次明细（${inPeriod.length}）</span><span style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">点一行看成本与收益明细</span></div>
     ${inPeriod.length?inPeriod.map(r=>{
       const d=new Date(r.t);
       const dateStr=`${d.getMonth()+1}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
@@ -1117,7 +1146,7 @@ function renderLedger(){
         <div class="lr-l"><div class="lr-t"><span class="tag-tool">${r.tool==='pet'?'宠环':'人环'}</span>Lv.${r.run.level||'?'} · ${dateStr}${r.booked?'':` <span class="tag-un">未记账</span>`}</div><div class="lr-d">${sub}</div></div>
         <div class="lr-n"><b class="${pCls}">${pText}</b><span>${r.booked&&r.hourly!==null?'时薪 '+fmtMoney(r.hourly):''}</span></div>
       </div>`;}).join('')
-      :`<div style="padding:16px;text-align:center;color:var(--text2);font-size:11px;">这个周期还没有记录</div>`}
+      :`<div style="padding:16px;text-align:center;color:var(--text2);font-size:calc(11px * var(--ui-scale));">这个周期还没有记录</div>`}
   </div>`;
 }
 
@@ -1129,27 +1158,27 @@ function showPRewardModal(run){
   const sc=run.totalScore||0,hasBonus=sc>=170;
   const bonusR=['修炼果','200修炼点','3级家具设计图'];
   const tStatsP={},tCostP={};PT.forEach(t=>{tStatsP[t.name]=0;tCostP[t.name]=0;});if(run.rings)run.rings.forEach(r=>{if(r.t){const n=pGetT(r.t)?.name||r.t;tStatsP[n]=(tStatsP[n]||0)+1;tCostP[n]=(tCostP[n]||0)+pCost(r);}});
-  overlay.innerHTML=`<div class="modal" style="max-width:580px;"><h3>🏆 跑环结算 — 实际奖励</h3>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(580px * var(--ui-scale));"><h3>🏆 跑环结算 — 实际奖励</h3>
     <div class="stat-row"><span>总分</span><span class="val" style="color:var(--accent);">${sc}分</span></div><div class="stat-row"><span>预测书铁等级</span><span class="val" style="color:var(--warn);">${bl}级</span></div><div class="stat-row"><span>额外奖励资格</span><span class="val" style="color:${hasBonus?'var(--accent)':'var(--danger)'};">${hasBonus?'≥170分，有资格':'<170分，无额外奖励'}</span></div>
-    <div style="margin-top:10px;font-size:10px;color:var(--text2);">完成100环固定获得<strong style="color:var(--purple);">751修炼经验</strong>（约 4.4 个修炼果）</div>
-    <div style="margin-top:8px;font-size:11px;color:var(--text2);">📊<strong style="color:var(--text);">资源费用统计</strong></div><div style="max-height:120px;overflow-y:auto;">${Object.entries(tStatsP).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row" style="font-size:10px;"><span>${n}</span><span class="val">${c}次|${((tCostP[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>
-    <div style="margin-top:8px;font-size:11px;color:var(--text2);">📖<strong style="color:var(--text);">主奖励</strong> — 书或铁其一：</div>
+    <div style="margin-top:10px;font-size:calc(10px * var(--ui-scale));color:var(--text2);">完成100环固定获得<strong style="color:var(--purple);">751修炼经验</strong>（约 4.4 个修炼果）</div>
+    <div style="margin-top:8px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">📊<strong style="color:var(--text);">资源费用统计</strong></div><div style="max-height:calc(120px * var(--ui-scale));overflow-y:auto;">${Object.entries(tStatsP).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>${n}</span><span class="val">${c}次|${((tCostP[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>
+    <div style="margin-top:8px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">📖<strong style="color:var(--text);">主奖励</strong> — 书或铁其一：</div>
     <div style="display:flex;gap:4px;align-items:center;margin-top:4px;flex-wrap:wrap;">
-      <select id="rw-cat" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">类别</option><option value="制造指南书">制造指南书</option><option value="百炼精铁">百炼精铁</option><option value="战魄">战魄</option></select>
-      <select id="rw-lv" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">等级</option>${pLvOpts.map(l=>`<option value="${l}">${l}级</option>`).join('')}</select>${pLvOpts.length<BOOK_LVLS.length?`<label style="font-size:10px;color:var(--text2);cursor:pointer;margin-left:4px;white-space:nowrap;"><input type="checkbox" id="rw-unlock" style="width:11px;height:11px;vertical-align:middle;">预估不准</label>`:''}
-      <select id="rw-type" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;display:none;"><option value="">类型</option></select>
+      <select id="rw-cat" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));"><option value="">类别</option><option value="制造指南书">制造指南书</option><option value="百炼精铁">百炼精铁</option><option value="战魄">战魄</option></select>
+      <select id="rw-lv" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));"><option value="">等级</option>${pLvOpts.map(l=>`<option value="${l}">${l}级</option>`).join('')}</select>${pLvOpts.length<BOOK_LVLS.length?`<label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);cursor:pointer;margin-left:4px;white-space:nowrap;"><input type="checkbox" id="rw-unlock" style="width:11px;height:11px;vertical-align:middle;">预估不准</label>`:''}
+      <select id="rw-type" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));display:none;"><option value="">类型</option></select>
       <button class="btn btn-xs btn-a" id="rw-add-main">确认</button>
     </div>
-    <div id="rw-main-selected" style="margin-top:4px;font-size:11px;min-height:18px;"></div>
-    <div style="margin-top:6px;font-size:11px;color:var(--text2);">🎁<strong style="color:var(--text);">额外奖励</strong> — 积分≥170时几率获得其一：</div><div class="modal-grid" style="grid-template-columns:repeat(3,1fr);max-height:40px;">${[['修炼果','xiulian_guo'],['200修炼点','xiulian_200'],['3级家具设计图','furniture3']].map(([o,k])=>`<label class="modal-item" style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" value="${o}" data-kind="${k}" class="rw-cb">${o}</label>`).join('')}</div>
-    <input type="text" id="rw-custom" placeholder="其他奖励（手动输入，如 120灵饰指南书）" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-top:8px;">
+    <div id="rw-main-selected" style="margin-top:4px;font-size:calc(11px * var(--ui-scale));min-height:18px;"></div>
+    <div style="margin-top:6px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">🎁<strong style="color:var(--text);">额外奖励</strong> — 积分≥170时几率获得其一：</div><div class="modal-grid" style="grid-template-columns:repeat(3,1fr);max-height:calc(40px * var(--ui-scale));">${[['修炼果','xiulian_guo'],['200修炼点','xiulian_200'],['3级家具设计图','furniture3']].map(([o,k])=>`<label class="modal-item" style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" value="${o}" data-kind="${k}" class="rw-cb">${o}</label>`).join('')}</div>
+    <input type="text" id="rw-custom" placeholder="其他奖励（手动输入，如 120灵饰指南书）" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));margin-top:8px;">
     <div class="detail-sec" style="margin-bottom:8px;">
       <h4>本轮账本 — 成本 / 收入 / 利润</h4>
-      <div id="rw-preview" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;font-size:10px;"></div><div id="rw-target" style="font-size:9px;color:var(--text2);margin-bottom:4px;"></div>
+      <div id="rw-preview" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;font-size:calc(10px * var(--ui-scale));"></div><div id="rw-target" style="font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-bottom:4px;"></div>
       <div class="gold-row" style="margin:0;">
-        <label style="font-size:10px;color:var(--text2);">额外成本(万两)</label><input type="number" id="rw-extra-cost" value="0" min="0" style="width:62px;">
-        <label style="font-size:10px;color:var(--text2);">自定义收入(万两)</label><input type="number" id="rw-custom-income" value="0" min="0" style="width:62px;">
-        <label style="font-size:10px;color:var(--text2);">用时(分)</label><input type="number" id="rw-duration" value="${effectiveDurationMin({startedAt:run.startedAt,doneAt:run.doneAt||Date.now()},Date.now())||''}" min="0" style="width:52px;">
+        <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">额外成本(万两)</label><input type="number" id="rw-extra-cost" value="0" min="0" style="width:62px;">
+        <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">自定义收入(万两)</label><input type="number" id="rw-custom-income" value="0" min="0" style="width:62px;">
+        <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">用时(分)</label><input type="number" id="rw-duration" value="${effectiveDurationMin({startedAt:run.startedAt,doneAt:run.doneAt||Date.now()},Date.now())||''}" min="0" style="width:52px;">
       </div>
     </div>
     <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="rw-save">确认结算</button><button class="btn btn-xs" style="color:var(--text2);" id="rw-cancel">取消</button></div></div>`;
@@ -1196,7 +1225,7 @@ function showPRewardModal(run){
       }else{mainReward=lv+'级'+cat;mainItem={kind:'iron',level:Number(lv),name:mainReward};}
     }
     const unit=rewardUnitPrice(rewardPrices,mainItem);
-    mainDiv.innerHTML='<span style="color:var(--accent);">📖 '+mainReward+'</span> <span style="color:var(--text2);font-size:10px;">参考价 '+formatAmount(unit,moneyCfg,ledgerCurrency)+'</span> <button class="btn btn-xs" style="color:var(--danger);" id="rw-clear-main">✕</button>';
+    mainDiv.innerHTML='<span style="color:var(--accent);">📖 '+mainReward+'</span> <span style="color:var(--text2);font-size:calc(10px * var(--ui-scale));">参考价 '+formatAmount(unit,moneyCfg,ledgerCurrency)+'</span> <button class="btn btn-xs" style="color:var(--danger);" id="rw-clear-main">✕</button>';
     mainDiv.querySelector('#rw-clear-main').addEventListener('click',()=>{mainReward='';mainItem=null;mainDiv.innerHTML='';updPre();});
     updPre();
   });
@@ -1223,7 +1252,7 @@ function showPRewardModal(run){
   function updPre(){
     const box=overlay.querySelector('#rw-preview');if(!box)return;
     const s=currentSummary();
-    const cell=(k,v,cls)=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:4px 6px;"><div style="color:var(--text2);font-size:9px;line-height:1.2;">${k}</div><div style="font-weight:700;font-size:11px;white-space:nowrap;" class="${cls||''}">${v}</div></div>`;
+    const cell=(k,v,cls)=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:4px 6px;"><div style="color:var(--text2);font-size:calc(9px * var(--ui-scale));line-height:1.2;">${k}</div><div style="font-weight:700;font-size:calc(11px * var(--ui-scale));white-space:nowrap;" class="${cls||''}">${v}</div></div>`;
     box.innerHTML=cell('成本',formatAmount(s.cost,moneyCfg,ledgerCurrency))
       +cell('收入',formatAmount(s.income,moneyCfg,ledgerCurrency))
       +cell('利润',formatAmount(s.profit,moneyCfg,ledgerCurrency),s.profit>0?'pos':s.profit<0?'neg':'')
@@ -1270,18 +1299,18 @@ function showCSegReward(seg){
   else{mainLabel='书/铁随机';}
   const showAllCat=(seg===300);
   const extra=r.hasLingshi?['120灵饰指南书','140灵饰指南书','120元灵晶石','140元灵晶石']:[];
-  overlay.innerHTML=`<div class="modal" style="max-width:440px;"><h3>🏆 第${seg}环奖励记录</h3>
-    <div class="stat-row"><span>角色等级</span><span class="val">${lv}级</span></div><div class="stat-row"><span>奖励说明</span><span class="val" style="color:var(--warn);font-size:10px;">${lv>=156?'130~140书铁随机，300环几率150书铁/战魄':lv>=140?'130~140书铁':`${r.min}~${r.max}书铁`}${r.hasLingshi?'，几率灵饰':''}</span></div>
-    <div style="margin-top:10px;font-size:11px;color:var(--text2);">📖<strong style="color:var(--text);">主奖励</strong> — ${mainLabel}：</div>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(440px * var(--ui-scale));"><h3>🏆 第${seg}环奖励记录</h3>
+    <div class="stat-row"><span>角色等级</span><span class="val">${lv}级</span></div><div class="stat-row"><span>奖励说明</span><span class="val" style="color:var(--warn);font-size:calc(10px * var(--ui-scale));">${lv>=156?'130~140书铁随机，300环几率150书铁/战魄':lv>=140?'130~140书铁':`${r.min}~${r.max}书铁`}${r.hasLingshi?'，几率灵饰':''}</span></div>
+    <div style="margin-top:10px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">📖<strong style="color:var(--text);">主奖励</strong> — ${mainLabel}：</div>
     <div style="display:flex;gap:4px;align-items:center;margin-top:4px;flex-wrap:wrap;">
-      ${showAllCat?`<select id="rw-cat" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">类别</option><option value="制造指南书">制造指南书</option><option value="百炼精铁">百炼精铁</option>${r.has150?'<option value="战魄">战魄</option>':''}</select>`:`<input type="hidden" id="rw-cat" value="${fixedCat}"><span style="font-size:11px;color:var(--accent);">${fixedCat}</span>`}
-      <select id="rw-lv" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">等级</option>${lvls.map(l=>`<option value="${l}">${l}级</option>`).join('')}</select>
-      <select id="rw-type" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;display:none;"><option value="">类型</option></select>
+      ${showAllCat?`<select id="rw-cat" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));"><option value="">类别</option><option value="制造指南书">制造指南书</option><option value="百炼精铁">百炼精铁</option>${r.has150?'<option value="战魄">战魄</option>':''}</select>`:`<input type="hidden" id="rw-cat" value="${fixedCat}"><span style="font-size:calc(11px * var(--ui-scale));color:var(--accent);">${fixedCat}</span>`}
+      <select id="rw-lv" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));"><option value="">等级</option>${lvls.map(l=>`<option value="${l}">${l}级</option>`).join('')}</select>
+      <select id="rw-type" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));display:none;"><option value="">类型</option></select>
       <button class="btn btn-xs btn-a" id="rw-add-main">确认</button>
     </div>
-    <div id="rw-main-selected" style="margin-top:4px;font-size:11px;min-height:18px;"></div>
-    ${extra.length?`<div style="margin-top:4px;font-size:11px;color:var(--text2);">💍<strong style="color:var(--text);">灵饰奖励</strong>（≥110级有几率）：</div><div class="modal-grid" style="max-height:80px;">${extra.map(o=>`<label class="modal-item" style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" value="${o}" class="rw-cb">${o}</label>`).join('')}</div>`:''}
-    <input type="text" id="rw-custom" placeholder="其他（手动输入）" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-top:6px;margin-bottom:8px;">
+    <div id="rw-main-selected" style="margin-top:4px;font-size:calc(11px * var(--ui-scale));min-height:18px;"></div>
+    ${extra.length?`<div style="margin-top:4px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">💍<strong style="color:var(--text);">灵饰奖励</strong>（≥110级有几率）：</div><div class="modal-grid" style="max-height:calc(80px * var(--ui-scale));">${extra.map(o=>`<label class="modal-item" style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" value="${o}" class="rw-cb">${o}</label>`).join('')}</div>`:''}
+    <input type="text" id="rw-custom" placeholder="其他（手动输入）" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));margin-top:6px;margin-bottom:8px;">
     <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="rw-save">确认记录</button><button class="btn btn-xs" style="color:var(--text2);" id="rw-cancel">跳过</button></div></div>`;
   document.body.appendChild(overlay);
   overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
@@ -1340,20 +1369,20 @@ function showCFinalModal(){
   const overlay=document.createElement('div');overlay.className='modal-overlay';
   const cost=cCur.totalCost||totalCost(cCur.rings,cCost);
   const tStatsC={},tCostC={};CT.forEach(t=>{tStatsC[t.name]=0;tCostC[t.name]=0;});if(cCur.rings)cCur.rings.forEach(r=>{if(r.t){const n=cGetT(r.t)?.name||r.t;tStatsC[n]=(tStatsC[n]||0)+1;tCostC[n]=(tCostC[n]||0)+cCost(r);}});
-  overlay.innerHTML=`<div class="modal" style="max-width:560px;"><h3>🏁 任务链结算确认</h3>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(560px * var(--ui-scale));"><h3>🏁 任务链结算确认</h3>
     <div class="stat-row"><span>完成环数</span><span class="val">${cComp()}/300</span></div><div class="stat-row"><span>总费用</span><span class="val" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div>
-    <div style="margin-top:6px;font-size:11px;color:var(--text2);">📊<strong style="color:var(--text);">资源费用统计</strong></div><div style="max-height:120px;overflow-y:auto;">${Object.entries(tStatsC).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row" style="font-size:10px;"><span>${n}</span><span class="val">${c}次|${((tCostC[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>
-    <div class="stat-row"><span>奖励记录</span><span class="val" style="font-size:10px;">100环:${(cCur.rewards[100]||['无']).join(',')}<br>200环:${(cCur.rewards[200]||['无']).join(',')}<br>300环:${(cCur.rewards[300]||['无']).join(',')}</span></div>
+    <div style="margin-top:6px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">📊<strong style="color:var(--text);">资源费用统计</strong></div><div style="max-height:calc(120px * var(--ui-scale));overflow-y:auto;">${Object.entries(tStatsC).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>${n}</span><span class="val">${c}次|${((tCostC[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>
+    <div class="stat-row"><span>奖励记录</span><span class="val" style="font-size:calc(10px * var(--ui-scale));">100环:${(cCur.rewards[100]||['无']).join(',')}<br>200环:${(cCur.rewards[200]||['无']).join(',')}<br>300环:${(cCur.rewards[300]||['无']).join(',')}</span></div>
     <div class="detail-sec">
       <h4>本轮账本 — 三段奖励按价目表估值</h4>
-      <div id="rw-preview" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;font-size:10px;"></div><div id="rw-target" style="font-size:9px;color:var(--text2);margin-bottom:4px;"></div>
+      <div id="rw-preview" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;font-size:calc(10px * var(--ui-scale));"></div><div id="rw-target" style="font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-bottom:4px;"></div>
       <div class="gold-row" style="margin:0;">
-        <label style="font-size:10px;color:var(--text2);">额外成本(万两)</label><input type="number" id="rw-extra-cost" value="0" min="0" style="width:62px;">
-        <label style="font-size:10px;color:var(--text2);">自定义收入(万两)</label><input type="number" id="rw-custom-income" value="0" min="0" style="width:62px;">
-        <label style="font-size:10px;color:var(--text2);">用时(分)</label><input type="number" id="rw-duration" value="${effectiveDurationMin({startedAt:cCur.startedAt,doneAt:Date.now()},Date.now())||''}" min="0" style="width:52px;">
+        <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">额外成本(万两)</label><input type="number" id="rw-extra-cost" value="0" min="0" style="width:62px;">
+        <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">自定义收入(万两)</label><input type="number" id="rw-custom-income" value="0" min="0" style="width:62px;">
+        <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">用时(分)</label><input type="number" id="rw-duration" value="${effectiveDurationMin({startedAt:cCur.startedAt,doneAt:Date.now()},Date.now())||''}" min="0" style="width:52px;">
       </div>
     </div>
-    <input type="text" id="rw-notes" placeholder="备注（可选）" value="${cCur.notes||''}" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-top:8px;margin-bottom:8px;">
+    <input type="text" id="rw-notes" placeholder="备注（可选）" value="${cCur.notes||''}" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));margin-top:8px;margin-bottom:8px;">
     <div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;"><button class="btn btn-a btn-xs" id="rw-new-round">继续下一轮</button><button class="btn btn-xs" style="color:var(--text);" id="rw-confirm">结束返回</button><button class="btn btn-xs" style="color:var(--text2);" id="rw-cancel">返回编辑</button></div></div>`;
   document.body.appendChild(overlay);
   overlay.addEventListener('click',e=>{if(e.target===overlay){cCur.done=false;overlay.remove();renderAll();}});
@@ -1377,7 +1406,7 @@ function showCFinalModal(){
   function updPre(){
     const box=overlay.querySelector('#rw-preview');if(!box)return;
     const s=currentSummary();
-    const cell=(k,v,cls)=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:4px 6px;"><div style="color:var(--text2);font-size:9px;line-height:1.2;">${k}</div><div style="font-weight:700;font-size:11px;white-space:nowrap;" class="${cls||''}">${v}</div></div>`;
+    const cell=(k,v,cls)=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:4px 6px;"><div style="color:var(--text2);font-size:calc(9px * var(--ui-scale));line-height:1.2;">${k}</div><div style="font-weight:700;font-size:calc(11px * var(--ui-scale));white-space:nowrap;" class="${cls||''}">${v}</div></div>`;
     box.innerHTML=cell('成本',formatAmount(s.cost,moneyCfg,ledgerCurrency))
       +cell('收入',formatAmount(s.income,moneyCfg,ledgerCurrency))
       +cell('利润',formatAmount(s.profit,moneyCfg,ledgerCurrency),s.profit>0?'pos':s.profit<0?'neg':'')
@@ -1430,7 +1459,7 @@ function showReport(run,type){
       <div class="stat-row"><span>利润</span><span class="val" style="color:${Number(run.profit)>0?'var(--accent)':'var(--danger)'};">${formatAmount(run.profit,moneyCfg,ledgerCurrency)}</span></div>
       <div class="stat-row"><span>ROI</span><span class="val">${run.roi===null||run.roi===undefined?'—':'1 : '+Number(run.roi).toFixed(2)}</span></div>
       <div class="stat-row"><span>用时 / 时薪</span><span class="val">${run.durationMin===null||run.durationMin===undefined?'—':run.durationMin+' 分钟'} / ${run.hourly===null||run.hourly===undefined?'—':formatAmount(run.hourly,moneyCfg,ledgerCurrency)}</span></div>
-      ${run.incomeItems&&run.incomeItems.length?`<div class="stat-row"><span>收入明细</span><span class="val" style="font-size:10px;">${valueIncomeItems(run.incomeItems,rewardPrices).map(x=>x.name+' '+formatAmount(x.amount,moneyCfg,ledgerCurrency)).join('<br>')}</span></div>`:''}
+      ${run.incomeItems&&run.incomeItems.length?`<div class="stat-row"><span>收入明细</span><span class="val" style="font-size:calc(10px * var(--ui-scale));">${valueIncomeItems(run.incomeItems,rewardPrices).map(x=>x.name+' '+formatAmount(x.amount,moneyCfg,ledgerCurrency)).join('<br>')}</span></div>`:''}
     </div>`;
   }
   body+=`<div class="report-sec"><h4>任务类型统计</h4>${Object.entries(tStats).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row"><span>${n}</span><span class="val">${c}次|${((tCost[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>`;
@@ -1446,8 +1475,8 @@ function showRewardPricesModal(){
   const p=normalizeRewardPrices(rewardPrices);
   const lvls=[80,90,100,110,120,130,140,150];
   const wan=v=>((Number(v)||0)/10000).toFixed(0);
-  overlay.innerHTML=`<div class="modal" style="max-width:660px;">
-    <h3>🏷️ 奖励价目表 <span style="font-size:10px;font-weight:400;color:var(--text2);">单位：万两 · 参考价，按你的区服改</span></h3>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(660px * var(--ui-scale));">
+    <h3>🏷️ 奖励价目表 <span style="font-size:calc(10px * var(--ui-scale));font-weight:400;color:var(--text2);">单位：万两 · 参考价，按你的区服改</span></h3>
     <div class="detail-sec" style="margin-top:0;padding-top:0;border:none;">
       <h4>制造指南书</h4><div class="price-grid">${lvls.map(l=>`<div class="price-row"><label>${l}级</label><input type="number" data-k="books" data-l="${l}" value="${wan(p.books[l])}" min="0"></div>`).join('')}</div>
       <h4 style="margin-top:8px;">百炼精铁</h4><div class="price-grid">${lvls.map(l=>`<div class="price-row"><label>${l}级</label><input type="number" data-k="irons" data-l="${l}" value="${wan(p.irons[l])}" min="0"></div>`).join('')}</div>
@@ -1459,7 +1488,7 @@ function showRewardPricesModal(){
         <div class="price-row"><label>200修炼点</label><input type="number" data-k="items" data-l="xiulian_200" value="${wan(p.items.xiulian_200)}" min="0"></div>
         <div class="price-row"><label>3级家具图</label><input type="number" data-k="items" data-l="furniture3" value="${wan(p.items.furniture3)}" min="0"></div>
       </div>
-      <div style="margin-top:8px;font-size:9px;color:var(--text2);line-height:1.6;">改价只影响之后新结算的轮次，已结算的历史按当时记下的数字。金价比例在首页「金价计算器」里改。</div>
+      <div style="margin-top:8px;font-size:calc(9px * var(--ui-scale));color:var(--text2);line-height:1.6;">改价只影响之后新结算的轮次，已结算的历史按当时记下的数字。金价比例在首页「金价计算器」里改。</div>
     </div>
     <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="rp-save">保存</button><button class="btn btn-xs" id="rp-reset">恢复默认</button><button class="btn btn-xs" style="color:var(--text2);" id="rp-cancel">取消</button></div>
   </div>`;
@@ -1492,17 +1521,17 @@ function showLedgerDetail(id,tool){
   const income=booked?toAmount(run.income):0;
   const profit=booked?income-cost:null;
   const overlay=document.createElement('div');overlay.className='modal-overlay';
-  overlay.innerHTML=`<div class="modal" style="max-width:480px;">
-    <h3>${tool==='pet'?'🐾 宠环':'📜 人环'} #${run.id} <span style="font-size:10px;font-weight:400;color:var(--text2);">${fmtDate(run.startedAt)}</span></h3>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(480px * var(--ui-scale));">
+    <h3>${tool==='pet'?'🐾 宠环':'📜 人环'} #${run.id} <span style="font-size:calc(10px * var(--ui-scale));font-weight:400;color:var(--text2);">${fmtDate(run.startedAt)}</span></h3>
     <div class="stat-row"><span>角色等级 / 完成</span><span class="val">Lv.${run.level||'?'} · ${run.rings?run.rings.filter(r=>r.t).length:0}/${tool==='pet'?100:300}</span></div>
     ${tool==='pet'&&run.totalScore!==undefined?`<div class="stat-row"><span>总分 / 书铁</span><span class="val">${run.totalScore} 分 · ${run.bookLevel||pBookLevel(run.totalScore||0,run.level)} 级</span></div>`:''}
-    <div class="detail-sec"><h4>成本明细</h4>${costItems.length?costItems.sort((a,b)=>b.amount-a.amount).map(x=>`<div class="stat-row" style="font-size:10px;"><span>${x.name} ×${x.qty}</span><span class="val">${formatAmount(x.amount,moneyCfg,ledgerCurrency)}</span></div>`).join(''):'<div class="stat-row" style="font-size:10px;"><span>无成本记录</span><span class="val">—</span></div>'}${toAmount(run.extraCost)?`<div class="stat-row" style="font-size:10px;"><span>额外成本</span><span class="val">${formatAmount(run.extraCost,moneyCfg,ledgerCurrency)}</span></div>`:''}<div class="stat-row"><span><b>成本合计</b></span><span class="val" style="color:#f472b6;"><b>${formatAmount(cost,moneyCfg,ledgerCurrency)}</b></span></div></div>
-    <div class="detail-sec"><h4>收入明细</h4>${booked?(incomeItems.length?incomeItems.map(x=>`<div class="stat-row" style="font-size:10px;"><span>${x.name}</span><span class="val">${formatAmount(x.amount,moneyCfg,ledgerCurrency)}</span></div>`).join(''):'<div class="stat-row" style="font-size:10px;"><span>未选奖励</span><span class="val">—</span></div>'):`<div class="stat-row" style="font-size:10px;"><span class="tag-un">未记账</span><span class="val">—</span></div>`}<div class="stat-row"><span><b>收入合计</b></span><span class="val" style="color:var(--accent2);"><b>${formatAmount(income,moneyCfg,ledgerCurrency)}</b></span></div></div>
+    <div class="detail-sec"><h4>成本明细</h4>${costItems.length?costItems.sort((a,b)=>b.amount-a.amount).map(x=>`<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>${x.name} ×${x.qty}</span><span class="val">${formatAmount(x.amount,moneyCfg,ledgerCurrency)}</span></div>`).join(''):'<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>无成本记录</span><span class="val">—</span></div>'}${toAmount(run.extraCost)?`<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>额外成本</span><span class="val">${formatAmount(run.extraCost,moneyCfg,ledgerCurrency)}</span></div>`:''}<div class="stat-row"><span><b>成本合计</b></span><span class="val" style="color:#f472b6;"><b>${formatAmount(cost,moneyCfg,ledgerCurrency)}</b></span></div></div>
+    <div class="detail-sec"><h4>收入明细</h4>${booked?(incomeItems.length?incomeItems.map(x=>`<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>${x.name}</span><span class="val">${formatAmount(x.amount,moneyCfg,ledgerCurrency)}</span></div>`).join(''):'<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span>未选奖励</span><span class="val">—</span></div>'):`<div class="stat-row" style="font-size:calc(10px * var(--ui-scale));"><span class="tag-un">未记账</span><span class="val">—</span></div>`}<div class="stat-row"><span><b>收入合计</b></span><span class="val" style="color:var(--accent2);"><b>${formatAmount(income,moneyCfg,ledgerCurrency)}</b></span></div></div>
     <div class="detail-sec"><h4>本轮结论</h4>
       <div class="stat-row"><span>利润</span><span class="val" style="color:${profit===null?'var(--text2)':profit>0?'var(--accent)':'var(--danger)'};">${profit===null?'—':formatAmount(profit,moneyCfg,ledgerCurrency)}</span></div>
       <div class="stat-row"><span>ROI / 净收益率</span><span class="val">${booked&&run.roi!==null?('1 : '+Number(run.roi).toFixed(2)):'—'} / ${booked&&run.netRate!==null&&run.netRate!==undefined?(Number(run.netRate)*100).toFixed(0)+'%':'—'}</span></div>
       <div class="stat-row"><span>用时 / 时薪</span><span class="val">${run.durationMin===null||run.durationMin===undefined?'—':run.durationMin+' 分钟'} / ${run.hourly===null||run.hourly===undefined?'—':formatAmount(run.hourly,moneyCfg,ledgerCurrency)}</span></div>
-      ${run.reward&&run.reward.length?`<div class="stat-row"><span>奖励记录</span><span class="val" style="font-size:10px;">${run.reward.join(', ')}</span></div>`:''}
+      ${run.reward&&run.reward.length?`<div class="stat-row"><span>奖励记录</span><span class="val" style="font-size:calc(10px * var(--ui-scale));">${run.reward.join(', ')}</span></div>`:''}
     </div>
     <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-a btn-xs" data-act="backfill">${booked?'重算收入':'补录收入'}</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" data-act="del">删除</button><button class="btn btn-xs" style="color:var(--text2);" data-act="close">关闭</button></div>
   </div>`;
@@ -1531,15 +1560,15 @@ function showBackfillModal(id,tool){
   const costItems=(Array.isArray(run.costItems)&&run.costItems.length)?run.costItems
     :buildCostItems(run.rings,tool==='pet'?pPrices:cPrices,tool==='pet'?P_DEFAULT_PRICES:C_DEFAULT_PRICES);
   const baseCost=costItems.reduce((s,x)=>s+x.amount,0);
-  overlay.innerHTML=`<div class="modal" style="max-width:420px;">
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(420px * var(--ui-scale));">
     <h3>📝 ${booked?'重算':'补录'}收入 — ${tool==='pet'?'宠环':'人环'} #${run.id}</h3>
-    <div style="padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:10px;color:var(--text2);line-height:1.6;">成本按当前价格重算为 ${formatAmount(baseCost,moneyCfg,ledgerCurrency)}。补录只需填本轮实际到手值多少钱，不用再选书铁等级。</div>
+    <div style="padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:calc(10px * var(--ui-scale));color:var(--text2);line-height:1.6;">成本按当前价格重算为 ${formatAmount(baseCost,moneyCfg,ledgerCurrency)}。补录只需填本轮实际到手值多少钱，不用再选书铁等级。</div>
     <div class="gold-row" style="margin-top:8px;flex-wrap:wrap;">
-      <label style="font-size:10px;color:var(--text2);">收入(万两)</label><input type="number" id="bf-income" value="${booked?(toAmount(run.income)/10000).toFixed(0):''}" min="0" style="width:80px;">
-      <label style="font-size:10px;color:var(--text2);">额外成本(万两)</label><input type="number" id="bf-extra" value="${(toAmount(run.extraCost)/10000).toFixed(0)}" min="0" style="width:70px;">
-      <label style="font-size:10px;color:var(--text2);">用时(分)</label><input type="number" id="bf-dur" value="${run.durationMin===null||run.durationMin===undefined?effectiveDurationMin({startedAt:run.startedAt,doneAt:run.doneAt||Date.now()},Date.now())||'':run.durationMin}" min="0" style="width:60px;">
+      <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">收入(万两)</label><input type="number" id="bf-income" value="${booked?(toAmount(run.income)/10000).toFixed(0):''}" min="0" style="width:80px;">
+      <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">额外成本(万两)</label><input type="number" id="bf-extra" value="${(toAmount(run.extraCost)/10000).toFixed(0)}" min="0" style="width:70px;">
+      <label style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">用时(分)</label><input type="number" id="bf-dur" value="${run.durationMin===null||run.durationMin===undefined?effectiveDurationMin({startedAt:run.startedAt,doneAt:run.doneAt||Date.now()},Date.now())||'':run.durationMin}" min="0" style="width:60px;">
     </div>
-    <div id="bf-preview" style="margin-top:6px;font-size:10px;color:var(--text2);"></div>
+    <div id="bf-preview" style="margin-top:6px;font-size:calc(10px * var(--ui-scale));color:var(--text2);"></div>
     <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-a btn-xs" id="bf-save">保存</button><button class="btn btn-xs" style="color:var(--text2);" id="bf-cancel">取消</button></div>
   </div>`;
   document.body.appendChild(overlay);
@@ -1580,10 +1609,10 @@ function showBackfillModal(id,tool){
 function showPetEditModal(rn){
   if(!pCur)return;const ring=pCur.rings[rn-1];
   const overlay=document.createElement('div');overlay.className='modal-overlay';
-  overlay.innerHTML=`<div class="modal" style="max-width:400px;"><h3>编辑第${rn}环</h3>
-    <div class="modal-grid">${PT.map(t=>`<div class="modal-item${ring.t===t.id?' sel':''}" data-tid="${t.id}">${t.icon}${t.name}<span style="font-size:9px;color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span></div>`).join('')}</div>
-    <input type="text" id="em-item" value="${ring.item||''}" placeholder="物品名称（选填）" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-bottom:2px;">
-    ${ring.t?`<div style="font-size:9px;color:var(--text2);margin-bottom:8px;">预估费用：${(pCost(ring)/10000).toFixed(0)}万</div>`:''}
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(400px * var(--ui-scale));"><h3>编辑第${rn}环</h3>
+    <div class="modal-grid">${PT.map(t=>`<div class="modal-item${ring.t===t.id?' sel':''}" data-tid="${t.id}">${t.icon}${t.name}<span style="font-size:calc(9px * var(--ui-scale));color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span></div>`).join('')}</div>
+    <input type="text" id="em-item" value="${ring.item||''}" placeholder="物品名称（选填）" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));margin-bottom:2px;">
+    ${ring.t?`<div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-bottom:8px;">预估费用：${(pCost(ring)/10000).toFixed(0)}万</div>`:''}
     <div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="em-save">保存</button>${ring.t?`<button class="btn btn-xs btn-d" id="em-clear">清除</button>`:''}<button class="btn btn-xs" style="color:var(--text2);" id="em-cancel">取消</button></div></div>`;
   document.body.appendChild(overlay);
   let selTid=ring.t;
@@ -1598,10 +1627,10 @@ function showPetEditModal(rn){
 function showChainEditModal(rn){
   if(!cCur)return;const ring=cCur.rings[rn-1];
   const overlay=document.createElement('div');overlay.className='modal-overlay';
-  overlay.innerHTML=`<div class="modal" style="max-width:420px;"><h3>编辑第${rn}环</h3>
-    <div class="modal-grid" style="grid-template-columns:repeat(3,1fr);">${CT.map(t=>`<div class="modal-item${ring.t===t.id?' sel':''}" data-tid="${t.id}">${t.icon}${t.name}<br><span style="font-size:8px;color:var(--text2);">${t.cost?((t.cost/10000).toFixed(0)+'万'):'免费'}</span></div>`).join('')}</div>
-    <input type="text" id="em-item" value="${ring.item||''}" placeholder="物品名称（选填）" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-bottom:2px;">
-    ${ring.t?`<div style="font-size:9px;color:var(--text2);margin-bottom:8px;">预估费用：${(cCost(ring)/10000).toFixed(0)}万</div>`:''}
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(420px * var(--ui-scale));"><h3>编辑第${rn}环</h3>
+    <div class="modal-grid" style="grid-template-columns:repeat(3,1fr);">${CT.map(t=>`<div class="modal-item${ring.t===t.id?' sel':''}" data-tid="${t.id}">${t.icon}${t.name}<br><span style="font-size:calc(8px * var(--ui-scale));color:var(--text2);">${t.cost?((t.cost/10000).toFixed(0)+'万'):'免费'}</span></div>`).join('')}</div>
+    <input type="text" id="em-item" value="${ring.item||''}" placeholder="物品名称（选填）" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));margin-bottom:2px;">
+    ${ring.t?`<div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);margin-bottom:8px;">预估费用：${(cCost(ring)/10000).toFixed(0)}万</div>`:''}
     <div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="em-save">保存</button>${ring.t?`<button class="btn btn-xs btn-d" id="em-clear">清除</button>`:''}<button class="btn btn-xs" style="color:var(--text2);" id="em-cancel">取消</button></div></div>`;
   document.body.appendChild(overlay);
   let selTid=ring.t;
@@ -1621,11 +1650,11 @@ function showBatchModal(isPet){
   let selStart=firstEmpty,selEnd=Math.min(firstEmpty+9,TOTAL),selTid=modalTask||TYPES[0].id,dragging=null;
   const TRACK_PAD=8;
 
-  overlay.innerHTML=`<div class="modal" style="max-width:520px;"><h3>📦 批量填充</h3>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;flex-wrap:wrap;gap:4px;"><span>第<strong style="color:var(--accent);" id="bf-from">${selStart}</strong>环</span><span style="color:var(--text2);">—</span><span>第<strong style="color:var(--accent);" id="bf-to">${selEnd}</strong>环</span><span style="color:var(--text2);font-size:11px;">共<strong style="color:var(--warn);" id="bf-count">${selEnd-selStart+1}</strong>环</span></div>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(520px * var(--ui-scale));"><h3>📦 批量填充</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:calc(12px * var(--ui-scale));flex-wrap:wrap;gap:4px;"><span>第<strong style="color:var(--accent);" id="bf-from">${selStart}</strong>环</span><span style="color:var(--text2);">—</span><span>第<strong style="color:var(--accent);" id="bf-to">${selEnd}</strong>环</span><span style="color:var(--text2);font-size:calc(11px * var(--ui-scale));">共<strong style="color:var(--warn);" id="bf-count">${selEnd-selStart+1}</strong>环</span></div>
     <div style="width:100%;margin-bottom:8px;"><div id="bf-track" style="position:relative;width:100%;height:36px;background:var(--bg);border:1px solid var(--border);border-radius:4px;cursor:pointer;user-select:none;"><canvas id="bf-canvas" height="36" style="position:absolute;inset:0;width:100%;height:100%;border-radius:3px;"></canvas><div id="bf-sel" style="position:absolute;top:4px;bottom:4px;background:rgba(0,212,170,0.2);border-left:2px solid var(--accent);border-right:2px solid var(--accent);pointer-events:none;border-radius:1px;"></div><div id="bf-thumb-s" style="position:absolute;top:0;bottom:0;width:10px;background:var(--accent);border-radius:3px;cursor:grab;z-index:2;box-shadow:0 0 4px rgba(0,212,170,0.5);"></div><div id="bf-thumb-e" style="position:absolute;top:0;bottom:0;width:10px;background:var(--accent);border-radius:3px;cursor:grab;z-index:2;box-shadow:0 0 4px rgba(0,212,170,0.5);"></div></div></div>
-    <div style="display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap;font-size:10px;">${isPet?`<button class="btn btn-xs bf-quick" data-from="1" data-to="33">1-33空环</button><button class="btn btn-xs bf-quick" data-from="34" data-to="66">34-66空环</button><button class="btn btn-xs bf-quick" data-from="67" data-to="100">67-100空环</button>`:`<button class="btn btn-xs bf-quick" data-from="1" data-to="100">1-100空环</button><button class="btn btn-xs bf-quick" data-from="101" data-to="200">101-200空环</button><button class="btn btn-xs bf-quick" data-from="201" data-to="300">201-300空环</button>`}<button class="btn btn-xs bf-quick" data-from="all">全部空环</button></div>
-    <div style="margin-bottom:6px;font-size:11px;color:var(--text2);">选择任务类型：</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:10px;">${TYPES.map(t=>`<button class="btn btn-xs bf-task${selTid===t.id?' btn-a':''}" data-tid="${t.id}">${t.icon}${t.name}${isPet?`<span style="font-size:8px;color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span>`:''}</button>`).join('')}</div>
+    <div style="display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap;font-size:calc(10px * var(--ui-scale));">${isPet?`<button class="btn btn-xs bf-quick" data-from="1" data-to="33">1-33空环</button><button class="btn btn-xs bf-quick" data-from="34" data-to="66">34-66空环</button><button class="btn btn-xs bf-quick" data-from="67" data-to="100">67-100空环</button>`:`<button class="btn btn-xs bf-quick" data-from="1" data-to="100">1-100空环</button><button class="btn btn-xs bf-quick" data-from="101" data-to="200">101-200空环</button><button class="btn btn-xs bf-quick" data-from="201" data-to="300">201-300空环</button>`}<button class="btn btn-xs bf-quick" data-from="all">全部空环</button></div>
+    <div style="margin-bottom:6px;font-size:calc(11px * var(--ui-scale));color:var(--text2);">选择任务类型：</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:10px;">${TYPES.map(t=>`<button class="btn btn-xs bf-task${selTid===t.id?' btn-a':''}" data-tid="${t.id}">${t.icon}${t.name}${isPet?`<span style="font-size:calc(8px * var(--ui-scale));color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span>`:''}</button>`).join('')}</div>
     <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="bf-confirm">填充<span id="bf-confirm-n">${selEnd-selStart+1}</span>环</button><button class="btn btn-xs" style="color:var(--text2);" id="bf-cancel">取消</button></div></div>`;
   document.body.appendChild(overlay);
 
@@ -1690,9 +1719,9 @@ function showBatchModal(isPet){
 // ==================== USER & HELP MODALS ====================
 function showUserModal(){
   const overlay=document.createElement('div');overlay.className='modal-overlay';
-  overlay.innerHTML=`<div class="modal" style="max-width:420px;"><h3>👥 角色管理</h3>
-    <div style="max-height:240px;overflow-y:auto;margin-bottom:10px;">${users.map(u=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:4px;margin-bottom:3px;${u.id===activeUser?'border:1px solid var(--accent);':''}"><div><div style="font-weight:600;font-size:12px;${u.id===activeUser?'color:var(--accent);':''}">${u.name}${u.id===activeUser?' (当前)':''}</div><div style="font-size:9px;color:var(--text2);">创建于${fmtDate(u.createdAt)}</div></div><div style="display:flex;gap:3px;">${u.id!==activeUser?`<button class="btn btn-xs btn-a um-switch" data-uid="${u.id}">切换</button>`:''}<button class="btn btn-xs btn-d um-del" data-uid="${u.id}"${users.length<=1?' disabled style="opacity:0.3;pointer-events:none;"':''}>删除</button></div></div>`).join('')}</div>
-    <div style="display:flex;gap:4px;margin-bottom:10px;"><input type="text" id="um-name" placeholder="新角色名称" maxlength="12" style="flex:1;padding:4px 6px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:12px;"><button class="btn btn-a btn-xs" id="um-create">+创建</button></div>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(420px * var(--ui-scale));"><h3>👥 角色管理</h3>
+    <div style="max-height:calc(240px * var(--ui-scale));overflow-y:auto;margin-bottom:10px;">${users.map(u=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:4px;margin-bottom:3px;${u.id===activeUser?'border:1px solid var(--accent);':''}"><div><div style="font-weight:600;font-size:calc(12px * var(--ui-scale));${u.id===activeUser?'color:var(--accent);':''}">${u.name}${u.id===activeUser?' (当前)':''}</div><div style="font-size:calc(9px * var(--ui-scale));color:var(--text2);">创建于${fmtDate(u.createdAt)}</div></div><div style="display:flex;gap:3px;">${u.id!==activeUser?`<button class="btn btn-xs btn-a um-switch" data-uid="${u.id}">切换</button>`:''}<button class="btn btn-xs btn-d um-del" data-uid="${u.id}"${users.length<=1?' disabled style="opacity:0.3;pointer-events:none;"':''}>删除</button></div></div>`).join('')}</div>
+    <div style="display:flex;gap:4px;margin-bottom:10px;"><input type="text" id="um-name" placeholder="新角色名称" maxlength="12" style="flex:1;padding:4px 6px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(12px * var(--ui-scale));"><button class="btn btn-a btn-xs" id="um-create">+创建</button></div>
     <div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-xs" style="color:var(--text2);" id="um-close">关闭</button></div></div>`;
   document.body.appendChild(overlay);
   const close=()=>overlay.remove();
@@ -1706,7 +1735,7 @@ function showUserModal(){
 function showPricesModal(isPet){
   const overlay=document.createElement('div');overlay.className='modal-overlay';
   const TYPES=isPet?PT:CT, prices=isPet?pPrices:cPrices, defP=isPet?P_DEFAULT_PRICES:C_DEFAULT_PRICES;
-  overlay.innerHTML=`<div class="modal" style="max-width:500px;"><h3>💰 物品参考价格设置</h3><div style="font-size:10px;color:var(--text2);margin-bottom:8px;">修改价格后保存，用于计算费用</div><div style="max-height:50vh;overflow-y:auto;">${TYPES.map(t=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(26,39,64,0.3);"><span style="width:90px;font-size:11px;">${t.icon}${t.name}</span><input type="number" class="price-inp" data-tid="${t.id}" value="${prices[t.id]||defP[t.id]||0}" style="width:100px;padding:3px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;text-align:right;"><span style="font-size:10px;color:var(--text2);">两银子</span></div>`).join('')}</div>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(500px * var(--ui-scale));"><h3>💰 物品参考价格设置</h3><div style="font-size:calc(10px * var(--ui-scale));color:var(--text2);margin-bottom:8px;">修改价格后保存，用于计算费用</div><div style="max-height:50vh;overflow-y:auto;">${TYPES.map(t=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(26,39,64,0.3);"><span style="width:90px;font-size:calc(11px * var(--ui-scale));">${t.icon}${t.name}</span><input type="number" class="price-inp" data-tid="${t.id}" value="${prices[t.id]||defP[t.id]||0}" style="width:100px;padding:3px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:calc(11px * var(--ui-scale));text-align:right;"><span style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">两银子</span></div>`).join('')}</div>
     <div style="display:flex;gap:5px;justify-content:flex-end;margin-top:8px;"><button class="btn btn-a btn-xs" id="pr-save">保存</button><button class="btn btn-xs" id="pr-reset">恢复默认</button><button class="btn btn-xs" style="color:var(--text2);" id="pr-cancel">取消</button></div></div>`;
   document.body.appendChild(overlay);
   const close=()=>overlay.remove();
@@ -1761,13 +1790,13 @@ function showKnowledgeBase(){
 
   function render(){
     const cat=categories.find(c=>c.id===activeCat);
-    overlay.innerHTML=`<div class="modal" style="max-width:600px;max-height:88vh;display:flex;flex-direction:column;">
+    overlay.innerHTML=`<div class="modal" style="max-width:calc(600px * var(--ui-scale));max-height:88vh;display:flex;flex-direction:column;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-shrink:0;">
         <h3 style="margin:0;">📚 跑环知识库</h3>
         <button class="btn btn-xs" style="color:var(--text2);" id="kb-close">✕</button>
       </div>
       <div style="display:flex;gap:4px;margin-bottom:8px;flex-shrink:0;flex-wrap:wrap;">${categories.map(c=>`<button class="btn btn-xs${activeCat===c.id?' btn-a':''}" data-cat="${c.id}">${c.icon} ${c.name}</button>`).join('')}</div>
-      <div style="flex:1;overflow-y:auto;min-height:0;">${cat.items.map((item,i)=>`<details style="margin-bottom:6px;background:var(--surface2);border-radius:6px;border:1px solid var(--border);"${i===0?' open':''}><summary style="padding:8px 10px;cursor:pointer;font-weight:600;font-size:12px;color:var(--text);">${item.q}</summary><div style="padding:6px 10px 10px;font-size:11px;color:var(--text2);line-height:1.6;">${item.a}</div></details>`).join('')}</div>
+      <div style="flex:1;overflow-y:auto;min-height:0;">${cat.items.map((item,i)=>`<details style="margin-bottom:6px;background:var(--surface2);border-radius:6px;border:1px solid var(--border);"${i===0?' open':''}><summary style="padding:8px 10px;cursor:pointer;font-weight:600;font-size:calc(12px * var(--ui-scale));color:var(--text);">${item.q}</summary><div style="padding:6px 10px 10px;font-size:calc(11px * var(--ui-scale));color:var(--text2);line-height:1.6;">${item.a}</div></details>`).join('')}</div>
     </div>`;
     bindKbEvents();
   }
@@ -1825,12 +1854,12 @@ function showGuideModal(){
 
   function render(){
     const s=steps[currentStep];
-    overlay.innerHTML=`<div class="modal" style="max-width:480px;text-align:center;">
+    overlay.innerHTML=`<div class="modal" style="max-width:calc(480px * var(--ui-scale));text-align:center;">
       <h3 style="margin-bottom:2px;">${tabLabel}</h3>
-      <div style="font-size:10px;color:var(--text2);margin-bottom:10px;">第 ${currentStep+1}/${totalSteps} 步</div>
-      <div style="font-size:52px;margin-bottom:8px;">${s.icon}</div>
-      <div style="font-size:16px;font-weight:700;color:var(--accent);margin-bottom:6px;">${s.title}</div>
-      <p style="font-size:12px;color:var(--text);line-height:1.7;margin-bottom:16px;padding:0 8px;">${s.desc}</p>
+      <div style="font-size:calc(10px * var(--ui-scale));color:var(--text2);margin-bottom:10px;">第 ${currentStep+1}/${totalSteps} 步</div>
+      <div style="font-size:calc(52px * var(--ui-scale));margin-bottom:8px;">${s.icon}</div>
+      <div style="font-size:calc(16px * var(--ui-scale));font-weight:700;color:var(--accent);margin-bottom:6px;">${s.title}</div>
+      <p style="font-size:calc(12px * var(--ui-scale));color:var(--text);line-height:1.7;margin-bottom:16px;padding:0 8px;">${s.desc}</p>
       <div style="display:flex;gap:4px;margin-bottom:12px;justify-content:center;">${steps.map((_,i)=>`<div style="width:${i===currentStep?18:6}px;height:6px;border-radius:3px;background:${i===currentStep?'var(--accent)':'var(--border)'};transition:all .3s;"></div>`).join('')}</div>
       <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
         ${currentStep>0?`<button class="btn btn-xs" id="guide-prev">← 上一步</button>`:''}
@@ -1862,15 +1891,15 @@ function showGuideModal(){
 function showWelcome(){
   if(localStorage.getItem('mhxy_welcome_seen'))return;
   const overlay=document.createElement('div');overlay.className='modal-overlay';
-  overlay.innerHTML=`<div class="modal" style="max-width:460px;text-align:center;">
-    <div style="font-size:48px;margin-bottom:8px;">🐉</div>
-    <h3 style="font-size:20px;margin-bottom:4px;">欢迎使用梦幻搞钱工具箱</h3>
-    <p style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6;">一站式跑环记录工具，支持宠环（100环）和任务链（300环）<br>多角色数据隔离 · 本地安全存储 · PC移动端通用</p>
+  overlay.innerHTML=`<div class="modal" style="max-width:calc(460px * var(--ui-scale));text-align:center;">
+    <div style="font-size:calc(48px * var(--ui-scale));margin-bottom:8px;">🐉</div>
+    <h3 style="font-size:calc(20px * var(--ui-scale));margin-bottom:4px;">欢迎使用梦幻搞钱工具箱</h3>
+    <p style="font-size:calc(12px * var(--ui-scale));color:var(--text2);margin-bottom:14px;line-height:1.6;">一站式跑环记录工具，支持宠环（100环）和任务链（300环）<br>多角色数据隔离 · 本地安全存储 · PC移动端通用</p>
     <div style="display:flex;gap:10px;margin-bottom:14px;justify-content:center;">
-      <div style="text-align:center;"><div style="font-size:28px;">🐾</div><div style="font-size:10px;color:var(--text2);">宠环助手<br>积分追踪·奖励预测</div></div>
-      <div style="text-align:center;"><div style="font-size:28px;">📜</div><div style="font-size:10px;color:var(--text2);">人环助手<br>300环·三段结算</div></div>
+      <div style="text-align:center;"><div style="font-size:calc(28px * var(--ui-scale));">🐾</div><div style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">宠环助手<br>积分追踪·奖励预测</div></div>
+      <div style="text-align:center;"><div style="font-size:calc(28px * var(--ui-scale));">📜</div><div style="font-size:calc(10px * var(--ui-scale));color:var(--text2);">人环助手<br>300环·三段结算</div></div>
     </div>
-    <p style="font-size:10px;color:var(--text2);margin-bottom:12px;">💡 提示：使用过程中可随时点击 📖 按钮查看操作指南</p>
+    <p style="font-size:calc(10px * var(--ui-scale));color:var(--text2);margin-bottom:12px;">💡 提示：使用过程中可随时点击 📖 按钮查看操作指南</p>
     <div style="display:flex;gap:6px;justify-content:center;"><button class="btn btn-a btn-xs" id="wl-start">开始使用</button></div>
   </div>`;
   document.body.appendChild(overlay);
@@ -1929,6 +1958,7 @@ function bindEvents(){
   document.querySelectorAll('.seg-btn[data-currency]').forEach(b=>b.addEventListener('click',()=>{ledgerCurrency=b.dataset.currency;renderAll();}));
   document.querySelectorAll('.ledger-row[data-row]').forEach(row=>row.addEventListener('click',()=>showLedgerDetail(row.dataset.row,row.dataset.tool)));
   const ub=document.getElementById('btn-undo');if(ub)ub.addEventListener('click',undoLast);
+  const usb=document.getElementById('btn-ui-scale');if(usb)usb.addEventListener('click',cycleUiScale);
   const pb=document.getElementById('btn-pause');if(pb)pb.addEventListener('click',()=>togglePause(vw==='pet'?pCur:cCur,vw==='pet'?'pet':'chain'));
   document.querySelectorAll('.chip-item').forEach(c=>c.addEventListener('click',()=>{const inp=document.getElementById('qb-item');if(inp){inp.value=c.dataset.item;inp.focus();}}));
   const jb=document.getElementById('btn-jump');if(jb)jb.addEventListener('click',jumpToRing);
@@ -1985,7 +2015,7 @@ function drawPetChart(){
 }
 
 // ==================== INIT ====================
-function init(){renderAll();setInterval(tickClock,1000);document.addEventListener('keydown',onGlobalKey);}
+function init(){applyUiScale();renderAll();setInterval(tickClock,1000);document.addEventListener('keydown',onGlobalKey);}
 document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
