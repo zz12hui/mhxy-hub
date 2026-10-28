@@ -233,7 +233,7 @@ const byText = (sel, txt) => qa(sel).find(e => e.textContent.indexOf(txt) >= 0)
   ok(root.style.getPropertyValue('--ui-scale') === '', '默认跟随屏宽（自动）')
   await click(q('#btn-ui-scale'))
   ok(Math.abs(parseFloat(root.style.getPropertyValue('--ui-scale')) - 1.15) < 0.001, '点一次锁到 115%')
-  for (let i = 0; i < 3; i++) await click(q('#btn-ui-scale'))
+  for (let i = 0; i < 5; i++) await click(q('#btn-ui-scale'))
   ok(root.style.getPropertyValue('--ui-scale') === '', '转一圈回到自动')
 
   console.log('14. 运行期错误')
