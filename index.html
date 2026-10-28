@@ -1,0 +1,1992 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>梦幻搞钱工具箱 — 宠环 · 人环 · 收益账本 | 跑环记录与盈亏计算</title>
+<meta name="description" content="梦幻西游跑环记录与收益核算工具：宠环 100 环、人环 300 环逐环记录，书铁奖励预测与控分，结算即记账，自动算出成本、收入、利润、ROI 和时薪。多角色独立存档，数据只存本地。">
+<meta name="keywords" content="梦幻西游跑环,梦幻西游宠环,梦幻西游宝宝环,梦幻西游任务链,跑环工具,跑环记录,跑环大全,跑环助手,宠环积分,宠环奖励,任务链300环,书铁等级计算,修炼经验,召唤兽修炼,制造指南书,百炼精铁,战魄,跑环积分计算器,梦幻跑环记录工具">
+<meta name="robots" content="index,follow">
+<meta name="author" content="mhxy-tools">
+<link rel="canonical" href="https://mhxy-tools.github.io/">
+<meta property="og:title" content="梦幻搞钱工具箱 — 跑环记录 · 收益账本">
+<meta property="og:description" content="一站式梦幻西游跑环记录工具：宠环100环积分追踪、书铁奖励预测；任务链300环三段结算。支持多角色，数据本地存储。">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="zh_CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="梦幻搞钱工具箱 — 跑环记录 · 收益账本">
+<meta name="twitter:description" content="宠环 & 任务链跑环记录，积分计算，奖励预测，多角色支持。">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"梦幻搞钱工具箱","url":"https://mhxy-tools.github.io/","description":"梦幻西游跑环记录工具集：宠环积分追踪、任务链300环三段奖励记录","applicationCategory":"GameApplication","operatingSystem":"Web","inLanguage":"zh-CN","browserRequirements":"Requires JavaScript"}
+</script>
+<style>
+:root{
+  --bg:#080c14; --surface:#0f1623; --surface2:#151d2e; --border:#1a2740;
+  --text:#c8d6e5; --text2:#6b7d95; --accent:#00d4aa; --accent2:#00b4d8;
+  --warn:#f59e0b; --danger:#ef4444; --purple:#8b5cf6; --accent3:#4f6ef6; --accent4:#7c5cfc; --radius:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow:hidden;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--text);font-size:13px;line-height:1.4;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 20% 10%,rgba(0,212,170,0.04) 0%,transparent 60%),
+             radial-gradient(ellipse at 80% 90%,rgba(0,180,216,0.03) 0%,transparent 60%);
+}
+.app{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;padding:6px 10px;}
+
+/* ===== Header ===== */
+.header{display:flex;align-items:center;justify-content:space-between;min-height:40px;padding:0 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0;margin-bottom:4px;gap:6px;}
+.header-l{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.header-l h1{font-size:15px;font-weight:700;white-space:nowrap;}
+.header-l h1 span{color:var(--accent);}
+.header-r{display:flex;gap:5px;align-items:center;flex-wrap:wrap;justify-content:flex-end;}
+.header .clock{font-size:11px;color:var(--text2);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right;min-width:115px;flex-shrink:0;}
+
+.btn{padding:4px 10px;border-radius:4px;border:1px solid var(--border);background:var(--surface2);color:var(--text);cursor:pointer;font-size:11px;font-weight:500;transition:all .12s;white-space:nowrap;flex-shrink:0;}
+.btn:hover{border-color:var(--accent2);color:#fff;}
+.btn-a{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600;}
+.btn-a:hover{background:#00e0b4;}
+.btn-d{background:transparent;border-color:var(--danger);color:var(--danger);}
+.btn-d:hover{background:var(--danger);color:#fff;}
+.btn-xs{padding:2px 5px;font-size:10px;border-radius:3px;}
+.lv{display:flex;align-items:center;gap:3px;font-size:11px;color:var(--text2);white-space:nowrap;}
+.lv input{width:54px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:13px;font-weight:600;text-align:center;}
+.lv input:focus{outline:none;border-color:var(--accent);}
+
+/* ===== Tabs ===== */
+.tabs{display:flex;gap:1px;flex-shrink:0;margin-bottom:4px;height:30px;}
+.tab{flex:1;display:flex;align-items:center;justify-content:center;padding:0 10px;background:var(--surface);border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:11px;font-weight:500;transition:all .12s;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tab:first-child{border-radius:4px 0 0 4px;}
+.tab:last-child{border-radius:0 4px 4px 0;}
+.tab.active{background:var(--accent);color:#000;border-color:var(--accent);font-weight:600;}
+.tab:hover:not(.active){color:#fff;}
+
+/* ===== Score / Progress strips ===== */
+.strip{display:flex;gap:6px;flex-shrink:0;min-height:28px;align-items:center;padding:0 8px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:3px;font-size:10px;flex-wrap:wrap;}
+.strip .si{display:flex;align-items:center;gap:3px;}
+.strip .sl{color:var(--text2);white-space:nowrap;}
+.strip .sv{font-weight:700;white-space:nowrap;}
+.strip .sv.a{color:var(--accent);}
+.strip .sv.w{color:var(--warn);}
+.strip .sv.p{color:var(--purple);}
+.strip .sd{width:1px;height:14px;background:var(--border);}
+.strip .sr{font-size:9px;color:var(--text2);margin-left:1px;}
+.prog-inline{flex:1;height:3px;background:var(--border);border-radius:2px;overflow:hidden;min-width:40px;}
+.prog-inline .fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .3s;}
+
+/* ===== Minimap ===== */
+.minimap{display:grid;gap:1px;flex-shrink:0;margin-bottom:4px;}
+.minimap.pet{grid-template-columns:repeat(25,1fr);height:18px;}
+.minimap.chain{grid-template-columns:repeat(30,1fr);height:12px;}
+.minimap .dot{border-radius:1px;background:var(--border);}
+.minimap .dot.done{background:var(--accent);}
+.minimap .dot.done.hi{background:#c084fc;}
+.minimap .dot.done.neg{background:var(--danger);}
+.minimap .dot.done.ck{background:var(--warn);}
+
+/* ===== Quick bar ===== */
+.quick-bar{display:flex;gap:3px;flex-shrink:0;min-height:48px;padding:4px 6px;background:var(--surface);border:1px solid var(--border);border-radius:4px;margin-bottom:4px;flex-wrap:wrap;align-items:center;}
+.quick-bar .qb-num{font-size:20px;font-weight:800;color:var(--accent);min-width:32px;text-align:center;line-height:1;flex-shrink:0;}
+.quick-bar .qb-tasks{display:flex;gap:2px;flex-wrap:wrap;flex:1;align-items:center;}
+.quick-bar .qb-t{padding:3px 6px;border-radius:3px;border:1px solid var(--border);background:var(--bg);color:var(--text);cursor:pointer;font-size:10px;font-weight:500;transition:all .1s;white-space:nowrap;}
+.quick-bar .qb-t:hover{border-color:var(--accent);color:var(--accent);}
+.quick-bar .qb-t.sel{border-color:var(--accent);background:rgba(0,212,170,0.15);color:var(--accent);}
+.quick-bar .qb-input{padding:3px 6px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;width:90px;}
+.quick-bar .qb-input:focus{outline:none;border-color:var(--accent);}
+.quick-bar .qb-go{padding:3px 12px;border-radius:3px;border:2px solid var(--accent);background:var(--accent);color:#000;cursor:pointer;font-size:11px;font-weight:700;}
+.quick-bar .qb-skip{padding:3px 8px;border-radius:3px;border:1px solid var(--danger);background:transparent;color:var(--danger);cursor:pointer;font-size:10px;}
+
+/* ===== Ring grid ===== */
+.ring-grid-wrap{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:3px;overflow:hidden;}
+.ring-grid-h{display:flex;justify-content:space-between;align-items:center;padding:1px 3px 3px;flex-shrink:0;font-size:9px;color:var(--text2);flex-wrap:wrap;gap:4px;}
+.ring-grid{flex:1;display:grid;gap:2px;min-height:0;}
+.ring-grid.x10{grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(10,1fr);}
+.ring-grid.x15{grid-template-columns:repeat(15,1fr);grid-template-rows:repeat(20,1fr);}
+.ring-grid .cell{display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:12px;font-weight:700;cursor:pointer;border:1px solid var(--border);background:var(--surface2);color:var(--text2);transition:all .1s;position:relative;min-width:0;min-height:0;user-select:none;overflow:hidden;}
+.ring-grid .cell:hover{border-color:var(--accent2);z-index:2;transform:scale(1.05);}
+.ring-grid .cell.df{background:#162535;color:#6b8aaa;}
+.ring-grid .cell.d1,.ring-grid .cell.d2{background:#162a24;color:#5a9a8a;}
+.ring-grid .cell.d3{background:#24281a;color:#baa84a;}
+.ring-grid .cell.d5{background:#1a281a;color:#4aca6a;}
+.ring-grid .cell.db{background:#251a30;color:#aa7aea;}
+.ring-grid .cell.dn{background:#301a1a;color:#ea6a6a;}
+.ring-grid .cell.dm{background:#24281a;color:#baa84a;}
+.ring-grid .cell.dh{background:#30201a;color:#ea9a4a;}
+
+/* ===== Segments ===== */
+.seg-badges{display:flex;gap:4px;flex-shrink:0;margin-bottom:3px;height:20px;}
+.seg-badge{flex:1;display:flex;align-items:center;justify-content:center;border-radius:3px;font-size:9px;font-weight:600;background:var(--surface2);border:1px solid var(--border);color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 4px;}
+.seg-badge.done{background:rgba(0,212,170,0.1);border-color:var(--accent);color:var(--accent);}
+.seg-badge.cur{background:rgba(0,180,216,0.1);border-color:var(--accent2);color:var(--accent2);}
+
+/* ===== Hub ===== */
+.hub-view{flex:1;display:flex;align-items:center;justify-content:center;overflow-y:auto;}
+.hub-bg{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.hub-bg .orb{position:absolute;border-radius:50%;filter:blur(120px);opacity:0.35;}
+.hub-bg .orb:nth-child(1){width:600px;height:600px;background:radial-gradient(circle,rgba(79,110,246,0.2),transparent);top:-200px;left:-100px;}
+.hub-bg .orb:nth-child(2){width:500px;height:500px;background:radial-gradient(circle,rgba(124,92,252,0.15),transparent);bottom:-150px;right:-100px;}
+.hub-bg .orb:nth-child(3){width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.1),transparent);top:50%;left:50%;transform:translate(-50%,-50%);}
+.hub-main{position:relative;z-index:1;text-align:center;padding:24px;max-width:640px;width:100%;}
+.hub-icon{display:inline-block;width:60px;height:60px;line-height:60px;font-size:32px;background:linear-gradient(135deg,var(--accent3),var(--accent4));border-radius:18px;margin-bottom:12px;box-shadow:0 8px 28px rgba(79,110,246,0.25);}
+.hub-title{font-size:32px;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,#e8e8ed,#a0a0c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;word-break:break-all;}
+.hub-sub{font-size:14px;color:var(--text2);margin-top:6px;}
+.hub-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px;}
+.hub-card{display:block;text-decoration:none;color:inherit;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:24px 20px;cursor:pointer;transition:all .3s cubic-bezier(.25,.8,.25,1.2);text-align:left;position:relative;overflow:hidden;}
+.hub-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;background:radial-gradient(ellipse at 50% 0%,rgba(79,110,246,0.12),transparent 70%);}
+.hub-card:hover{border-color:rgba(79,110,246,0.3);transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,0.4);}
+.hub-card:hover::before{opacity:1;}
+.hub-card .ci{font-size:36px;display:block;margin-bottom:10px;position:relative;z-index:1;}
+.hub-card .ct{font-size:17px;font-weight:700;margin-bottom:4px;position:relative;z-index:1;}
+.hub-card .cd{font-size:12px;color:var(--text2);line-height:1.5;position:relative;z-index:1;}
+.hub-card .tg{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;position:relative;z-index:1;}
+.hub-card .tg span{font-size:9px;padding:2px 7px;border-radius:9px;background:rgba(255,255,255,0.04);color:var(--text2);border:1px solid var(--border);}
+.hub-ft{font-size:10px;color:rgba(255,255,255,0.3);margin-top:32px;line-height:1.8;}
+.hub-ft i{margin:0 6px;}
+
+/* ===== Empty state ===== */
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--text2);gap:10px;text-align:center;padding:20px;}
+.empty-state .icon{font-size:48px;opacity:0.2;}
+
+/* ===== Modal ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:flex;align-items:center;justify-content:center;padding:12px;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;max-width:440px;width:100%;max-height:85vh;overflow-y:auto;}
+.modal h3{margin-bottom:10px;font-size:14px;}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;max-height:35vh;overflow-y:auto;margin-bottom:8px;}
+.modal-item{padding:6px 7px;background:var(--surface2);border-radius:3px;cursor:pointer;font-size:11px;border:1px solid transparent;transition:all .1s;word-break:break-all;}
+.modal-item:hover{background:var(--surface);}
+.modal-item.sel{border-color:var(--accent);background:rgba(0,212,170,0.08);color:var(--accent);}
+
+/* ===== Report ===== */
+.report-sec{margin-bottom:12px;}
+.report-sec h4{font-size:11px;color:var(--accent);margin-bottom:5px;}
+.stat-row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(26,39,64,0.5);font-size:11px;gap:8px;}
+.stat-row .val{font-weight:600;text-align:right;word-break:break-all;}
+
+/* ===== Tables & Cards ===== */
+.rw-table{width:100%;border-collapse:collapse;font-size:11px;}
+.rw-table th{text-align:left;padding:4px 6px;border-bottom:1px solid var(--border);color:var(--text2);font-weight:500;font-size:9px;}
+.rw-table td{padding:4px 6px;border-bottom:1px solid rgba(26,39,64,0.5);}
+.rw-table tr.hl{background:rgba(0,212,170,0.06);}
+.rw-table tr.hl td:first-child{color:var(--accent);font-weight:600;}
+.hist-item{display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:4px;margin-bottom:3px;border:1px solid transparent;font-size:11px;gap:8px;}
+.hist-item:hover{border-color:var(--border);}
+.hist-item .score,.hist-item .cost{font-size:13px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.stat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px;}
+.stat-card{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:8px;text-align:center;}
+.stat-card .lbl{font-size:9px;color:var(--text2);}
+.stat-card .val{font-size:16px;font-weight:700;margin-top:1px;}
+
+/* ===== Utilities ===== */
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.tag{display:inline-block;padding:1px 5px;border-radius:2px;font-size:9px;font-weight:500;}
+.tag-g{background:rgba(0,212,170,0.15);color:var(--accent);}
+.tag-b{background:rgba(0,180,216,0.15);color:var(--accent2);}
+.tag-r{background:rgba(239,68,68,0.15);color:var(--danger);}
+.tag-y{background:rgba(245,158,11,0.15);color:var(--warn);}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:5px 14px;border-radius:14px;font-size:11px;font-weight:600;z-index:200;animation:ti .3s ease;}
+@keyframes ti{from{opacity:0;transform:translateX(-50%) translateY(8px);}}
+
+/* ==================== MOBILE ==================== */
+@media(max-width:768px){
+  .app{padding:2px 4px;}
+  body{font-size:12px;}
+
+  .header{min-height:36px;padding:0 6px;gap:4px;flex-wrap:wrap;}
+  .header-l h1{font-size:12px;overflow:hidden;text-overflow:ellipsis;max-width:140px;}
+  .header-l h1 span{font-size:9px;}
+  .header-r{gap:3px;}
+  .header-r .btn{padding:3px 6px;font-size:9px;}
+  .header-r .btn-a{padding:3px 8px;font-size:10px;}
+  #user-select{max-width:66px;font-size:10px;}
+  .header .clock{font-size:9px;min-width:auto;}
+  .lv{font-size:9px;gap:2px;}
+  .lv input{width:40px;font-size:10px;padding:2px;}
+
+  .tabs{height:26px;}
+  .tab{font-size:9px;padding:0 6px;overflow:hidden;}
+
+  .strip{min-height:24px;gap:2px 5px;padding:3px 6px;font-size:9px;}
+  .strip .sd:nth-child(8),.strip .sd:nth-child(10){display:none;}
+  .prog-inline{flex:1 1 100%;height:2px;margin-top:1px;}
+
+  .minimap.pet{grid-template-columns:repeat(20,1fr);height:14px;}
+  .minimap.chain{grid-template-columns:repeat(20,1fr);height:10px;}
+  .minimap{margin-bottom:2px;}
+
+  .seg-badges{height:16px;gap:2px;}
+  .seg-badge{font-size:7px;padding:0 2px;}
+
+  .quick-bar{padding:3px 4px;gap:2px;min-height:auto;}
+  .quick-bar .qb-num{font-size:16px;min-width:28px;}
+  .quick-bar .qb-t{padding:2px 4px;font-size:9px;}
+  .quick-bar .qb-input{width:56px;font-size:9px;padding:2px 4px;}
+  .quick-bar .qb-go{padding:3px 8px;font-size:10px;}
+  .quick-bar .qb-skip{padding:2px 5px;font-size:9px;}
+
+  .ring-grid-wrap{padding:2px;}
+  .ring-grid.x10{gap:1px;}
+  .ring-grid.x15{grid-template-columns:repeat(10,1fr);grid-template-rows:repeat(30,1fr);gap:1px;}
+  .ring-grid .cell{font-size:8px;border-radius:2px;border-width:0.5px;}
+
+  .hub-main{padding:16px 12px;}
+  .hub-icon{width:48px;height:48px;line-height:48px;font-size:26px;border-radius:14px;}
+  .hub-title{font-size:22px;}
+  .hub-sub{font-size:12px;}
+  .hub-cards{grid-template-columns:1fr;gap:10px;margin-top:20px;}
+  .hub-card{padding:18px 14px;border-radius:10px;}
+  .hub-card .ci{font-size:28px;}
+  .hub-card .ct{font-size:15px;}
+  .hub-card .cd{font-size:11px;}
+
+  .modal{max-width:100%!important;width:98%;padding:12px;border-radius:8px;max-height:90vh;}
+  .modal h3{font-size:13px;margin-bottom:8px;overflow-wrap:break-word;}
+  .modal-item{font-size:10px;padding:6px 5px;}
+  .modal-grid{grid-template-columns:1fr 1fr;gap:2px;}
+  .modal-grid[style*="repeat(3"]{grid-template-columns:repeat(2,1fr)!important;}
+
+  .stat-cards{grid-template-columns:repeat(2,1fr);gap:4px;}
+  .stat-card{padding:6px;}
+  .stat-card .val{font-size:14px;}
+  .stat-card .lbl{font-size:8px;}
+
+  .hist-item{flex-direction:column;align-items:flex-start;gap:4px;}
+  .hist-item .score,.hist-item .cost{font-size:12px;}
+
+  .btn-xs{padding:3px 6px;font-size:9px;}
+  .toast{font-size:10px;padding:4px 12px;bottom:10px;}
+  .report-sec h4{font-size:10px;}
+  .stat-row{font-size:10px;}
+  .rw-table{font-size:9px;}
+  .rw-table th,.rw-table td{padding:3px 4px;}
+  .ring-grid-h{font-size:8px;}
+
+  #bf-track{height:28px;}
+  .hub-ft{font-size:9px;margin-top:24px;line-height:2;}
+}
+
+@media(max-width:400px){
+  .header-l h1{font-size:10px;max-width:100px;}
+  #btn-help,#live-clock,.header .clock{display:none;}
+  .header-r{gap:2px;}
+  .header-r .btn{padding:2px 4px;font-size:8px;}
+  #user-select{max-width:52px;font-size:9px;}
+  .lv input{width:34px;font-size:9px;}
+  .tabs{height:24px;}
+  .tab{font-size:8px;padding:0 3px;}
+  .ring-grid .cell{font-size:6px;}
+  .ring-grid.x15 .cell{font-size:6px;}
+  .quick-bar .qb-t{font-size:8px;padding:2px 3px;}
+  .hub-title{font-size:18px;}
+  .seg-badge{font-size:6px;}
+  .hub-bg .orb:nth-child(1){width:300px;height:300px;}
+  .hub-bg .orb:nth-child(2){width:250px;height:250px;}
+}
+
+@media(pointer:coarse){
+  .btn,.tab,.modal-item,.cell,.qb-t,.hub-card{min-height:36px;}
+  .ring-grid .cell{min-height:28px;}
+  .ring-grid.x15 .cell{min-height:22px;}
+  .bf-task{min-height:32px;padding:4px 8px;}
+}
+
+/* ===== 收益账本 ===== */
+.period-bar{display:flex;gap:4px;align-items:center;margin-bottom:8px;flex-wrap:wrap;}
+.seg-btn{padding:3px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;color:var(--text2);font-size:11px;cursor:pointer;transition:all .15s;}
+.seg-btn:hover{border-color:var(--accent2);color:var(--text);}
+.seg-btn.on{background:rgba(0,212,170,.12);border-color:var(--accent);color:var(--accent);font-weight:600;}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:8px;}
+.kpi{background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:7px 9px;}
+.kpi .k{font-size:9px;color:var(--text2);margin-bottom:2px;letter-spacing:.5px;}
+.kpi .v{font-size:17px;font-weight:700;line-height:1.15;font-variant-numeric:tabular-nums;}
+.kpi .s{font-size:9px;color:var(--text2);margin-top:1px;}
+.kpi.hl{border-color:rgba(0,212,170,.45);background:linear-gradient(135deg,rgba(0,212,170,.10),rgba(0,180,216,.04));}
+.pos{color:var(--accent);}
+.neg{color:var(--danger);}
+.mute{color:var(--text2);}
+.ledger-wrap{padding:10px;overflow-y:auto;flex:1;min-height:0;}
+.ledger-row{display:flex;align-items:center;gap:10px;padding:7px 9px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;margin-bottom:4px;cursor:pointer;transition:border-color .15s;}
+.ledger-row:hover{border-color:var(--accent2);}
+.ledger-row .lr-l{flex:1;min-width:0;}
+.ledger-row .lr-t{font-weight:600;font-size:12px;display:flex;align-items:center;gap:6px;}
+.ledger-row .lr-d{font-size:9px;color:var(--text2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ledger-row .lr-n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ledger-row .lr-n b{font-size:13px;}
+.ledger-row .lr-n span{display:block;font-size:9px;color:var(--text2);}
+.tag-un{display:inline-block;padding:1px 5px;border-radius:3px;background:rgba(245,158,11,.15);color:var(--warn);font-size:9px;font-weight:600;}
+.tag-tool{display:inline-block;padding:1px 5px;border-radius:3px;background:rgba(0,180,216,.14);color:var(--accent2);font-size:9px;}
+.cost-bar{height:8px;display:flex;border-radius:4px;overflow:hidden;margin:4px 0 6px;background:var(--bg);}
+.cost-bar i{display:block;height:100%;}
+.cost-legend{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:10px;color:var(--text2);}
+.cost-legend em{display:inline-block;width:7px;height:7px;border-radius:2px;margin-right:4px;vertical-align:middle;}
+.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px 8px;}
+.price-row{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:2px 0;}
+.price-row label{font-size:10px;color:var(--text2);white-space:nowrap;}
+.price-row input{width:74px;padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;text-align:right;}
+.gold-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:9px 11px;margin-top:10px;max-width:520px;width:100%;}
+.gold-card .gt{font-size:11px;font-weight:600;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;}
+.gold-row{display:flex;align-items:center;gap:6px;font-size:11px;margin-bottom:5px;flex-wrap:wrap;}
+.gold-row input{width:88px;padding:3px 5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;text-align:right;}
+.gold-row .eq{color:var(--text2);font-size:10px;}
+.gold-res{color:var(--warn);font-weight:700;font-variant-numeric:tabular-nums;}
+.detail-sec{margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+.detail-sec h4{font-size:10px;color:var(--accent2);margin-bottom:4px;letter-spacing:.5px;}
+.undo-btn{color:var(--warn);border-color:rgba(245,158,11,.45)!important;}
+.item-chips-row{display:flex;gap:4px;align-items:center;padding:0 2px 3px;flex-wrap:wrap;flex-shrink:0;}
+.item-chips-row .lbl{font-size:9px;color:var(--text2);margin-right:2px;}
+.chip-item{padding:1px 7px;border-radius:9px;background:rgba(0,180,216,.10);border:1px solid rgba(0,180,216,.28);color:var(--accent2);font-size:10px;cursor:pointer;}
+.chip-item:hover{background:rgba(0,180,216,.2);}
+.kbd-hint{font-size:9px;color:var(--text2);opacity:.75;margin-left:6px;white-space:nowrap;}
+.kbd-hint kbd{background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:0 3px;font-family:inherit;font-size:9px;}
+@keyframes jumpFlash{0%{box-shadow:0 0 0 0 rgba(0,212,170,.9);background:rgba(0,212,170,.35);}100%{box-shadow:0 0 0 10px rgba(0,212,170,0);background:transparent;}}
+.cell.jump-hl{animation:jumpFlash .9s ease-out;}
+.pause-tag{font-size:9px;color:var(--warn);border:1px solid rgba(245,158,11,.4);border-radius:3px;padding:0 4px;}
+@media(pointer:coarse){.kbd-hint{display:none;}}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr);}.price-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="app" id="app"></div>
+<div id="toast-container"></div>
+
+<script>
+
+// ==================== CONSTANTS + 纯函数（@core 区间，可单测） ====================
+/* @core:start */
+const PT=[{id:'find_npc',name:'找人',icon:'👤',sc:1,cat:'f',cost:0},{id:'equip60',name:'60环装',icon:'⚔️',sc:2,cat:'l',cost:180000},{id:'equip70',name:'70环装',icon:'🗡️',sc:3,cat:'l',cost:120000},{id:'food_drug',name:'烹饪/三药',icon:'🍖',sc:2,cat:'l',cost:20000},{id:'furniture1',name:'1级家具',icon:'🪑',sc:2,cat:'l',cost:30000},{id:'flower',name:'花卉',icon:'🌸',sc:4,cat:'m',cost:50000},{id:'instrument',name:'乐器',icon:'🎵',sc:4,cat:'m',cost:80000},{id:'equip80',name:'80环装',icon:'🔪',sc:5,cat:'h',cost:450000},{id:'furniture2',name:'2级家具',icon:'🛋️',sc:5,cat:'h',cost:50000},{id:'variant_nonspecific',name:'非指定变异',icon:'🐉',sc:5,cat:'h',cost:2500000},{id:'variant_specific',name:'指定变异',icon:'⭐',sc:10,cat:'b',cost:6000000},{id:'variant_substitute',name:'普通宠替变异',icon:'❌',sc:-15,cat:'n',cost:10000},{id:'skip',name:'跳过任务',icon:'⏭️',sc:-20,cat:'n',cost:0}];
+
+const CT=[{id:'find_npc',name:'寻人',icon:'👤',cat:'f',cost:0},{id:'battle',name:'战斗',icon:'⚔️',cat:'f',cost:0},{id:'capture',name:'寻宠',icon:'🐾',cat:'f',cost:0},{id:'equip60_3',name:'60环装',icon:'🛡️',cat:'l',cost:80000},{id:'equip70_3',name:'70环装',icon:'🗡️',cat:'m',cost:120000},{id:'equip80_3',name:'80环装',icon:'🔪',cat:'h',cost:450000},{id:'food_3',name:'烹饪',icon:'🍖',cat:'l',cost:15000},{id:'drug_3',name:'三药',icon:'💊',cat:'l',cost:20000},{id:'flower_3',name:'花卉',icon:'🌸',cat:'m',cost:50000},{id:'instrument_3',name:'乐器',icon:'🎵',cat:'m',cost:60000},{id:'beast_book',name:'兽诀',icon:'📖',cat:'h',cost:800000},{id:'gem',name:'宝石',icon:'💎',cat:'l',cost:50000},{id:'c66',name:'金柳露',icon:'🧪',cat:'l',cost:80000}];
+
+const BOOK_WEAPONS=['刀','剑','扇','枪','锤','斧','鞭','环圈','双剑','爪刺','弓','弩'];
+const BOOK_ARMORS=['头盔','项链','衣服','鞋子','腰带'];
+const BOOK_LVLS=[150,140,130,120,110,100,90,80];
+const P_DEFAULT_PRICES={};PT.forEach(t=>{P_DEFAULT_PRICES[t.id]=t.cost||0;});
+const C_DEFAULT_PRICES={};CT.forEach(t=>{C_DEFAULT_PRICES[t.id]=t.cost||0;});
+
+const REWARD_TIERS=[{minB:-999,maxB:79,label:'80书铁(保底)',color:'#9ca3af'},{minB:80,maxB:89,label:'80书铁',color:'#9ca3af'},{minB:90,maxB:99,label:'90书铁',color:'#60a5fa'},{minB:100,maxB:109,label:'100书铁',color:'#818cf8'},{minB:110,maxB:119,label:'110书铁',color:'#a78bfa'},{minB:120,maxB:129,label:'120书铁',color:'#c084fc'},{minB:130,maxB:139,label:'130书铁',color:'#e879f9'},{minB:140,maxB:149,label:'140书铁',color:'#f472b6'},{minB:150,maxB:999,label:'150书铁/战魄',color:'#22d3ee'}];
+
+const EXP_TABLE=[3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,6,6,6,6,7,7,7,7,7,7,7,7,7,7,8,8,8,8,8,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,10,10,10,10,10,10,10,10,10,10,11,11,11,11,11,11,11,11,11,11,12,12,12,12,12,12,12,12,12,13];
+const EXP_TOTAL=EXP_TABLE.reduce((a,b)=>a+b,0); // 751
+
+// ---- 奖励价目表（单位：两）----
+const DEFAULT_REWARD_PRICES={version:1,
+  books:{80:200000,90:350000,100:1000000,110:1500000,120:4000000,130:10000000,140:20000000,150:50000000},
+  irons:{80:120000,90:200000,100:600000,110:900000,120:2400000,130:6000000,140:12000000,150:30000000},
+  zhanpo:80000000,
+  lingshi:{120:3000000,140:12000000},
+  items:{xiulian_guo:500000,xiulian_200:600000,furniture3:2000000}};
+
+// ---- 金价 / 点卡 / 目标时薪（全局，不分角色）----
+const DEFAULT_MONEY_CFG={version:2,wanPerYuan:3000/202,ratioWan:3000,ratioYuan:202,pointCostYuanPerHour:0.4,targetHourlyYuan:10};
+
+function toAmount(v){const n=Number(v);return Number.isFinite(n)&&n>=0?n:0;}
+function cloneJSON(o){return JSON.parse(JSON.stringify(o));}
+
+// 价格计算：用户显式设 0 表示免费，不再回退默认价（修 hub 原版 `||` 吞 0 的问题）
+function pGetT(id){return PT.find(t=>t.id===id);}
+function cGetT(id){return CT.find(t=>t.id===id);}
+function getPrice(prices,tid,defaults){
+  if(!tid)return 0;
+  if(prices&&Object.prototype.hasOwnProperty.call(prices,tid))return toAmount(prices[tid]);
+  if(defaults&&Object.prototype.hasOwnProperty.call(defaults,tid))return toAmount(defaults[tid]);
+  return 0;
+}
+function ringCost(ring,prices,defaults){if(!ring||!ring.t)return 0;return getPrice(prices,ring.t,defaults);}
+function totalCostOf(rings,prices,defaults){if(!Array.isArray(rings))return 0;return rings.reduce((s,r)=>s+ringCost(r,prices,defaults),0);}
+
+// ---- 5 个核心公式 ----
+function pBookLevel(sc,lv){let raw=sc+Math.floor(lv/3)-130;raw=Math.floor(raw/10)*10;return Math.max(80,Math.min(150,raw));}
+function pGetTier(sc,lv){const bl=pBookLevel(sc,lv);if(bl<=80)return REWARD_TIERS[0];for(let i=REWARD_TIERS.length-1;i>=0;i--)if(bl>=REWARD_TIERS[i].minB)return REWARD_TIERS[i];return REWARD_TIERS[0];}
+function pExp(rings){let e=0;for(let i=1;i<=100;i++)if(rings&&rings[i-1]&&rings[i-1].t)e+=EXP_TABLE[i-1]||0;return Math.min(e,EXP_TOTAL);}
+function cRewardRange(lv){
+  if(lv>=156)return{min:130,max:140,has150:true,hasLingshi:lv>=110};
+  if(lv>=140)return{min:130,max:140,has150:false,hasLingshi:lv>=110};
+  const lo=lv-10,hi=lv+10;return{min:Math.max(80,lo),max:Math.max(80,Math.min(150,hi)),has150:false,hasLingshi:lv>=110};
+}
+// 先对齐到 10 的倍数再递降，避免出现 109/119/139 这类不存在的书铁等级
+function cBookLevels(lv){
+  const r=cRewardRange(lv),lvls=[];
+  const start=Math.floor(r.max/10)*10,min=Math.ceil(Math.max(80,r.min)/10)*10;
+  for(let l=start;l>=min;l-=10)lvls.push(l);
+  if(r.has150&&lvls.indexOf(150)<0)lvls.unshift(150);
+  return lvls;
+}
+
+// ---- 奖励价目表：归一整 + 单项估值 ----
+function normalizeRewardPrices(raw){
+  const d=cloneJSON(DEFAULT_REWARD_PRICES);
+  if(!raw||typeof raw!=='object')return d;
+  const out={version:1,
+    books:Object.assign({},d.books,raw.books||{}),
+    irons:Object.assign({},d.irons,raw.irons||{}),
+    lingshi:Object.assign({},d.lingshi,raw.lingshi||{}),
+    items:Object.assign({},d.items,raw.items||{}),
+    zhanpo:toAmount(raw.zhanpo)||d.zhanpo};
+  ['books','irons','lingshi','items'].forEach(k=>{Object.keys(out[k]).forEach(l=>{out[k][l]=toAmount(out[k][l]);});});
+  return out;
+}
+function rewardUnitPrice(prices,item){
+  if(!item)return 0;
+  const t=normalizeRewardPrices(prices),level=Number(item.level)||0;
+  switch(item.kind){
+    case'book':return toAmount(t.books[level]);
+    case'iron':return toAmount(t.irons[level]);
+    case'zhanpo':return toAmount(t.zhanpo);
+    case'lingshi_book':case'lingshi_stone':return toAmount(t.lingshi[level]);
+    case'xiulian_guo':case'xiulian_200':case'furniture3':return toAmount(t.items[item.kind]);
+    default:return toAmount(item.unitPrice);
+  }
+}
+// 奖励文字 → 结构化奖励项：150级制造指南书-剑 / 120级百炼精铁 / 160级战魄 / 修炼果 / 120灵饰指南书
+function parseRewardText(text){
+  if(!text||typeof text!=='string')return null;
+  const s=text.trim();if(!s)return null;
+  if(s==='战魄'||/^160级战魄$/.test(s))return{kind:'zhanpo',name:'160级战魄'};
+  let m=s.match(/^(\d{2,3})级制造指南书(?:-(.+))?$/);if(m)return{kind:'book',level:Number(m[1]),subType:m[2]||'',name:s};
+  m=s.match(/^(\d{2,3})级百炼精铁$/);if(m)return{kind:'iron',level:Number(m[1]),name:s};
+  m=s.match(/^(\d{2,3})灵饰指南书$/);if(m)return{kind:'lingshi_book',level:Number(m[1]),name:s};
+  m=s.match(/^(\d{2,3})元灵晶石$/);if(m)return{kind:'lingshi_stone',level:Number(m[1]),name:s};
+  if(s==='修炼果')return{kind:'xiulian_guo',name:s};
+  if(s==='200修炼点')return{kind:'xiulian_200',name:s};
+  if(s==='3级家具设计图')return{kind:'furniture3',name:s};
+  return{kind:'other',name:s};
+}
+function valueIncomeItems(items,prices){
+  return(Array.isArray(items)?items:[]).map(item=>{
+    if(!item||typeof item!=='object')return null;
+    const manual=Number(item.unitPrice);
+    const unitPrice=Number.isFinite(manual)&&manual>0?manual:rewardUnitPrice(prices,item);
+    const qty=Number(item.qty)>0?Number(item.qty):1;
+    return Object.assign({},item,{qty,unitPrice,amount:unitPrice*qty});
+  }).filter(Boolean);
+}
+
+// ---- 金价换算 ----
+function normalizeMoneyCfg(raw){
+  const d=DEFAULT_MONEY_CFG;
+  const out={version:2,wanPerYuan:d.wanPerYuan,ratioWan:d.ratioWan,ratioYuan:d.ratioYuan,
+    pointCostYuanPerHour:d.pointCostYuanPerHour,targetHourlyYuan:d.targetHourlyYuan};
+  if(!raw||typeof raw!=='object')return out;
+  const pos=(v,f)=>Number(v)>0?Number(v):f;
+  out.pointCostYuanPerHour=pos(raw.pointCostYuanPerHour,d.pointCostYuanPerHour);
+  out.targetHourlyYuan=pos(raw.targetHourlyYuan,d.targetHourlyYuan);
+  const wan=Number(raw.ratioWan),yuan=Number(raw.ratioYuan);
+  if(wan>0&&yuan>0){out.ratioWan=wan;out.ratioYuan=yuan;out.wanPerYuan=wan/yuan;}
+  else if(Number(raw.wanPerYuan)>0){out.wanPerYuan=Number(raw.wanPerYuan);out.ratioWan=out.wanPerYuan;out.ratioYuan=1;}
+  return out;
+}
+function wanToYuan(wan,cfg){const c=normalizeMoneyCfg(cfg),n=Number(wan);return Number.isFinite(n)?n/c.wanPerYuan:null;}
+function yuanToWan(yuan,cfg){const c=normalizeMoneyCfg(cfg),n=Number(yuan);return Number.isFinite(n)?n*c.wanPerYuan:null;}
+function ratioText(cfg){const c=normalizeMoneyCfg(cfg);
+  const f=(n,d)=>{const s=Number(n).toFixed(d===undefined?2:d);return s.replace(/\.0+$/,'').replace(/(\.\d*[1-9])0+$/,'$1');};
+  return f(c.ratioWan,0)+' 万两 = '+f(c.ratioYuan,2)+' 元 · 1 元 ≈ '+c.wanPerYuan.toFixed(2)+' 万两';}
+function fmtWan(liang,digits){if(liang===null||liang===undefined)return'—';const n=Number(liang);if(!Number.isFinite(n))return'—';return(n/10000).toFixed(digits===undefined?1:digits);}
+function formatAmount(liang,cfg,currency){
+  if(liang===null||liang===undefined)return'—';
+  const n=Number(liang);if(!Number.isFinite(n))return'—';
+  const wan=n/10000;
+  if(currency==='yuan'){const y=wanToYuan(wan,cfg);return y===null?'—':y.toFixed(2)+' 元';}
+  return wan.toFixed(1)+' 万两';
+}
+function formatHourly(hourlyLiang,cfg,currency){if(hourlyLiang===null||hourlyLiang===undefined)return'—';return formatAmount(hourlyLiang,cfg,currency)+'/时';}
+
+// ---- 账本核心 ----
+function buildCostItems(rings,prices,defaults){
+  const map=new Map();
+  (Array.isArray(rings)?rings:[]).forEach(ring=>{
+    if(!ring||!ring.t)return;
+    let it=map.get(ring.t);
+    if(!it){const def=pGetT(ring.t)||cGetT(ring.t);it={tid:ring.t,name:def?def.name:ring.t,qty:0,unitPrice:getPrice(prices,ring.t,defaults),amount:0};map.set(ring.t,it);}
+    it.qty+=1;it.amount=it.unitPrice*it.qty;
+  });
+  return Array.from(map.values());
+}
+function isBooked(run){return!!(run&&typeof run.income==='number'&&Array.isArray(run.incomeItems));}
+// 有效工作时长（分钟）：扣除暂停累计与当前暂停段
+function effectiveDurationMin(opts,now){
+  const o=opts||{},startedAt=Number(o.startedAt)||0,doneAt=Number(o.doneAt)||0;
+  const end=doneAt||Number(now)||Date.now();
+  if(!startedAt||end<=startedAt)return null;
+  let ms=end-startedAt-toAmount(o.pausedMs);
+  if(o.pausedAt)ms-=Math.max(0,end-Number(o.pausedAt));
+  return Math.max(0,Math.round(ms/60000));
+}
+// 单轮汇总：成本 / 收入 / 利润 / ROI / 净收益率 / 时长 / 时薪
+function summarizeRun(opts){
+  const o=opts||{};
+  const costItems=buildCostItems(o.rings,o.prices,o.defaults);
+  const baseCost=costItems.reduce((s,it)=>s+it.amount,0);
+  const extraCost=toAmount(o.extraCost);
+  const cost=baseCost+extraCost;
+  const incomeItems=valueIncomeItems(o.incomeItems,o.rewardPrices);
+  const income=incomeItems.reduce((s,it)=>s+it.amount,0);
+  const profit=income-cost;
+  const roi=cost>0?income/cost:null;
+  const netRate=cost>0?profit/cost:null;
+  const durationMin=(o.durationMin!==undefined&&o.durationMin!==null&&Number.isFinite(Number(o.durationMin)))
+    ?Number(o.durationMin):effectiveDurationMin(o,o.now);
+  const hourly=durationMin!==null&&durationMin>=5?profit/(durationMin/60):null;
+  return{costItems,extraCost,cost,incomeItems,income,profit,roi,netRate,durationMin,hourly};
+}
+function periodStart(period,now){
+  const t=Number(now)||Date.now(),d=new Date(t);
+  if(period==='today')return new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();
+  if(period==='7d')return new Date(d.getFullYear(),d.getMonth(),d.getDate()-6).getTime();
+  if(period==='30d')return new Date(d.getFullYear(),d.getMonth(),d.getDate()-29).getTime();
+  if(period==='month')return new Date(d.getFullYear(),d.getMonth(),1).getTime();
+  return null;
+}
+function runTime(run){return Number(run&&(run.doneAt||run.settledAt))||0;}
+function filterRunsByPeriod(runs,period,now){
+  const list=Array.isArray(runs)?runs:[];
+  const start=periodStart(period,now);
+  if(start===null)return list.slice();
+  return list.filter(run=>{const t=runTime(run);return t>0&&t>=start;});
+}
+function runCost(run){if(!run)return 0;if(typeof run.cost==='number')return run.cost;return toAmount(run.totalCost)+toAmount(run.extraCost);}
+// 多轮汇总：只统计已记账轮次，未记账单独计数
+function aggregateRuns(runs){
+  const list=Array.isArray(runs)?runs:[],booked=list.filter(isBooked);
+  const totalCost=booked.reduce((s,r)=>s+runCost(r),0);
+  const totalIncome=booked.reduce((s,r)=>s+toAmount(r.income),0);
+  const totalProfit=booked.reduce((s,r)=>s+Number(r.profit||0),0);
+  const count=booked.length;
+  const totalHours=booked.reduce((s,r)=>{const d=Number(r.durationMin);return Number.isFinite(d)&&d>=5?s+d/60:s;},0);
+  const winCount=booked.filter(r=>Number(r.profit)>0).length;
+  const daySet={};
+  booked.forEach(r=>{const t=runTime(r);if(!t)return;const d=new Date(t);daySet[d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()]=true;});
+  const activeDays=Object.keys(daySet).length;
+  const dailyAvgProfit=activeDays?totalProfit/activeDays:null;
+  return{totalCost,totalIncome,totalProfit,count,unbooked:list.length-count,
+    roi:totalCost>0?totalIncome/totalCost:null,netRate:totalCost>0?totalProfit/totalCost:null,
+    avgProfit:count?totalProfit/count:null,hourly:totalHours>0?totalProfit/totalHours:null,
+    totalHours,activeDays,dailyAvgProfit,monthEstimate:dailyAvgProfit===null?null:dailyAvgProfit*30,
+    winRate:count?winCount/count:null};
+}
+/* @core:end */
+
+// ==================== DATA LAYER ====================
+function ld(k,f){try{const v=localStorage.getItem(k);return v?JSON.parse(v):f;}catch(e){return f;}}
+function sv(k,d){try{localStorage.setItem(k,JSON.stringify(d));}catch(e){toast('存储空间不足');}}
+
+let users=ld('mhxy_users',[]),activeUser=ld('mhxy_active',null);
+function ukey(k){return`mhxy_${k}_${activeUser}`;}
+function ukey3(k){return`mhxy3_${k}_${activeUser}`;}
+
+if(!users.length){
+  const du={id:'user_'+Date.now(),name:'默认角色',createdAt:Date.now()};
+  users=[du];activeUser=du.id;sv('mhxy_users',users);sv('mhxy_active',activeUser);
+  // Migrate old global data
+  const op=ld('mhxy_runs',null)||ld('mhxy_pet_ring_runs',null);
+  const oc=ld('mhxy_cur',null)||ld('mhxy_pet_ring_current',null);
+  const ocfg=ld('mhxy_cfg',null)||ld('mhxy_pet_ring_settings',null);
+  const opr=ld('mhxy_prices',null);
+  if(ocfg)sv(ukey('cfg'),ocfg);if(oc)sv(ukey('cur'),oc);if(op)sv(ukey('runs'),op);if(opr)sv(ukey('prices'),opr);
+  ['mhxy_runs','mhxy_cur','mhxy_cfg','mhxy_prices','mhxy_pet_ring_settings','mhxy_pet_ring_current','mhxy_pet_ring_runs'].forEach(k=>localStorage.removeItem(k));
+}
+if(!users.find(u=>u.id===activeUser)){activeUser=users[0]?.id||null;if(!activeUser){const du={id:'user_'+Date.now(),name:'默认角色',createdAt:Date.now()};users=[du];activeUser=du.id;sv('mhxy_users',users);}sv('mhxy_active',activeUser);}
+
+// Per-view state
+let pPrices=ld(ukey('prices'),{...P_DEFAULT_PRICES});
+let pCfg=ld(ukey('cfg'),{level:175});
+let pCur=ld(ukey('cur'),null);
+let pHist=ld(ukey('runs'),[]);
+
+let cPrices=ld(ukey3('prices'),{...C_DEFAULT_PRICES});
+let cCfg=ld(ukey3('cfg'),{level:175});
+let cCur=ld(ukey3('cur'),null);
+let cHist=ld(ukey3('runs'),[]);
+
+let vw='hub', tab='record', ctab='record', modalTask=null, ledgerPeriod='30d';
+
+// 奖励价目表（按角色）、金价配置（全局）、撤销栈
+function loadRewardPrices(uid){return normalizeRewardPrices(ld('mhxy_reward_prices_'+uid,null));}
+let rewardPrices=loadRewardPrices(activeUser);
+function saveRewardPrices(){sv('mhxy_reward_prices_'+activeUser,rewardPrices);}
+let moneyCfg=normalizeMoneyCfg(ld('mhxy_money_cfg',null));
+function saveMoneyCfg(){sv('mhxy_money_cfg',moneyCfg);}
+let undoStack=[];
+// 常用任务使用次数、物品名记忆（按角色）
+let taskUsage=ld('mhxy_task_usage_'+activeUser,{pet:{},chain:{}});
+let itemMemory=ld('mhxy_items_'+activeUser,[]);
+function saveTaskUsage(){sv('mhxy_task_usage_'+activeUser,taskUsage);}
+function saveItemMemory(){sv('mhxy_items_'+activeUser,itemMemory);}
+function bumpTask(tool,tid){
+  if(!tid)return;
+  taskUsage[tool]=taskUsage[tool]||{};
+  taskUsage[tool][tid]=(taskUsage[tool][tid]||0)+1;
+  saveTaskUsage();
+}
+function rememberItem(name){
+  const v=(name||'').trim();if(!v)return;
+  itemMemory=[v].concat(itemMemory.filter(x=>x!==v)).slice(0,12);
+  saveItemMemory();
+}
+// 按使用次数降序，次数相同保持原顺序（sort 稳定）
+function sortedTypes(tool){
+  const base=tool==='pet'?PT:CT,usage=(taskUsage&&taskUsage[tool])||{};
+  return base.slice().sort((a,b)=>(usage[b.id]||0)-(usage[a.id]||0));
+}
+function elapsedText(cur){
+  if(!cur)return'';
+  if(cur.pausedAt)return'已暂停';
+  const m=effectiveDurationMin(cur,Date.now());
+  if(m===null)return'';
+  const h=Math.floor(m/60);
+  return h>0?(h+'时'+(m%60)+'分'):(m+'分');
+}
+function togglePause(cur,tool){
+  if(!cur)return;
+  if(cur.pausedAt){cur.pausedMs=(cur.pausedMs||0)+(Date.now()-cur.pausedAt);delete cur.pausedAt;}
+  else{cur.pausedAt=Date.now();}
+  if(tool==='pet')pSave('cur',pCur);else cSave('cur',cCur);
+  renderAll();
+}
+function modalOpen(){return !!document.querySelector('.modal-overlay');}
+
+function pSave(k,d){sv(ukey(k),d);}
+function cSave(k,d){sv(ukey3(k),d);}
+
+// ==================== SHARED HELPERS ====================
+function toast(m){const c=document.getElementById('toast-container');const e=document.createElement('div');e.className='toast';e.textContent=m;c.appendChild(e);setTimeout(()=>e.remove(),2000);}
+function fmtDate(ts){const d=new Date(ts);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;}
+function cellClassPet(sc){if(sc===10)return'db';if(sc>=5)return'd5';if(sc>=3)return'd3';if(sc>=1)return'd1';if(sc<0)return'dn';return'';}
+function cellClassChain(t){if(!t)return'';const c=CT.find(x=>x.id===t)?.cat;if(c==='f')return'df';if(c==='l')return'd1';if(c==='m')return'dm';if(c==='h')return'dh';return'';}
+function pCost(r){return ringCost(r,pPrices,P_DEFAULT_PRICES);}
+function cCost(r){return ringCost(r,cPrices,C_DEFAULT_PRICES);}
+function totalCost(rings,fn){return rings?rings.reduce((s,r)=>s+fn(r),0):0;}
+
+function switchUser(uid){
+  if(activeUser){pSave('cfg',pCfg);pSave('cur',pCur);pSave('runs',pHist);pSave('prices',pPrices);cSave('cfg',cCfg);cSave('cur',cCur);cSave('runs',cHist);cSave('prices',cPrices);}
+  activeUser=uid;sv('mhxy_active',activeUser);
+  pPrices=ld(ukey('prices'),{...P_DEFAULT_PRICES});pCfg=ld(ukey('cfg'),{level:175});pCur=ld(ukey('cur'),null);pHist=ld(ukey('runs'),[]);
+  cPrices=ld(ukey3('prices'),{...C_DEFAULT_PRICES});cCfg=ld(ukey3('cfg'),{level:175});cCur=ld(ukey3('cur'),null);cHist=ld(ukey3('runs'),[]);
+  rewardPrices=loadRewardPrices(activeUser);undoStack=[];
+  taskUsage=ld('mhxy_task_usage_'+activeUser,{pet:{},chain:{}});itemMemory=ld('mhxy_items_'+activeUser,[]);
+  modalTask=null;renderAll();toast('已切换角色');
+}
+function createUser(name){
+  const nu={id:'user_'+Date.now(),name,createdAt:Date.now()};
+  users.push(nu);sv('mhxy_users',users);switchUser(nu.id);
+}
+function deleteUser(uid){
+  if(users.length<=1){toast('至少保留一个角色');return;}
+  ['cfg','cur','runs','prices'].forEach(k=>{localStorage.removeItem(`mhxy_${k}_${uid}`);localStorage.removeItem(`mhxy3_${k}_${uid}`);});
+  localStorage.removeItem('mhxy_reward_prices_'+uid);
+  users=users.filter(u=>u.id!==uid);sv('mhxy_users',users);
+  if(activeUser===uid)switchUser(users[0].id);
+}
+
+// ===== 整账号导出 / 导入（schemaVersion 2，兼容 hub v1 单工具导出）=====
+function reloadAllState(){
+  pPrices=ld(ukey('prices'),{...P_DEFAULT_PRICES});pCfg=ld(ukey('cfg'),{level:175});pCur=ld(ukey('cur'),null);pHist=ld(ukey('runs'),[]);
+  cPrices=ld(ukey3('prices'),{...C_DEFAULT_PRICES});cCfg=ld(ukey3('cfg'),{level:175});cCur=ld(ukey3('cur'),null);cHist=ld(ukey3('runs'),[]);
+  rewardPrices=loadRewardPrices(activeUser);moneyCfg=normalizeMoneyCfg(ld('mhxy_money_cfg',null));
+  taskUsage=ld('mhxy_task_usage_'+activeUser,{pet:{},chain:{}});itemMemory=ld('mhxy_items_'+activeUser,[]);
+  undoStack=[];modalTask=null;renderAll();
+}
+function exportAccount(){
+  // 先把内存状态落盘，避免导出到旧快照
+  pSave('cfg',pCfg);pSave('cur',pCur);pSave('runs',pHist);pSave('prices',pPrices);
+  cSave('cfg',cCfg);cSave('cur',cCur);cSave('runs',cHist);cSave('prices',cPrices);
+  saveRewardPrices();saveMoneyCfg();
+  const data={schemaVersion:2,app:'mhxy-getcash-box',appVersion:'0.1',exportedAt:new Date().toISOString(),activeUser,money:moneyCfg,
+    roles:users.map(u=>({id:u.id,name:u.name,createdAt:u.createdAt,
+      pet:{cfg:ld('mhxy_cfg_'+u.id,{level:175}),prices:ld('mhxy_prices_'+u.id,{...P_DEFAULT_PRICES}),runs:ld('mhxy_runs_'+u.id,[]),cur:ld('mhxy_cur_'+u.id,null)},
+      chain:{cfg:ld('mhxy3_cfg_'+u.id,{level:175}),prices:ld('mhxy3_prices_'+u.id,{...C_DEFAULT_PRICES}),runs:ld('mhxy3_runs_'+u.id,[]),cur:ld('mhxy3_cur_'+u.id,null)},
+      rewardPrices:normalizeRewardPrices(ld('mhxy_reward_prices_'+u.id,null))}))};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='mhxy-getcash-box-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  URL.revokeObjectURL(url);
+  toast('已导出 '+data.roles.length+' 个角色');
+}
+function importAccount(data){
+  if(!data||typeof data!=='object'){toast('导入失败：内容为空');return;}
+  const oldIds=users.map(u=>u.id);
+
+  // A. 本工具 v2：整账号快照，整份替换
+  if(Array.isArray(data.roles)&&data.roles.length){
+    if(!confirm('将用这份文件覆盖当前全部角色与记录，共 '+data.roles.length+' 个角色。继续？'))return;
+    const nextUsers=data.roles.map((r,i)=>({id:String(r.id||('user_'+Date.now()+'_'+i)),name:String(r.name||'角色').slice(0,12),createdAt:Number(r.createdAt)||Date.now()}));
+    oldIds.forEach(id=>['cfg','cur','runs','prices'].forEach(k=>{localStorage.removeItem('mhxy_'+k+'_'+id);localStorage.removeItem('mhxy3_'+k+'_'+id);}));
+    sv('mhxy_users',nextUsers);users=nextUsers;
+    data.roles.forEach((r,i)=>{
+      const uid=nextUsers[i].id,pet=r.pet||{},chain=r.chain||{};
+      sv('mhxy_cfg_'+uid,pet.cfg||{level:175});sv('mhxy_prices_'+uid,pet.prices||{...P_DEFAULT_PRICES});sv('mhxy_runs_'+uid,Array.isArray(pet.runs)?pet.runs:[]);
+      if(pet.cur)sv('mhxy_cur_'+uid,pet.cur);
+      sv('mhxy3_cfg_'+uid,chain.cfg||{level:175});sv('mhxy3_prices_'+uid,chain.prices||{...C_DEFAULT_PRICES});sv('mhxy3_runs_'+uid,Array.isArray(chain.runs)?chain.runs:[]);
+      if(chain.cur)sv('mhxy3_cur_'+uid,chain.cur);
+      sv('mhxy_reward_prices_'+uid,normalizeRewardPrices(r.rewardPrices));
+    });
+    activeUser=nextUsers[0].id;sv('mhxy_active',activeUser);
+    if(data.money){moneyCfg=normalizeMoneyCfg(data.money);saveMoneyCfg();}
+    reloadAllState();toast('已导入 '+nextUsers.length+' 个角色');
+    return;
+  }
+
+  // B. hub v1：单工具导出 {type, cfg, hist, prices, cur}，合并进当前角色
+  const legacyHist=data.hist||data.history;
+  if(Array.isArray(legacyHist)){
+    const isPet=data.type!=='chain',tool=isPet?'宠环':'人环';
+    if(!confirm('识别为 Web 版旧导出（'+tool+' '+legacyHist.length+' 条），合并到当前角色？'))return;
+    const existing=isPet?pHist:cHist;
+    const ids=new Set(existing.map(r=>String(r.id)));
+    const merged=legacyHist.filter(r=>r&&!ids.has(String(r.id))).concat(existing);
+    if(isPet){
+      pHist=merged;pSave('runs',pHist);
+      if(data.cfg){pCfg=Object.assign({},pCfg,data.cfg);pSave('cfg',pCfg);}
+      if(data.prices){pPrices=Object.assign({},pPrices,data.prices);pSave('prices',pPrices);}
+    }else{
+      cHist=merged;cSave('runs',cHist);
+      if(data.cfg){cCfg=Object.assign({},cCfg,data.cfg);cSave('cfg',cCfg);}
+      if(data.prices){cPrices=Object.assign({},cPrices,data.prices);cSave('prices',cPrices);}
+    }
+    renderAll();toast('已导入 '+legacyHist.length+' 条'+tool+'记录，未记账的可在账本补录');
+    return;
+  }
+  toast('无法识别的文件结构');
+}
+
+function pScore(){return pCur?pCur.rings.reduce((s,r)=>s+(r.sc||0),0):0;}
+function pComp(){return pCur?pCur.rings.filter(r=>r.t).length:0;}
+function pSkip(){return pCur?pCur.rings.filter(r=>r.t==='skip').length:0;}
+function cComp(){return cCur?cCur.rings.filter(r=>r.t).length:0;}
+function cSegDone(seg){if(!cCur)return false;const s=seg>=100?seg-100:(seg-1)*100;return cCur.rings.slice(s,s+100).every(r=>r.t);}
+
+// ==================== PET RING OPERATIONS ====================
+// 撤销栈：记录类操作前快照，最多 10 步
+function pushUndo(){
+  if(!pCur&&!cCur)return;
+  const tool=vw==='chain'?'chain':'pet';
+  const cur=tool==='pet'?pCur:cCur;
+  if(!cur)return;
+  undoStack.push({tool,cur:cloneJSON(cur)});
+  if(undoStack.length>10)undoStack.shift();
+}
+function undoLast(){
+  const s=undoStack.pop();
+  if(!s){toast('没有可撤销的操作');return;}
+  if(s.tool==='pet'){pCur=s.cur;pSave('cur',pCur);}
+  else{cCur=s.cur;cSave('cur',cCur);}
+  renderAll();toast('已撤销');
+}
+function jumpToRing(){
+  const inp=document.getElementById('jump-ring');if(!inp)return;
+  const n=parseInt(inp.value,10),total=vw==='pet'?100:300;
+  if(!Number.isFinite(n)||n<1||n>total){toast('环号要在 1~'+total+' 之间');return;}
+  const cell=document.querySelector('.cell[data-ring="'+n+'"]');
+  if(!cell)return;
+  if(typeof cell.scrollIntoView==='function')cell.scrollIntoView({block:'center',behavior:'smooth'});
+  cell.classList.remove('jump-hl');void cell.offsetWidth;cell.classList.add('jump-hl');
+  setTimeout(()=>cell.classList.remove('jump-hl'),1000);
+}
+function closeTopModal(){
+  const layers=[...document.querySelectorAll('.modal-overlay')];
+  const o=layers[layers.length-1];if(!o)return;
+  const btn=o.querySelector('[data-act="close"],#rw-cancel,#em-cancel,#bf-cancel,#rp-cancel,#kb-close,#guide-close,#guide-done,#wl-start');
+  if(btn){btn.click();return;}
+  o.remove();
+}
+function onGlobalKey(e){
+  const tag=((e.target&&e.target.tagName)||'').toLowerCase();
+  if(tag==='input'||tag==='select'||tag==='textarea'||(e.target&&e.target.isContentEditable))return;
+  if(modalOpen()){
+    if(e.key==='Escape'){e.preventDefault();closeTopModal();}
+    return;
+  }
+  if(vw!=='pet'&&vw!=='chain')return;
+  const cur=vw==='pet'?pCur:cCur;
+  if(!cur)return;
+  if(/^[1-9]$/.test(e.key)){
+    const types=sortedTypes(vw==='pet'?'pet':'chain'),t=types[Number(e.key)-1];
+    if(!t)return;
+    modalTask=t.id;renderAll();e.preventDefault();return;
+  }
+  if(e.key==='Enter'){
+    const g=document.getElementById('btn-qb-go');
+    if(g){e.preventDefault();g.click();}
+    return;
+  }
+  if(e.key==='ArrowLeft'||e.key==='ArrowRight'){
+    const tabs=vw==='pet'?['record','predict','control','history','stats']:['record','reward','history','stats'];
+    const curTab=vw==='pet'?tab:ctab;
+    let i=tabs.indexOf(curTab)+(e.key==='ArrowRight'?1:-1);
+    i=(i+tabs.length)%tabs.length;
+    if(vw==='pet')tab=tabs[i];else ctab=tabs[i];
+    renderAll();
+    if(vw==='pet'&&tab==='stats')setTimeout(drawPetChart,200);
+    e.preventDefault();
+  }
+}
+function pSetRing(rn,tid,item){if(!pCur)return;pushUndo();const t=pGetT(tid);pCur.rings[rn-1]={t:tid,sc:t?t.sc:0,item:item||''};pSave('cur',pCur);bumpTask('pet',tid);rememberItem(item);}
+function pQuickFill(from,to,tid){if(!pCur)return;pushUndo();const t=pGetT(tid);for(let i=from;i<=to;i++)if(!pCur.rings[i-1].t)pCur.rings[i-1]={t:tid,sc:t?t.sc:0,item:''};pSave('cur',pCur);}
+function pStartNew(){
+  if(pCur){const c=pComp();if(c>0&&c<100&&!confirm(`宠环未完成（${c}/100），放弃并新建？`))return;}
+  pCur={id:Date.now(),level:pCfg.level,startedAt:Date.now(),rings:Array.from({length:100},()=>({t:null,sc:0,item:''})),notes:'',done:false,doneAt:null,reward:null};
+  pSave('cur',pCur);modalTask=null;toast('新宠环已开始！');renderAll();
+}
+function pCheckComplete(){if(!pCur||pCur.done)return;if(pComp()===100){setTimeout(()=>{if(confirm('🎉 宠环100环全部完成！是否结算？'))pComplete();},200);}}
+function pComplete(){
+  if(!pCur)return;const sc=pScore(),comp=pComp();
+  if(comp<100&&!confirm(`仅完成${comp}/100环，确认结束？`))return;
+  pCur.done=true;pCur.doneAt=Date.now();pCur.totalScore=sc;pCur.totalExp=pExp(pCur.rings);pCur.totalCost=totalCost(pCur.rings,pCost);
+  pCur.rewardTier=pGetTier(sc,pCur.level).label;pCur.bookLevel=pBookLevel(sc,pCur.level);
+  showPRewardModal(pCur);
+}
+
+// ==================== CHAIN OPERATIONS ====================
+function cSetRing(rn,tid,item){if(!cCur)return;pushUndo();cCur.rings[rn-1]={t:tid,item:item||''};cSave('cur',cCur);bumpTask('chain',tid);rememberItem(item);}
+function cQuickFill(from,to,tid){if(!cCur)return;pushUndo();for(let i=from;i<=to;i++)if(!cCur.rings[i-1].t)cCur.rings[i-1]={t:tid,item:''};cSave('cur',cCur);}
+function cStartNew(){
+  if(cCur){const c=cComp();if(c>0&&c<300&&!confirm(`任务链未完成（${c}/300），放弃并新建？`))return;}
+  cCur={id:Date.now(),level:cCfg.level,startedAt:Date.now(),rings:Array.from({length:300},()=>({t:null,item:''})),rewards:{100:[],200:[],300:[]},notes:'',done:false,doneAt:null,totalCost:0};
+  cSave('cur',cCur);modalTask=null;toast('新任务链已开始！');renderAll();
+}
+function cCheckSeg(seg){if(!cCur||cCur.done)return;if(cSegDone(seg)&&cCur.rewards[seg].length===0){setTimeout(()=>{if(confirm(`🎉 第${seg}环已完成！是否记录奖励？`))showCSegReward(seg);},200);}}
+function cComplete(){
+  if(!cCur)return;const comp=cComp();
+  if(comp<300&&!confirm(`仅完成${comp}/300环，确认结束？`))return;
+  cCur.done=true;cCur.doneAt=Date.now();cCur.totalCost=totalCost(cCur.rings,cCost);
+  showCFinalModal();
+}
+
+// ==================== RENDERING ====================
+function undoBtn(){return undoStack.length?`<button class="btn btn-xs undo-btn" id="btn-undo" title="撤销上一步">↶ ${undoStack.length}</button>`:'';}
+function renderAll(){
+  const app=document.getElementById('app');
+  const h=vw==='hub'?renderHubHeader():vw==='ledger'?renderLedgerHeader():vw==='pet'?renderPetHeader():renderChainHeader();
+  let body='';
+  if(vw==='hub')body=renderHub();
+  else if(vw==='ledger')body=renderLedger();
+  else if(vw==='pet')body=`${renderPetTabs()}<div id="tab-content" style="flex:1;min-height:0;display:flex;flex-direction:column;">${renderPetTab()}</div>`;
+  else body=`${renderChainTabs()}<div id="tab-content" style="flex:1;min-height:0;display:flex;flex-direction:column;">${renderChainTab()}</div>`;
+  app.innerHTML=h+body;
+  if(vw==='hub')renderHubBG();
+  bindEvents();tickClock();
+}
+
+function renderHubHeader(){
+  return`<div class="header"><div class="header-l"><h1>梦幻搞钱工具箱</h1></div><div class="header-r"><span class="clock" id="live-clock"></span><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" style="margin-left:4px;" title="帮助指南">📖 帮助</button></div></div>`;
+}
+function renderPetHeader(){
+  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:14px;padding:2px 6px;">←</button><h1>宠环助手</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-user-mgr" title="管理角色">👥</button><div class="lv"><label>等级</label><input type="number" id="char-level" value="${pCfg.level}" min="65" max="175"></div>${pCur?`<button class="btn btn-a btn-xs" id="btn-complete">结算</button><button class="btn btn-xs" id="btn-pause">${pCur.pausedAt?'▶ 继续':'⏸ 暂停'}</button><button class="btn btn-xs btn-d" id="btn-abandon">放弃</button>`:`<button class="btn btn-a btn-xs" id="btn-new-run">+ 新跑环</button>`}<button class="btn btn-xs" id="btn-prices" title="价格设置">💰</button><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" title="帮助指南">📖</button>${undoBtn()}<span class="clock" id="live-clock"></span></div></div>`;
+}
+function renderChainHeader(){
+  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:14px;padding:2px 6px;">←</button><h1>人环助手</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-user-mgr" title="管理角色">👥</button><div class="lv"><label>等级</label><input type="number" id="char-level" value="${cCfg.level}" min="60" max="175"></div>${cCur?`<button class="btn btn-a btn-xs" id="btn-complete">结算</button><button class="btn btn-xs" id="btn-pause">${cCur.pausedAt?'▶ 继续':'⏸ 暂停'}</button><button class="btn btn-xs btn-d" id="btn-abandon">放弃</button>`:`<button class="btn btn-a btn-xs" id="btn-new-run">+ 新任务链</button>`}<button class="btn btn-xs" id="btn-prices" title="价格设置">💰</button><button class="btn btn-xs" id="btn-help" onclick="showGuideModal()" title="帮助指南">📖</button>${undoBtn()}<span class="clock" id="live-clock"></span></div></div>`;
+}
+
+function renderLedgerHeader(){
+  return`<div class="header"><div class="header-l"><button class="btn btn-xs" id="btn-back" title="返回首页" style="font-size:14px;padding:2px 6px;">←</button><h1>收益账本</h1></div><div class="header-r"><select id="user-select" style="padding:2px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--accent);font-size:11px;font-weight:600;max-width:100px;cursor:pointer;">${users.map(u=>`<option value="${u.id}"${u.id===activeUser?' selected':''}>${u.name}</option>`).join('')}</select><button class="btn btn-xs" id="btn-reward-prices" title="奖励价目表">🏷️ 价目表</button><button class="btn btn-xs" id="btn-export-all" title="导出全部角色数据">📥 导出</button><button class="btn btn-xs" id="btn-import-all" title="导入 JSON">📤 导入</button><span class="clock" id="live-clock"></span></div></div>`;
+}
+
+function renderHubBG(){
+  const app=document.getElementById('app');
+  if(!app.querySelector('.hub-bg')){
+    const bg=document.createElement('div');bg.className='hub-bg';
+    bg.innerHTML='<div class="orb"></div><div class="orb"></div><div class="orb"></div>';
+    app.appendChild(bg);
+  }
+}
+
+function renderHub(){
+  const all=[...pHist,...cHist];
+  const agg=aggregateRuns(all);
+  const profitCls=agg.totalProfit>0?'pos':agg.totalProfit<0?'neg':'';
+  return`<div class="hub-view"><div class="hub-main">
+    <div class="hub-icon">💰</div>
+    <h1 class="hub-title">梦幻搞钱工具箱</h1>
+    <p class="hub-sub">宠环 · 人环 · 收益账本 — 记得快，也算得清</p>
+    <div class="hub-cards">
+      <div class="hub-card" data-nav="pet">
+        <span class="ci">🐾</span><div class="ct">宠环助手</div>
+        <div class="cd">100 环召唤兽修炼任务 · 积分追踪 · 书铁预测 · 控分建议</div>
+        <div class="tg"><span>100环</span><span>积分制</span><span>修炼经验</span></div>
+      </div>
+      <div class="hub-card" data-nav="chain">
+        <span class="ci">📜</span><div class="ct">人环助手</div>
+        <div class="cd">300 环任务链记录 · 三段奖励结算 · 按等级预测书铁区间</div>
+        <div class="tg"><span>300环</span><span>等级制</span><span>三段奖励</span></div>
+      </div>
+      <div class="hub-card" data-nav="ledger" style="grid-column:span 2;border-color:rgba(0,212,170,.28);background:linear-gradient(135deg,rgba(0,212,170,.07),rgba(0,180,216,.03));">
+        <span class="ci">📒</span><div class="ct">收益账本${agg.unbooked?`<span class="tag-un" style="margin-left:6px;">${agg.unbooked} 轮未记账</span>`:''}</div>
+        <div class="cd">结算即记账：成本、收入、利润、ROI、时薪一次算清，按周期回顾哪一轮最划算</div>
+        <div class="tg"><span class="pos">已记 ${agg.count} 轮</span><span class="${profitCls}">净收益 ${fmtWan(agg.totalProfit,1)} 万两</span><span>${agg.roi===null?'ROI —':'ROI 1 : '+agg.roi.toFixed(2)}</span><span>${agg.hourly===null?'时薪 —':'时薪 '+fmtWan(agg.hourly,0)+' 万/时'}</span></div>
+      </div>
+    </div>
+    <div class="gold-card">
+      <div class="gt"><span>💱 金价计算器</span><span style="font-weight:400;font-size:9px;color:var(--text2);">${ratioText(moneyCfg)}</span></div>
+      <div class="gold-row"><input type="number" id="gold-wan" value="3000" min="0" step="10"> 万两<span class="eq">≈</span><input type="number" id="gold-yuan" value="${(wanToYuan(3000,moneyCfg)||0).toFixed(2)}" min="0" step="1"> 元</div>
+      <div class="gold-row" style="border-top:1px dashed var(--border);margin-top:2px;"><span style="font-size:10px;color:var(--text2);">比例</span><input type="number" id="gold-rw" value="${moneyCfg.ratioWan}" min="1" step="10" style="width:70px;"> 万两 = <input type="number" id="gold-ry" value="${moneyCfg.ratioYuan}" min="0.01" step="1" style="width:62px;"> 元<label style="font-size:10px;color:var(--text2);margin-left:8px;">目标时薪</label><input type="number" id="gold-target" value="${moneyCfg.targetHourlyYuan}" min="0" step="1" style="width:52px;"> 元/时<button class="btn btn-xs btn-a" id="btn-gold-save" style="margin-left:auto;">保存比例</button><button class="btn btn-xs" id="btn-gold-reset" title="恢复默认 3000 万两 = 202 元">默认</button></div>
+    </div>
+    <div class="hub-ft">梦幻搞钱工具箱<i>·</i>数据只存本地浏览器<i>·</i>PC &amp; 移动端通用<i>·</i><span id="hub-clock"></span><br><button class="btn btn-xs" id="btn-kb" onclick="showKnowledgeBase()" style="margin-top:8px;border-color:var(--accent2);color:var(--accent2);">📚 跑环知识库</button> <button class="btn btn-xs" id="btn-hub-prices" onclick="showRewardPricesModal()" style="margin-top:8px;border-color:var(--purple);color:var(--purple);">🏷️ 奖励价目表</button></div>
+  </div></div>`;
+}
+
+function renderPetTabs(){
+  const tabs=[{id:'record',label:'记录'},{id:'predict',label:'预测'},{id:'control',label:'控分'},{id:'history',label:'历史'},{id:'stats',label:'统计'}];
+  return`<div class="tabs">${tabs.map(t=>`<button class="tab${tab===t.id?' active':''}" data-tab="${t.id}">${t.label}</button>`).join('')}</div>`;
+}
+function renderChainTabs(){
+  const tabs=[{id:'record',label:'记录'},{id:'reward',label:'奖励'},{id:'history',label:'历史'},{id:'stats',label:'统计'}];
+  return`<div class="tabs">${tabs.map(t=>`<button class="tab${ctab===t.id?' active':''}" data-tab="${t.id}">${t.label}</button>`).join('')}</div>`;
+}
+
+function renderPetTab(){
+  switch(tab){case'record':return renderPetRecord();case'predict':return renderPetPredict();case'control':return renderPetControl();case'history':return renderPetHistory();case'stats':return renderPetStats();default:return'';}
+}
+function renderChainTab(){
+  switch(ctab){case'record':return renderChainRecord();case'reward':return renderChainReward();case'history':return renderChainHistory();case'stats':return renderChainStats();default:return'';}
+}
+
+// ---- Pet Record ----
+function renderPetRecord(){
+  if(!pCur)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📋</div><p>还没有开始跑环记录</p><button class="btn btn-a" id="btn-new-run-empty">+ 开始新跑环</button></div></div>`;
+  const sc=pScore(),comp=pComp(),rem=100-comp,exp=pExp(pCur.rings),bl=pBookLevel(sc,pCur.level),tier=pGetTier(sc,pCur.level);
+  const maxP=sc+rem*10,minP=Math.max(0,sc+rem*(-20)),cost=totalCost(pCur.rings,pCost),nr=pCur.rings.findIndex(r=>!r.t)+1,sk=pSkip();
+  return`
+    <div class="strip"><div class="si"><span class="sl">总分</span><span class="sv a">${sc}</span><span class="sr">(${minP}~${maxP})</span></div><div class="sd"></div><div class="si"><span class="sl">进度</span><span class="sv">${comp}/100</span></div><div class="sd"></div><div class="si"><span class="sl">书铁</span><span class="sv w">${bl}级</span></div><div class="sd"></div><div class="si"><span class="sl">经验</span><span class="sv p">${exp}</span></div><div class="sd"></div><div class="si"><span class="sl">费用</span><span class="sv" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div><div class="sd"></div><div class="si"><span class="sl">跳过</span><span class="sv" style="color:var(--text2);">${sk}</span></div><div class="sd"></div><div class="si"><span class="sl">用时</span><span class="sv" data-elapsed="pet">${elapsedText(pCur)}</span></div><div class="sd"></div><div class="si"><span class="sl">档位</span><span style="color:${tier.color};font-weight:600;font-size:10px;">${tier.label}</span></div><div class="prog-inline"><div class="fill" style="width:${comp}%"></div></div></div>
+    <div class="minimap pet">${pCur.rings.map((r,i)=>{let c='dot';if(r.t){c+=' done';if(r.sc>=10)c+=' hi';else if(r.sc<0)c+=' neg';}return`<div class="${c}" title="#${i+1}${r.t?': '+(pGetT(r.t)?.name||'')+' ('+(r.sc>0?'+':'')+r.sc+')':''}"></div>`;}).join('')}</div>
+    ${itemMemory.length?`<div class="item-chips-row"><span class="lbl">常用物品</span>${itemMemory.map(n=>`<button class="chip-item" data-item="${n}">${n}</button>`).join("")}</div>`:''}<div class="quick-bar"><span class="qb-num">#${nr||'✓'}</span><div class="qb-tasks">${sortedTypes('pet').map(t=>`<button class="qb-t${modalTask===t.id?' sel':''}" data-task="${t.id}" data-action="qp">${t.icon} ${t.name}<span style="font-size:8px;color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span></button>`).join('')}</div><input type="text" class="qb-input" id="qb-item" placeholder="物品名"><button class="qb-go" id="btn-qb-go">记录</button><button class="qb-skip" id="btn-qb-skip">跳过(${sk})</button><span class="kbd-hint"><kbd>1</kbd>-<kbd>9</kbd> 选任务 <kbd>Enter</kbd> 记录 <kbd>←</kbd><kbd>→</kbd> 切页</span></div>
+    <div class="ring-grid-wrap"><div class="ring-grid-h"><span>点击格子编辑 | 已录${comp}/100</span><div style="display:flex;gap:3px;align-items:center;"><input type="number" id="jump-ring" min="1" max="100" placeholder="环号" style="width:58px;padding:1px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;"><button class="btn btn-xs" id="btn-jump">定位</button><button class="btn btn-xs" id="btn-batch">批量填充</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" id="btn-clear-all">清除全部</button></div></div><div class="ring-grid x10" id="ring-grid">${pCur.rings.map((r,i)=>{let cls='cell';if(r.t)cls+=' '+cellClassPet(r.sc);return`<div class="${cls}" data-ring="${i+1}" title="第${i+1}环${r.t?': '+pGetT(r.t)?.icon+' '+(pGetT(r.t)?.name||'')+' ('+(r.sc>0?'+':'')+r.sc+') 费'+(pCost(r)/10000).toFixed(0)+'万':''}">${i+1}</div>`;}).join('')}</div></div>`;
+}
+
+// ---- Pet Predict ----
+function renderPetPredict(){
+  const lv=pCur?pCur.level:pCfg.level,sc=pCur?pScore():0,lo=Math.floor(lv/3);
+  const lvls=[80,90,100,110,120,130,140,150];
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">奖励预测 — Lv.${lv}（偏移${lo}）<span style="font-size:9px;color:var(--text2);margin-left:6px;">书铁=总分+${lo}-130，保底80级</span></div>
+  <table class="rw-table"><thead><tr><th>书铁等级</th><th>需积分</th><th>状态</th><th>奖励</th></tr></thead><tbody>${lvls.map(l2=>{const need=Math.max(0,l2+130-lo),ok=sc>=need;let cls=ok&&pCur?'hl':'';return`<tr class="${cls}"><td>${l2===150?'150级+战魄':l2+'级'}</td><td><strong>${need}分</strong></td><td>${ok&&pCur?'<span class="tag tag-g">已达标</span>':(pCur?(need-sc>50?'<span class="tag tag-r">差距大</span>':'<span class="tag tag-y">可冲刺</span>'):'<span class="tag tag-b">—</span>')}</td><td style="font-size:10px;">${l2===80?'80书铁(保底)':l2===150?'150书铁/160战魄/修炼果':`${l2}制造书/铁+修炼果`}</td></tr>`;}).join('')}</tbody></table>
+  ${pCur?`<div style="margin-top:6px;padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:11px;">当前<strong style="color:var(--accent);">${sc}分</strong>→预计<strong style="color:var(--warn);">${pBookLevel(sc,lv)}级</strong>书铁</div>`:''}</div>`;
+}
+
+// ---- Pet Control ----
+function renderPetControl(){
+  if(!pCur)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">🎯</div><p>请先开始跑环记录</p></div></div>`;
+  const sc=pScore(),comp=pComp(),rem=100-comp,lo=Math.floor(pCur.level/3);
+  const targets=[{lv:80,label:'80书铁(保底)'},{lv:90,label:'90书铁'},{lv:100,label:'100书铁'},{lv:110,label:'110书铁'},{lv:120,label:'120书铁'},{lv:130,label:'130书铁'},{lv:140,label:'140书铁'},{lv:150,label:'150书铁/战魄'}].map(({lv,label})=>{const need=Math.max(0,lv+130-lo),diff=Math.max(0,need-sc),ppr=rem>0?Math.max(0,(need-sc)/rem):0;return{label,need,diff,pr:ppr.toFixed(1),ok:sc>=need,feasible:rem>0?(ppr<=10):(sc>=need)};});
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:4px;">控分预测 — Lv.${pCur.level} | 剩余${rem}环</div>
+  <div class="stat-cards" style="grid-template-columns:repeat(3,1fr);margin-bottom:8px;"><div class="stat-card"><div class="lbl">当前总分</div><div class="val" style="color:var(--accent);">${sc}</div></div><div class="stat-card"><div class="lbl">已完成</div><div class="val">${comp}/100</div></div><div class="stat-card"><div class="lbl">每环需得分</div><div class="val" style="color:var(--warn);font-size:14px;">${targets.find(t=>!t.ok)?.pr||'—'}</div></div></div>
+  <table class="rw-table"><thead><tr><th>目标</th><th>需积分</th><th>还需</th><th>每环</th><th>可行性</th><th>建议</th></tr></thead><tbody>${targets.map(t=>{let ft,sg;if(t.ok){ft='<span class="tag tag-g">已达成</span>';sg='保持即可';}else if(t.feasible){ft='<span class="tag tag-g">可行</span>';const an=parseFloat(t.pr);sg=an<=3?'常规任务':an<=5?'多交80环/2家':an<=7?'需指定变异+高分':'困难，需连续高分';}else{ft='<span class="tag tag-r">不可行</span>';sg='降低目标或下轮再冲';}return`<tr class="${t.ok?'hl':''}"><td><strong>${t.label}</strong></td><td>${t.need}分</td><td style="color:${t.diff<=0?'var(--accent)':'var(--danger)'};">${t.diff<=0?'—':'+'+t.diff}</td><td>${t.ok?'—':t.pr}</td><td>${ft}</td><td style="font-size:9px;">${sg}</td></tr>`;}).join('')}</tbody></table>
+  <div style="margin-top:6px;padding:5px 8px;background:var(--surface2);border-radius:4px;font-size:9px;color:var(--text2);"><strong>策略：</strong>拉分→指定变异(+10)&gt;80环/2家(+5)&gt;乐器花卉(+4)&gt;70环(+3) | 控分→找人(+1)/小物品(+2)/替变异(-15) | 跳环(-20)慎用</div></div>`;
+}
+
+// ---- Pet History ----
+function renderPetHistory(){
+  if(!pHist.length)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📜</div><p>暂无跑环记录</p></div></div>`;
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:600;">历史记录（${pHist.length}条）</span>${pHist.length>200?'<span class="tag-un" style="margin-left:6px;">超过 200 轮，建议导出归档</span>':''}<div style="display:flex;gap:3px;"><button class="btn btn-xs" id="btn-import">📤 导入</button><button class="btn btn-xs" id="btn-export">📥 导出</button></div></div>${pHist.map((r,i)=>{const tier=pGetTier(r.totalScore||0,r.level||175),comp=r.rings?r.rings.filter(x=>x.t).length:0;return`<div class="hist-item"><div><div style="font-weight:600;">${r.done?'✅':'🔄'} #${i+1} <span style="font-size:9px;color:var(--text2);">Lv.${r.level} | ${comp}/100 | 费${fmtWan(r.totalCost||0,0)}万</span></div><div style="font-size:9px;color:var(--text2);">${fmtDate(r.startedAt)}${r.doneAt?'→'+fmtDate(r.doneAt):''}${r.reward?.length?' | 🎁 '+r.reward.join(', '):''}</div></div><div style="display:flex;align-items:center;gap:6px;"><div style="text-align:right;"><div class="score">${r.totalScore||'-'}分</div><div style="font-size:9px;color:${tier.color};">${tier.label}</div></div><button class="btn btn-xs" onclick="pShowReport(${r.id})">📊</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" onclick="pDelete(${r.id})">✕</button></div></div>`;}).join('')}</div>`;
+}
+
+// ---- Pet Stats ----
+function renderPetStats(){
+  if(!pHist.length)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📈</div><p>暂无数据</p></div></div>`;
+  const scores=pHist.map(r=>r.totalScore||0).filter(s=>s>0),avg=scores.length?(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1):0;
+  const mx=scores.length?Math.max(...scores):0,mn=scores.length?Math.min(...scores):0;
+  const costs=pHist.map(r=>r.totalCost||0).filter(c=>c>0),avgCost=costs.length?(costs.reduce((a,b)=>a+b,0)/costs.length/10000).toFixed(0):0,totalAll=costs.reduce((a,b)=>a+b,0);
+  const tCnt={};pHist.forEach(r=>{if(r.totalScore!=null){const t=pGetTier(r.totalScore,r.level||175);tCnt[t.label]=(tCnt[t.label]||0)+1;}});
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">统计分析</div>
+  <div class="stat-cards"><div class="stat-card"><div class="lbl">总次数</div><div class="val" style="color:var(--accent);">${pHist.length}</div></div><div class="stat-card"><div class="lbl">平均分</div><div class="val">${avg}</div></div><div class="stat-card"><div class="lbl">总费用</div><div class="val" style="color:#f472b6;font-size:14px;">${(totalAll/10000).toFixed(0)}万</div></div><div class="stat-card"><div class="lbl">均次费用</div><div class="val" style="color:#f472b6;font-size:14px;">${avgCost}万</div></div></div>
+  <div class="stat-cards" style="grid-template-columns:repeat(2,1fr);"><div class="stat-card"><div class="lbl">最高分</div><div class="val" style="color:var(--warn);">${mx}</div></div><div class="stat-card"><div class="lbl">最低分</div><div class="val" style="color:var(--danger);">${mn}</div></div></div>
+  <div style="margin-bottom:8px;"><h4 style="font-size:10px;color:var(--accent);margin-bottom:3px;">奖励档位分布</h4>${Object.entries(tCnt).map(([l,c])=>`<div class="stat-row"><span>${l}</span><span class="val">${c}次 (${(c/pHist.length*100).toFixed(0)}%)</span></div>`).join('')}</div><canvas id="scoreChart" width="400" height="160" style="width:100%;max-height:180px;"></canvas></div>`;
+}
+
+// ---- Chain Record ----
+function renderChainRecord(){
+  if(!cCur)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📋</div><p>还没有开始任务链记录</p><button class="btn btn-a" id="btn-new-run-empty">+ 开始新任务链</button></div></div>`;
+  const comp=cComp(),rem=300-comp,cost=totalCost(cCur.rings,cCost),nr=cCur.rings.findIndex(r=>!r.t)+1;
+  const s1=cSegDone(1),s2=cSegDone(2),s3=cSegDone(3);
+  return`
+    <div class="strip"><div class="si"><span class="sl">进度</span><span class="sv a">${comp}/300</span></div><div class="sd"></div><div class="si"><span class="sl">完成</span><span class="sv">${(comp/3).toFixed(0)}%</span></div><div class="sd"></div><div class="si"><span class="sl">剩余</span><span class="sv w">${rem}环</span></div><div class="sd"></div><div class="si"><span class="sl">费用</span><span class="sv" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div><div class="sd"></div><div class="si"><span class="sl">用时</span><span class="sv" data-elapsed="chain">${elapsedText(cCur)}</span></div><div class="sd"></div><div class="si"><span class="sl">等级</span><span class="sv p">Lv.${cCur.level}</span></div><div class="prog-inline"><div class="fill" style="width:${(comp/3).toFixed(0)}%"></div></div></div>
+    <div class="seg-badges"><div class="seg-badge${s1?' done':''}${comp>=0&&comp<100?' cur':''}">1-100 ${s1?'✅':comp>=100?'⚠️':''}</div><div class="seg-badge${s2?' done':''}${comp>=100&&comp<200?' cur':''}">101-200 ${s2?'✅':comp>=200?'⚠️':''}</div><div class="seg-badge${s3?' done':''}${comp>=200&&comp<300?' cur':''}">201-300 ${s3?'✅':''}</div></div>
+    <div class="minimap chain">${cCur.rings.map((r,i)=>{let c='dot';if(r.t){c+=' done';if((i+1)%100===0)c+=' ck';}return`<div class="${c}" title="#${i+1}${r.t?': '+(cGetT(r.t)?.name||''):''}"></div>`;}).join('')}</div>
+    ${itemMemory.length?`<div class="item-chips-row"><span class="lbl">常用物品</span>${itemMemory.map(n=>`<button class="chip-item" data-item="${n}">${n}</button>`).join("")}</div>`:''}<div class="quick-bar"><span class="qb-num">#${nr||'✓'}</span><div class="qb-tasks">${sortedTypes('chain').map(t=>`<button class="qb-t${modalTask===t.id?' sel':''}" data-task="${t.id}" data-action="qp">${t.icon} ${t.name}<span style="font-size:8px;color:var(--text2);">${t.cost>0?(t.cost/10000).toFixed(0)+"万":"免费"}</span></button>`).join("")}</div><input type="text" class="qb-input" id="qb-item" placeholder="物品名"><button class="qb-go" id="btn-qb-go">记录</button><span class="kbd-hint"><kbd>1</kbd>-<kbd>9</kbd> 选任务 <kbd>Enter</kbd> 记录 <kbd>←</kbd><kbd>→</kbd> 切页</span></div>
+    <div class="ring-grid-wrap"><div class="ring-grid-h"><span>点击格子编辑 | 已录${comp}/300</span><div style="display:flex;gap:3px;align-items:center;"><input type="number" id="jump-ring" min="1" max="300" placeholder="环号" style="width:58px;padding:1px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:10px;"><button class="btn btn-xs" id="btn-jump">定位</button><button class="btn btn-xs" id="btn-batch">批量填充</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" id="btn-clear-all">清除全部</button></div></div><div class="ring-grid x15" id="ring-grid">${cCur.rings.map((r,i)=>{let cls='cell';if(r.t)cls+=' '+cellClassChain(r.t);return`<div class="${cls}" data-ring="${i+1}" title="第${i+1}环${r.t?': '+cGetT(r.t)?.icon+' '+(cGetT(r.t)?.name||'')+' 费'+(cCost(r)/10000).toFixed(0)+'万':''}">${i+1}</div>`;}).join('')}</div></div>`;
+}
+
+// ---- Chain Reward ----
+function renderChainReward(){
+  const lv=cCur?cCur.level:cCfg.level;const rule=cRewardRange(lv);const lvls=cBookLevels(lv);
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:4px;">奖励规则 — Lv.${lv}${cCur?` | 当前${cComp()}/300`:''}</div>
+  <div style="margin-bottom:8px;padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:11px;color:var(--text2);"><p><strong style="color:var(--text);">规则：</strong>${lv>=156?'130~140书铁随机，300环几率150书铁/战魄':lv>=140?'130~140书铁（100书/200铁/300随机）':`${rule.min}~${rule.max}书铁（100书/200铁/300随机）`}${rule.hasLingshi?'，几率灵饰书/元灵晶石(120/140)':''}</p><p style="margin-top:2px;"><strong style="color:var(--text);">NPC：</strong>长寿村陆萧然 | ≥60级 | 200环后无战斗，寻物必80环装</p></div>
+  <div style="font-weight:600;margin-bottom:4px;">各段奖励记录</div><div style="display:flex;gap:6px;margin-bottom:8px;">${[100,200,300].map(s=>`<div style="flex:1;padding:8px;background:var(--surface2);border-radius:4px;border:1px solid ${cCur&&cSegDone(s)?'var(--accent)':'var(--border)'};"><div style="font-weight:600;font-size:12px;${cCur&&cSegDone(s)?'color:var(--accent);':''}">第${s}环</div><div style="font-size:9px;color:var(--text2);">${s===100?'制造指南书':s===200?'百炼精铁':'书/铁随机'}</div>${cCur&&cCur.rewards[s]?.length?`<div style="font-size:9px;color:var(--accent);margin-top:2px;">${cCur.rewards[s].join(', ')}</div>`:'<div style="font-size:9px;color:var(--text2);margin-top:2px;">未记录</div>'}</div>`).join('')}</div>
+  <table class="rw-table"><thead><tr><th>书铁等级</th><th>100环(书)</th><th>200环(铁)</th><th>300环(随机)</th></tr></thead><tbody>${lvls.map(l=>`<tr class="${l===rule.max?'hl':''}"><td><strong>${l}级</strong></td><td>${lv>=156?'可能':(l>=rule.min&&l<=rule.max?'可能':'—')}</td><td>${lv>=156?'可能':(l>=rule.min&&l<=rule.max?'可能':'—')}</td><td>可能</td></tr>`).join('')}${rule.has150?`<tr class="hl"><td><strong>160战魄</strong></td><td>—</td><td>—</td><td>lv≥156极高分可能</td></tr>`:''}</tbody></table></div>`;
+}
+
+// ---- Chain History ----
+function renderChainHistory(){
+  if(!cHist.length)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📜</div><p>暂无任务链记录</p></div></div>`;
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;"><span style="font-weight:600;">历史记录（${cHist.length}条）</span>${cHist.length>200?'<span class="tag-un" style="margin-left:6px;">超过 200 轮，建议导出归档</span>':''}<div style="display:flex;gap:3px;"><button class="btn btn-xs" id="btn-import">📤 导入</button><button class="btn btn-xs" id="btn-export">📥 导出</button></div></div>${cHist.map((r,i)=>{const comp=r.rings?r.rings.filter(x=>x.t).length:0;return`<div class="hist-item"><div><div style="font-weight:600;">${r.done?'✅':'🔄'} #${i+1} <span style="font-size:9px;color:var(--text2);">Lv.${r.level} | ${comp}/300 | 费${fmtWan(r.totalCost||0,0)}万</span></div><div style="font-size:9px;color:var(--text2);">${fmtDate(r.startedAt)}${r.doneAt?'→'+fmtDate(r.doneAt):''}${r.rewards?` | 🎁100:${(r.rewards[100]||['-']).join(',')} 200:${(r.rewards[200]||['-']).join(',')} 300:${(r.rewards[300]||['-']).join(',')}`:''}</div></div><div style="display:flex;align-items:center;gap:6px;"><div class="cost">${fmtWan(r.totalCost||0,0)}万</div><button class="btn btn-xs" onclick="cShowReport(${r.id})">📊</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" onclick="cDelete(${r.id})">✕</button></div></div>`;}).join('')}</div>`;
+}
+
+// ---- Chain Stats ----
+function renderChainStats(){
+  if(!cHist.length)return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📈</div><p>暂无数据</p></div></div>`;
+  const costs=cHist.map(r=>r.totalCost||0).filter(c=>c>0),avgCost=costs.length?(costs.reduce((a,b)=>a+b,0)/costs.length/10000).toFixed(0):0,totalAll=costs.reduce((a,b)=>a+b,0),avgComp=cHist.length?(cHist.reduce((s,r)=>s+(r.rings?r.rings.filter(x=>x.t).length:0),0)/cHist.length).toFixed(0):0;
+  const tDist={};CT.forEach(t=>{tDist[t.name]=0;});cHist.forEach(r=>{if(r.rings)r.rings.forEach(x=>{if(x.t){const n=cGetT(x.t)?.name||x.t;tDist[n]=(tDist[n]||0)+1;}});});
+  return`<div class="ring-grid-wrap" style="padding:10px;overflow-y:auto;"><div style="font-weight:600;margin-bottom:6px;">统计分析</div>
+  <div class="stat-cards"><div class="stat-card"><div class="lbl">总次数</div><div class="val" style="color:var(--accent);">${cHist.length}</div></div><div class="stat-card"><div class="lbl">平均完成</div><div class="val">${avgComp}环</div></div><div class="stat-card"><div class="lbl">总费用</div><div class="val" style="color:#f472b6;font-size:14px;">${(totalAll/10000).toFixed(0)}万</div></div><div class="stat-card"><div class="lbl">均次费用</div><div class="val" style="color:#f472b6;font-size:14px;">${avgCost}万</div></div></div>
+  <div style="margin-bottom:8px;"><h4 style="font-size:10px;color:var(--accent);margin-bottom:3px;">任务类型分布</h4>${Object.entries(tDist).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row"><span>${n}</span><span class="val">${c}次 (${(c/Object.values(tDist).reduce((a,b)=>a+b,0)*100).toFixed(0)}%)</span></div>`).join('')}</div></div>`;
+}
+
+// ==================== 收益账本 ====================
+let ledgerCurrency='wan';
+function fmtMoney(liang){return liang===null||liang===undefined?'—':formatAmount(liang,moneyCfg,ledgerCurrency);}
+function runCostFor(run,tool){
+  if(typeof run.cost==='number')return run.cost;
+  const fallback=toAmount(run.totalCost);
+  if(fallback>0)return fallback;
+  return totalCostOf(run.rings,tool==='pet'?pPrices:cPrices,tool==='pet'?P_DEFAULT_PRICES:C_DEFAULT_PRICES);
+}
+function ledgerRows(){
+  const picked=[...pHist.map(run=>({run,tool:'pet'})),...cHist.map(run=>({run,tool:'chain'}))];
+  return picked.map(({run,tool})=>{
+    const booked=isBooked(run),cost=runCostFor(run,tool);
+    const income=booked?toAmount(run.income):null;
+    const profit=booked?Number(typeof run.profit==='number'?run.profit:income-cost):null;
+    const duration=booked&&Number.isFinite(Number(run.durationMin))?Number(run.durationMin):null;
+    const hourly=booked&&typeof run.hourly==='number'?run.hourly:null;
+    return{run,tool,booked,cost,income,profit,duration,hourly,roi:booked&&cost>0?income/cost:null,t:runTime(run)};
+  }).sort((a,b)=>b.t-a.t);
+}
+function costStructure(rows){
+  const map=new Map();
+  rows.forEach(r=>{
+    const items=(Array.isArray(r.run.costItems)&&r.run.costItems.length)?r.run.costItems
+      :buildCostItems(r.run.rings,r.tool==='pet'?pPrices:cPrices,r.tool==='pet'?P_DEFAULT_PRICES:C_DEFAULT_PRICES);
+    items.forEach(it=>{const cur=map.get(it.name)||{name:it.name,amount:0,qty:0};cur.amount+=it.amount;cur.qty+=it.qty;map.set(it.name,cur);});
+  });
+  return Array.from(map.values()).filter(x=>x.amount>0).sort((a,b)=>b.amount-a.amount);
+}
+const COST_COLORS=['#00d4aa','#00b4d8','#4f6ef6','#8b5cf6','#e879f9','#f472b6','#f59e0b','#9ca3af'];
+
+function renderLedger(){
+  const rows=ledgerRows();
+  if(!rows.length){
+    return`<div class="ring-grid-wrap"><div class="empty-state"><div class="icon">📒</div><p>账本还是空的</p><p style="font-size:11px;color:var(--text2);">跑完一轮，在结算时记下奖励，这里就会出成本、收入、利润和时薪</p><button class="btn btn-a" id="btn-ledger-new-pet" style="margin-top:4px;">去记一轮宠环</button></div></div>`;
+  }
+  const start=periodStart(ledgerPeriod,Date.now());
+  const inPeriod=start===null?rows:rows.filter(r=>r.t>=start);
+  const booked=inPeriod.filter(r=>r.booked);
+  const unbooked=inPeriod.length-booked.length;
+  const totalCost=booked.reduce((s,r)=>s+r.cost,0);
+  const totalIncome=booked.reduce((s,r)=>s+r.income,0);
+  const totalProfit=booked.reduce((s,r)=>s+r.profit,0);
+  const hours=booked.reduce((s,r)=>s+(r.duration!==null&&r.duration>=5?r.duration/60:0),0);
+  const hourly=hours>0?totalProfit/hours:null;
+  const roi=totalCost>0?totalIncome/totalCost:null;
+  const wins=booked.filter(r=>r.profit>0).length;
+  const best=booked.length?booked.reduce((a,b)=>b.profit>a.profit?b:a):null;
+  const worst=booked.length?booked.reduce((a,b)=>b.profit<a.profit?b:a):null;
+  const struct=costStructure(booked);
+  const structTotal=struct.reduce((s,x)=>s+x.amount,0)||1;
+  const profitCls=totalProfit>0?'pos':totalProfit<0?'neg':'mute';
+  const periods=[['today','今日'],['7d','7 天'],['30d','30 天'],['month','本月'],['all','全部']];
+
+  return`<div class="ledger-wrap">
+    <div class="period-bar">
+      ${periods.map(([k,l])=>`<button class="seg-btn${ledgerPeriod===k?' on':''}" data-period="${k}">${l}</button>`).join('')}
+      <span style="flex:1;"></span>
+      <button class="seg-btn${ledgerCurrency==='wan'?' on':''}" data-currency="wan">万两</button>
+      <button class="seg-btn${ledgerCurrency==='yuan'?' on':''}" data-currency="yuan">人民币</button>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="k">总成本</div><div class="v" style="color:#f472b6;">${fmtMoney(totalCost)}</div><div class="s">${booked.length} 轮已记账</div></div>
+      <div class="kpi"><div class="k">总收入</div><div class="v" style="color:var(--accent2);">${fmtMoney(totalIncome)}</div><div class="s">主奖励 + 额外奖励</div></div>
+      <div class="kpi hl"><div class="k">净收益</div><div class="v ${profitCls}">${fmtMoney(totalProfit)}</div><div class="s">平均 ${fmtMoney(booked.length?totalProfit/booked.length:null)}/轮</div></div>
+      <div class="kpi"><div class="k">ROI</div><div class="v" style="color:${roi===null?'var(--text2)':'var(--warn)'};">${roi===null?'—':'1 : '+roi.toFixed(2)}</div><div class="s">${totalCost>0?'产出 ÷ 投入':'成本为 0'}</div></div>
+      <div class="kpi"><div class="k">平均时薪</div><div class="v" style="color:var(--purple);">${hourly===null?'—':fmtMoney(hourly)}</div><div class="s">${(()=>{if(hours<=0)return '时长不足 5 分钟不计';const y=wanToYuan(hourly/10000,moneyCfg),t=moneyCfg.targetHourlyYuan;return hours.toFixed(1)+' 小时 · '+(y>=t?'达标':'未达 '+t+' 元/时');})()}</div></div>
+      <div class="kpi"><div class="k">胜率 ${unbooked?`· 未记账 ${unbooked}`:''}</div><div class="v">${booked.length?Math.round(wins/booked.length*100)+'%':'—'}</div><div class="s">${wins} 赚 / ${booked.length-wins} 亏</div></div>
+    </div>
+    ${struct.length?`<div style="font-size:10px;color:var(--text2);margin:2px 0 0;">成本结构</div><div class="cost-bar">${struct.map((x,i)=>`<i style="width:${(x.amount/structTotal*100).toFixed(1)}%;background:${COST_COLORS[i%COST_COLORS.length]};" title="${x.name} ${fmtMoney(x.amount)}"></i>`).join('')}</div><div class="cost-legend">${struct.map((x,i)=>`<span><em style="background:${COST_COLORS[i%COST_COLORS.length]};"></em>${x.name} ${fmtMoney(x.amount)} (${(x.amount/structTotal*100).toFixed(0)}%)</span>`).join('')}</div>`:''}
+    ${best&&worst?`<div class="cost-legend" style="margin-top:6px;"><span>最佳单轮 <b class="pos">${fmtMoney(best.profit)}</b>（${best.tool==='pet'?'宠环':'人环'} ${fmtDate(best.t).slice(0,10)}）</span><span>最差单轮 <b class="neg">${fmtMoney(worst.profit)}</b>（${worst.tool==='pet'?'宠环':'人环'} ${fmtDate(worst.t).slice(0,10)}）</span></div>`:''}
+    <div style="display:flex;align-items:center;justify-content:space-between;margin:10px 0 5px;"><span style="font-weight:600;font-size:12px;">轮次明细（${inPeriod.length}）</span><span style="font-size:9px;color:var(--text2);">点一行看成本与收益明细</span></div>
+    ${inPeriod.length?inPeriod.map(r=>{
+      const d=new Date(r.t);
+      const dateStr=`${d.getMonth()+1}-${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+      const pCls=r.booked?(r.profit>0?'pos':r.profit<0?'neg':'mute'):'mute';
+      const pText=r.booked?fmtMoney(r.profit):'未记账';
+      const sub=r.booked
+        ?`收入 ${fmtMoney(r.income)} · 成本 ${fmtMoney(r.cost)} · ${r.duration!==null?r.duration+' 分钟':'时长未记'} · ROI ${r.roi===null?'—':'1 : '+r.roi.toFixed(2)}`
+        :`成本 ${fmtMoney(r.cost)} · 点击补录奖励收入`;
+      return`<div class="ledger-row" data-row="${r.run.id}" data-tool="${r.tool}">
+        <div class="lr-l"><div class="lr-t"><span class="tag-tool">${r.tool==='pet'?'宠环':'人环'}</span>Lv.${r.run.level||'?'} · ${dateStr}${r.booked?'':` <span class="tag-un">未记账</span>`}</div><div class="lr-d">${sub}</div></div>
+        <div class="lr-n"><b class="${pCls}">${pText}</b><span>${r.booked&&r.hourly!==null?'时薪 '+fmtMoney(r.hourly):''}</span></div>
+      </div>`;}).join('')
+      :`<div style="padding:16px;text-align:center;color:var(--text2);font-size:11px;">这个周期还没有记录</div>`}
+  </div>`;
+}
+
+// ==================== MODALS ====================
+function showPRewardModal(run){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const bl=run.bookLevel||pBookLevel(run.totalScore||0,run.level||175);
+  const pLvOpts=BOOK_LVLS.filter(l=>l<=bl);
+  const sc=run.totalScore||0,hasBonus=sc>=170;
+  const bonusR=['修炼果','200修炼点','3级家具设计图'];
+  const tStatsP={},tCostP={};PT.forEach(t=>{tStatsP[t.name]=0;tCostP[t.name]=0;});if(run.rings)run.rings.forEach(r=>{if(r.t){const n=pGetT(r.t)?.name||r.t;tStatsP[n]=(tStatsP[n]||0)+1;tCostP[n]=(tCostP[n]||0)+pCost(r);}});
+  overlay.innerHTML=`<div class="modal" style="max-width:580px;"><h3>🏆 跑环结算 — 实际奖励</h3>
+    <div class="stat-row"><span>总分</span><span class="val" style="color:var(--accent);">${sc}分</span></div><div class="stat-row"><span>预测书铁等级</span><span class="val" style="color:var(--warn);">${bl}级</span></div><div class="stat-row"><span>额外奖励资格</span><span class="val" style="color:${hasBonus?'var(--accent)':'var(--danger)'};">${hasBonus?'≥170分，有资格':'<170分，无额外奖励'}</span></div>
+    <div style="margin-top:10px;font-size:10px;color:var(--text2);">完成100环固定获得<strong style="color:var(--purple);">751修炼经验</strong>（约 4.4 个修炼果）</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text2);">📊<strong style="color:var(--text);">资源费用统计</strong></div><div style="max-height:120px;overflow-y:auto;">${Object.entries(tStatsP).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row" style="font-size:10px;"><span>${n}</span><span class="val">${c}次|${((tCostP[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>
+    <div style="margin-top:8px;font-size:11px;color:var(--text2);">📖<strong style="color:var(--text);">主奖励</strong> — 书或铁其一：</div>
+    <div style="display:flex;gap:4px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+      <select id="rw-cat" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">类别</option><option value="制造指南书">制造指南书</option><option value="百炼精铁">百炼精铁</option><option value="战魄">战魄</option></select>
+      <select id="rw-lv" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">等级</option>${pLvOpts.map(l=>`<option value="${l}">${l}级</option>`).join('')}</select>${pLvOpts.length<BOOK_LVLS.length?`<label style="font-size:10px;color:var(--text2);cursor:pointer;margin-left:4px;white-space:nowrap;"><input type="checkbox" id="rw-unlock" style="width:11px;height:11px;vertical-align:middle;">预估不准</label>`:''}
+      <select id="rw-type" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;display:none;"><option value="">类型</option></select>
+      <button class="btn btn-xs btn-a" id="rw-add-main">确认</button>
+    </div>
+    <div id="rw-main-selected" style="margin-top:4px;font-size:11px;min-height:18px;"></div>
+    <div style="margin-top:6px;font-size:11px;color:var(--text2);">🎁<strong style="color:var(--text);">额外奖励</strong> — 积分≥170时几率获得其一：</div><div class="modal-grid" style="grid-template-columns:repeat(3,1fr);max-height:40px;">${[['修炼果','xiulian_guo'],['200修炼点','xiulian_200'],['3级家具设计图','furniture3']].map(([o,k])=>`<label class="modal-item" style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" value="${o}" data-kind="${k}" class="rw-cb">${o}</label>`).join('')}</div>
+    <input type="text" id="rw-custom" placeholder="其他奖励（手动输入，如 120灵饰指南书）" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-top:8px;">
+    <div class="detail-sec" style="margin-bottom:8px;">
+      <h4>本轮账本 — 成本 / 收入 / 利润</h4>
+      <div id="rw-preview" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;font-size:10px;"></div><div id="rw-target" style="font-size:9px;color:var(--text2);margin-bottom:4px;"></div>
+      <div class="gold-row" style="margin:0;">
+        <label style="font-size:10px;color:var(--text2);">额外成本(万两)</label><input type="number" id="rw-extra-cost" value="0" min="0" style="width:62px;">
+        <label style="font-size:10px;color:var(--text2);">自定义收入(万两)</label><input type="number" id="rw-custom-income" value="0" min="0" style="width:62px;">
+        <label style="font-size:10px;color:var(--text2);">用时(分)</label><input type="number" id="rw-duration" value="${effectiveDurationMin({startedAt:run.startedAt,doneAt:run.doneAt||Date.now()},Date.now())||''}" min="0" style="width:52px;">
+      </div>
+    </div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="rw-save">确认结算</button><button class="btn btn-xs" style="color:var(--text2);" id="rw-cancel">取消</button></div></div>`;
+  document.body.appendChild(overlay);
+  // 取消结算要把 pComplete 写进去的完成态回滚，否则这一轮会被当成已结束
+  function cancelSettle(){
+    run.done=false;run.doneAt=null;
+    delete run.totalScore;delete run.totalExp;delete run.totalCost;delete run.rewardTier;delete run.bookLevel;
+    pSave('cur',pCur);overlay.remove();renderAll();
+  }
+  overlay.addEventListener('click',e=>{if(e.target===overlay)cancelSettle();});
+  overlay.querySelector('#rw-cancel').addEventListener('click',cancelSettle);
+  const catSel=overlay.querySelector('#rw-cat');
+  const lvSel=overlay.querySelector('#rw-lv');
+  const typeSel=overlay.querySelector('#rw-type');
+  const mainDiv=overlay.querySelector('#rw-main-selected');
+  let mainReward='',mainItem=null;
+  function updTypeOptions(){
+    typeSel.innerHTML='<option value="">类型</option>';
+    if(catSel.value==='制造指南书'){
+      BOOK_WEAPONS.forEach(w=>{const o=document.createElement('option');o.value=w;o.textContent=w;typeSel.appendChild(o);});
+      BOOK_ARMORS.forEach(a=>{const o=document.createElement('option');o.value=a;o.textContent=a;typeSel.appendChild(o);});
+      typeSel.style.display='';
+    }else{typeSel.style.display='none';}
+  }
+  catSel.addEventListener('change',()=>{
+    if(catSel.value==='战魄'){lvSel.style.display='none';lvSel.value='';}
+    else{lvSel.style.display='';}
+    updTypeOptions();typeSel.value='';
+  });
+  const unlockCb=overlay.querySelector('#rw-unlock');if(unlockCb){unlockCb.addEventListener('change',()=>{if(unlockCb.checked){lvSel.innerHTML='<option value="">等级</option>'+BOOK_LVLS.map(l=>`<option value="${l}">${l}级</option>`).join('');}else{lvSel.innerHTML='<option value="">等级</option>'+pLvOpts.map(l=>`<option value="${l}">${l}级</option>`).join('');}});}
+  overlay.querySelector('#rw-add-main').addEventListener('click',()=>{
+    const cat=catSel.value;
+    if(!cat){toast('请选择类别');return;}
+    if(cat==='战魄'){mainReward='160级战魄';mainItem={kind:'zhanpo',name:mainReward};}
+    else{
+      const lv=lvSel.value;
+      if(!lv){toast('请选择等级');return;}
+      if(cat==='制造指南书'){
+        const tp=typeSel.value;
+        if(!tp){toast('请选择类型');return;}
+        mainReward=lv+'级'+cat+'-'+tp;
+        mainItem={kind:'book',level:Number(lv),subType:tp,name:mainReward};
+      }else{mainReward=lv+'级'+cat;mainItem={kind:'iron',level:Number(lv),name:mainReward};}
+    }
+    const unit=rewardUnitPrice(rewardPrices,mainItem);
+    mainDiv.innerHTML='<span style="color:var(--accent);">📖 '+mainReward+'</span> <span style="color:var(--text2);font-size:10px;">参考价 '+formatAmount(unit,moneyCfg,ledgerCurrency)+'</span> <button class="btn btn-xs" style="color:var(--danger);" id="rw-clear-main">✕</button>';
+    mainDiv.querySelector('#rw-clear-main').addEventListener('click',()=>{mainReward='';mainItem=null;mainDiv.innerHTML='';updPre();});
+    updPre();
+  });
+
+  // 账本实时预览：主奖励 + 额外奖励 + 自定义收入 - 成本
+  function collectIncomeItems(){
+    const items=[];
+    if(mainItem)items.push(Object.assign({},mainItem));
+    [...overlay.querySelectorAll('.rw-cb:checked')].forEach(cb=>items.push({kind:cb.dataset.kind||'other',name:cb.value}));
+    const customText=overlay.querySelector('#rw-custom')?.value.trim();
+    if(customText){const p=parseRewardText(customText);if(p)items.push(p);}
+    const customIncome=parseFloat(overlay.querySelector('#rw-custom-income')?.value)||0;
+    if(customIncome>0)items.push({kind:'other',name:'自定义收入',unitPrice:Math.round(customIncome*10000)});
+    return items;
+  }
+  function currentSummary(){
+    const extraCost=Math.round((parseFloat(overlay.querySelector('#rw-extra-cost')?.value)||0)*10000);
+    const durRaw=parseFloat(overlay.querySelector('#rw-duration')?.value);
+    return summarizeRun({rings:run.rings,prices:pPrices,defaults:P_DEFAULT_PRICES,extraCost,
+      incomeItems:collectIncomeItems(),rewardPrices,
+      startedAt:run.startedAt,doneAt:run.doneAt||Date.now(),
+      durationMin:Number.isFinite(durRaw)?durRaw:null,now:Date.now()});
+  }
+  function updPre(){
+    const box=overlay.querySelector('#rw-preview');if(!box)return;
+    const s=currentSummary();
+    const cell=(k,v,cls)=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:4px 6px;"><div style="color:var(--text2);font-size:9px;line-height:1.2;">${k}</div><div style="font-weight:700;font-size:11px;white-space:nowrap;" class="${cls||''}">${v}</div></div>`;
+    box.innerHTML=cell('成本',formatAmount(s.cost,moneyCfg,ledgerCurrency))
+      +cell('收入',formatAmount(s.income,moneyCfg,ledgerCurrency))
+      +cell('利润',formatAmount(s.profit,moneyCfg,ledgerCurrency),s.profit>0?'pos':s.profit<0?'neg':'')
+      +cell('ROI',s.roi===null?'—':'1 : '+s.roi.toFixed(2))
+      +cell('时薪',s.hourly===null?'—':formatAmount(s.hourly,moneyCfg,ledgerCurrency));
+    const tEl=overlay.querySelector('#rw-target');
+    if(tEl){
+      const yuan=s.hourly===null?null:wanToYuan(s.hourly/10000,moneyCfg),target=moneyCfg.targetHourlyYuan;
+      tEl.innerHTML=yuan===null?('目标时薪 '+target+' 元/时 · 先记收入再比')
+        :('目标时薪 '+target+' 元/时 · 本轮 '+(yuan>=target?'<b class="pos">达标 '+yuan.toFixed(1)+' 元/时</b>':'<b class="neg">'+yuan.toFixed(1)+' 元/时，差 '+(target-yuan).toFixed(1)+'</b>'));
+    }
+  }
+  overlay.addEventListener('input',updPre);
+  overlay.addEventListener('change',updPre);
+  updPre();
+
+  overlay.querySelector('#rw-save').addEventListener('click',()=>{
+    const s=currentSummary();
+    const labels=[];
+    if(mainItem)labels.push(mainItem.name);
+    [...overlay.querySelectorAll('.rw-cb:checked')].forEach(cb=>labels.push(cb.value));
+    const customText=overlay.querySelector('#rw-custom')?.value.trim();
+    if(customText)labels.push(customText);
+    const now=Date.now();
+    run.reward=labels.length?labels:['未记录'];
+    run.doneAt=run.doneAt||now;
+    run.costItems=s.costItems;run.incomeItems=s.incomeItems;run.income=s.income;
+    run.extraCost=s.extraCost;run.cost=s.cost;run.totalCost=s.cost;
+    run.profit=s.profit;run.roi=s.roi;run.netRate=s.netRate;
+    run.durationMin=s.durationMin;run.hourly=s.hourly;run.settledAt=now;
+    overlay.remove();pHist.unshift({...run});pSave('runs',pHist);localStorage.removeItem(ukey('cur'));
+    pCur=null;modalTask=null;
+    toast('结算完成 · 利润 '+formatAmount(s.profit,moneyCfg,'wan'));
+    showReport(run,'pet');renderAll();
+  });
+}
+
+function showCSegReward(seg){
+  const lv=cCur.level,lvls=cBookLevels(lv),r=cRewardRange(lv);
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  let mainLabel,fixedCat='';
+  if(seg===100){mainLabel='制造指南书';fixedCat='制造指南书';}
+  else if(seg===200){mainLabel='百炼精铁';fixedCat='百炼精铁';}
+  else{mainLabel='书/铁随机';}
+  const showAllCat=(seg===300);
+  const extra=r.hasLingshi?['120灵饰指南书','140灵饰指南书','120元灵晶石','140元灵晶石']:[];
+  overlay.innerHTML=`<div class="modal" style="max-width:440px;"><h3>🏆 第${seg}环奖励记录</h3>
+    <div class="stat-row"><span>角色等级</span><span class="val">${lv}级</span></div><div class="stat-row"><span>奖励说明</span><span class="val" style="color:var(--warn);font-size:10px;">${lv>=156?'130~140书铁随机，300环几率150书铁/战魄':lv>=140?'130~140书铁':`${r.min}~${r.max}书铁`}${r.hasLingshi?'，几率灵饰':''}</span></div>
+    <div style="margin-top:10px;font-size:11px;color:var(--text2);">📖<strong style="color:var(--text);">主奖励</strong> — ${mainLabel}：</div>
+    <div style="display:flex;gap:4px;align-items:center;margin-top:4px;flex-wrap:wrap;">
+      ${showAllCat?`<select id="rw-cat" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">类别</option><option value="制造指南书">制造指南书</option><option value="百炼精铁">百炼精铁</option>${r.has150?'<option value="战魄">战魄</option>':''}</select>`:`<input type="hidden" id="rw-cat" value="${fixedCat}"><span style="font-size:11px;color:var(--accent);">${fixedCat}</span>`}
+      <select id="rw-lv" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;"><option value="">等级</option>${lvls.map(l=>`<option value="${l}">${l}级</option>`).join('')}</select>
+      <select id="rw-type" style="padding:3px 4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;display:none;"><option value="">类型</option></select>
+      <button class="btn btn-xs btn-a" id="rw-add-main">确认</button>
+    </div>
+    <div id="rw-main-selected" style="margin-top:4px;font-size:11px;min-height:18px;"></div>
+    ${extra.length?`<div style="margin-top:4px;font-size:11px;color:var(--text2);">💍<strong style="color:var(--text);">灵饰奖励</strong>（≥110级有几率）：</div><div class="modal-grid" style="max-height:80px;">${extra.map(o=>`<label class="modal-item" style="display:flex;align-items:center;gap:4px;cursor:pointer;"><input type="checkbox" value="${o}" class="rw-cb">${o}</label>`).join('')}</div>`:''}
+    <input type="text" id="rw-custom" placeholder="其他（手动输入）" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-top:6px;margin-bottom:8px;">
+    <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="rw-save">确认记录</button><button class="btn btn-xs" style="color:var(--text2);" id="rw-cancel">跳过</button></div></div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+  overlay.querySelector('#rw-cancel').addEventListener('click',()=>overlay.remove());
+  const catEl=overlay.querySelector('#rw-cat');
+  const lvSel=overlay.querySelector('#rw-lv');
+  const typeSel=overlay.querySelector('#rw-type');
+  const mainDiv=overlay.querySelector('#rw-main-selected');
+  let mainReward='';
+  const getCat=()=>catEl.value||fixedCat;
+  function updTypeOptions(){
+    typeSel.innerHTML='<option value="">类型</option>';
+    if(getCat()==='制造指南书'){
+      BOOK_WEAPONS.forEach(w=>{const o=document.createElement('option');o.value=w;o.textContent=w;typeSel.appendChild(o);});
+      BOOK_ARMORS.forEach(a=>{const o=document.createElement('option');o.value=a;o.textContent=a;typeSel.appendChild(o);});
+      typeSel.style.display='';
+    }else{typeSel.style.display='none';}
+  }
+  if(fixedCat)updTypeOptions();
+  if(showAllCat){
+    catEl.addEventListener('change',()=>{
+      if(catEl.value==='战魄'){lvSel.style.display='none';lvSel.value='';}
+      else{lvSel.style.display='';}
+      updTypeOptions();typeSel.value='';
+    });
+  }
+  overlay.querySelector('#rw-add-main').addEventListener('click',()=>{
+    const cat=getCat();
+    if(!cat){toast('请选择类别');return;}
+    if(cat==='战魄'){mainReward='160级战魄';}
+    else{
+      const lv=lvSel.value;
+      if(!lv){toast('请选择等级');return;}
+      if(cat==='制造指南书'){
+        const tp=typeSel.value;
+        if(!tp){toast('请选择类型');return;}
+        mainReward=lv+'级'+cat+'-'+tp;
+      }else{mainReward=lv+'级'+cat;}
+    }
+    mainDiv.innerHTML='<span style="color:var(--accent);">📖 '+mainReward+'</span> <button class="btn btn-xs" style="color:var(--danger);" id="rw-clear-main">✕</button>';
+    mainDiv.querySelector('#rw-clear-main').addEventListener('click',()=>{mainReward='';mainDiv.innerHTML='';});
+  });
+  overlay.querySelector('#rw-save').addEventListener('click',()=>{
+    const checked=[];
+    if(mainReward)checked.push(mainReward);
+    [...overlay.querySelectorAll('.rw-cb:checked')].forEach(cb=>checked.push(cb.value));
+    const custom=overlay.querySelector('#rw-custom')?.value.trim();
+    if(custom)checked.push(custom);
+    cCur.rewards[seg]=checked.length>0?checked:['未记录'];cSave('cur',cCur);
+    overlay.remove();renderAll();
+    if(seg===300&&cSegDone(1)&&cSegDone(2))cComplete();
+  });
+}
+
+function showCFinalModal(){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const cost=cCur.totalCost||totalCost(cCur.rings,cCost);
+  const tStatsC={},tCostC={};CT.forEach(t=>{tStatsC[t.name]=0;tCostC[t.name]=0;});if(cCur.rings)cCur.rings.forEach(r=>{if(r.t){const n=cGetT(r.t)?.name||r.t;tStatsC[n]=(tStatsC[n]||0)+1;tCostC[n]=(tCostC[n]||0)+cCost(r);}});
+  overlay.innerHTML=`<div class="modal" style="max-width:560px;"><h3>🏁 任务链结算确认</h3>
+    <div class="stat-row"><span>完成环数</span><span class="val">${cComp()}/300</span></div><div class="stat-row"><span>总费用</span><span class="val" style="color:#f472b6;">${(cost/10000).toFixed(0)}万</span></div>
+    <div style="margin-top:6px;font-size:11px;color:var(--text2);">📊<strong style="color:var(--text);">资源费用统计</strong></div><div style="max-height:120px;overflow-y:auto;">${Object.entries(tStatsC).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row" style="font-size:10px;"><span>${n}</span><span class="val">${c}次|${((tCostC[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>
+    <div class="stat-row"><span>奖励记录</span><span class="val" style="font-size:10px;">100环:${(cCur.rewards[100]||['无']).join(',')}<br>200环:${(cCur.rewards[200]||['无']).join(',')}<br>300环:${(cCur.rewards[300]||['无']).join(',')}</span></div>
+    <div class="detail-sec">
+      <h4>本轮账本 — 三段奖励按价目表估值</h4>
+      <div id="rw-preview" style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:4px;font-size:10px;"></div><div id="rw-target" style="font-size:9px;color:var(--text2);margin-bottom:4px;"></div>
+      <div class="gold-row" style="margin:0;">
+        <label style="font-size:10px;color:var(--text2);">额外成本(万两)</label><input type="number" id="rw-extra-cost" value="0" min="0" style="width:62px;">
+        <label style="font-size:10px;color:var(--text2);">自定义收入(万两)</label><input type="number" id="rw-custom-income" value="0" min="0" style="width:62px;">
+        <label style="font-size:10px;color:var(--text2);">用时(分)</label><input type="number" id="rw-duration" value="${effectiveDurationMin({startedAt:cCur.startedAt,doneAt:Date.now()},Date.now())||''}" min="0" style="width:52px;">
+      </div>
+    </div>
+    <input type="text" id="rw-notes" placeholder="备注（可选）" value="${cCur.notes||''}" style="width:100%;padding:5px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-top:8px;margin-bottom:8px;">
+    <div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;"><button class="btn btn-a btn-xs" id="rw-new-round">继续下一轮</button><button class="btn btn-xs" style="color:var(--text);" id="rw-confirm">结束返回</button><button class="btn btn-xs" style="color:var(--text2);" id="rw-cancel">返回编辑</button></div></div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click',e=>{if(e.target===overlay){cCur.done=false;overlay.remove();renderAll();}});
+  function chainIncomeItems(){
+    const items=[];
+    [100,200,300].forEach(seg=>(cCur.rewards[seg]||[]).forEach(t=>{
+      if(!t||t==='未记录'||t==='无')return;
+      const p=parseRewardText(t);if(p)items.push(p);
+    }));
+    const ci=parseFloat(overlay.querySelector('#rw-custom-income')?.value)||0;
+    if(ci>0)items.push({kind:'other',name:'自定义收入',unitPrice:Math.round(ci*10000)});
+    return items;
+  }
+  function currentSummary(){
+    const extraCost=Math.round((parseFloat(overlay.querySelector('#rw-extra-cost')?.value)||0)*10000);
+    const durRaw=parseFloat(overlay.querySelector('#rw-duration')?.value);
+    return summarizeRun({rings:cCur.rings,prices:cPrices,defaults:C_DEFAULT_PRICES,extraCost,
+      incomeItems:chainIncomeItems(),rewardPrices,startedAt:cCur.startedAt,doneAt:Date.now(),
+      durationMin:Number.isFinite(durRaw)?durRaw:null,now:Date.now()});
+  }
+  function updPre(){
+    const box=overlay.querySelector('#rw-preview');if(!box)return;
+    const s=currentSummary();
+    const cell=(k,v,cls)=>`<div style="background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:4px 6px;"><div style="color:var(--text2);font-size:9px;line-height:1.2;">${k}</div><div style="font-weight:700;font-size:11px;white-space:nowrap;" class="${cls||''}">${v}</div></div>`;
+    box.innerHTML=cell('成本',formatAmount(s.cost,moneyCfg,ledgerCurrency))
+      +cell('收入',formatAmount(s.income,moneyCfg,ledgerCurrency))
+      +cell('利润',formatAmount(s.profit,moneyCfg,ledgerCurrency),s.profit>0?'pos':s.profit<0?'neg':'')
+      +cell('ROI',s.roi===null?'—':'1 : '+s.roi.toFixed(2))
+      +cell('时薪',s.hourly===null?'—':formatAmount(s.hourly,moneyCfg,ledgerCurrency));
+    const tEl=overlay.querySelector('#rw-target');
+    if(tEl){
+      const yuan=s.hourly===null?null:wanToYuan(s.hourly/10000,moneyCfg),target=moneyCfg.targetHourlyYuan;
+      tEl.innerHTML=yuan===null?('目标时薪 '+target+' 元/时 · 先记收入再比')
+        :('目标时薪 '+target+' 元/时 · 本轮 '+(yuan>=target?'<b class="pos">达标 '+yuan.toFixed(1)+' 元/时</b>':'<b class="neg">'+yuan.toFixed(1)+' 元/时，差 '+(target-yuan).toFixed(1)+'</b>'));
+    }
+  }
+  overlay.addEventListener('input',updPre);
+  overlay.addEventListener('change',updPre);
+  updPre();
+  function doSave(){
+    const s=currentSummary();
+    cCur.notes=overlay.querySelector('#rw-notes')?.value.trim()||'';
+    cCur.done=true;cCur.doneAt=Date.now();cCur.totalCost=s.cost;
+    cCur.costItems=s.costItems;cCur.incomeItems=s.incomeItems;cCur.income=s.income;
+    cCur.extraCost=s.extraCost;cCur.cost=s.cost;cCur.profit=s.profit;cCur.roi=s.roi;cCur.netRate=s.netRate;
+    cCur.durationMin=s.durationMin;cCur.hourly=s.hourly;cCur.settledAt=Date.now();
+    cHist.unshift({...cCur});cSave('runs',cHist);localStorage.removeItem(ukey3('cur'));
+    const r2=cCur;cCur=null;modalTask=null;overlay.remove();
+    toast('结算完成 · 利润 '+formatAmount(s.profit,moneyCfg,'wan'));
+    return r2;
+  }
+  overlay.querySelector('#rw-cancel').addEventListener('click',()=>{cCur.done=false;overlay.remove();renderAll();});
+  overlay.querySelector('#rw-confirm').addEventListener('click',()=>{const r=doSave();showReport(r,'chain');renderAll();});
+  overlay.querySelector('#rw-new-round').addEventListener('click',()=>{const r=doSave();showReport(r,'chain');setTimeout(()=>cStartNew(),300);});
+}
+
+function showReport(run,type){
+  const tStats={},tCost={},isPet=type==='pet',TYPES=isPet?PT:CT;
+  TYPES.forEach(t=>{tStats[t.name]=0;tCost[t.name]=0;});
+  if(run.rings)run.rings.forEach(r=>{if(r.t){const n=(isPet?pGetT:cGetT)(r.t)?.name||r.t;tStats[n]=(tStats[n]||0)+1;tCost[n]=(tCost[n]||0)+(isPet?pCost:cCost)(r);}});
+  const comp=run.rings?run.rings.filter(r=>r.t).length:0;
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  let body='';
+  if(isPet){
+    const tier=pGetTier(run.totalScore||0,run.level||175);
+    body=`<div class="report-sec"><div class="stat-row"><span>角色等级</span><span class="val">${run.level}级</span></div><div class="stat-row"><span>完成环数</span><span class="val">${comp}/100</span></div><div class="stat-row"><span>总分</span><span class="val" style="color:var(--accent);">${run.totalScore}分</span></div><div class="stat-row"><span>修炼经验</span><span class="val" style="color:var(--purple);">${run.totalExp||0}点≈${((run.totalExp||0)/170).toFixed(2)}个修炼果</span></div><div class="stat-row"><span>预测书铁</span><span class="val" style="color:var(--warn);">${run.bookLevel||pBookLevel(run.totalScore||0,run.level)}级</span></div><div class="stat-row"><span>奖励档位</span><span class="val" style="color:${tier.color};">${tier.label}</span></div><div class="stat-row"><span>总费用</span><span class="val" style="color:#f472b6;">${fmtWan(runCost(run),0)}万</span></div><div class="stat-row"><span>实际奖励</span><span class="val">${(run.reward||['未记录']).join(', ')}</span></div><div class="stat-row"><span>时间</span><span class="val">${fmtDate(run.startedAt)}→${fmtDate(run.doneAt)}</span></div>${run.notes?`<div class="stat-row"><span>备注</span><span class="val">${run.notes}</span></div>`:''}</div>`;
+  }else{
+    body=`<div class="report-sec"><div class="stat-row"><span>角色等级</span><span class="val">${run.level}级</span></div><div class="stat-row"><span>完成环数</span><span class="val">${comp}/300</span></div><div class="stat-row"><span>总费用</span><span class="val" style="color:#f472b6;">${fmtWan(runCost(run),0)}万</span></div><div class="stat-row"><span>100环奖励</span><span class="val">${(run.rewards?.[100]||['未记录']).join(', ')}</span></div><div class="stat-row"><span>200环奖励</span><span class="val">${(run.rewards?.[200]||['未记录']).join(', ')}</span></div><div class="stat-row"><span>300环奖励</span><span class="val">${(run.rewards?.[300]||['未记录']).join(', ')}</span></div><div class="stat-row"><span>时间</span><span class="val">${fmtDate(run.startedAt)}→${fmtDate(run.doneAt)}</span></div>${run.notes?`<div class="stat-row"><span>备注</span><span class="val">${run.notes}</span></div>`:''}</div>`;
+  }
+  if(isBooked(run)){
+    body+=`<div class="report-sec"><h4>账本</h4>
+      <div class="stat-row"><span>成本</span><span class="val" style="color:#f472b6;">${formatAmount(runCost(run),moneyCfg,ledgerCurrency)}</span></div>
+      <div class="stat-row"><span>收入</span><span class="val" style="color:var(--accent2);">${formatAmount(run.income,moneyCfg,ledgerCurrency)}</span></div>
+      <div class="stat-row"><span>利润</span><span class="val" style="color:${Number(run.profit)>0?'var(--accent)':'var(--danger)'};">${formatAmount(run.profit,moneyCfg,ledgerCurrency)}</span></div>
+      <div class="stat-row"><span>ROI</span><span class="val">${run.roi===null||run.roi===undefined?'—':'1 : '+Number(run.roi).toFixed(2)}</span></div>
+      <div class="stat-row"><span>用时 / 时薪</span><span class="val">${run.durationMin===null||run.durationMin===undefined?'—':run.durationMin+' 分钟'} / ${run.hourly===null||run.hourly===undefined?'—':formatAmount(run.hourly,moneyCfg,ledgerCurrency)}</span></div>
+      ${run.incomeItems&&run.incomeItems.length?`<div class="stat-row"><span>收入明细</span><span class="val" style="font-size:10px;">${valueIncomeItems(run.incomeItems,rewardPrices).map(x=>x.name+' '+formatAmount(x.amount,moneyCfg,ledgerCurrency)).join('<br>')}</span></div>`:''}
+    </div>`;
+  }
+  body+=`<div class="report-sec"><h4>任务类型统计</h4>${Object.entries(tStats).filter(([,c])=>c>0).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`<div class="stat-row"><span>${n}</span><span class="val">${c}次|${((tCost[n]||0)/10000).toFixed(0)}万</span></div>`).join('')}</div>`;
+  overlay.innerHTML=`<div class="modal"><h3>📊 ${isPet?'宠环':'任务链'}统计报告</h3>${body}<div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="btn-close-report">关闭</button></div></div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.remove();});
+  overlay.querySelector('#btn-close-report').addEventListener('click',()=>overlay.remove());
+}
+
+// ==================== 奖励价目表 / 账本明细 / 补录 ====================
+function showRewardPricesModal(){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const p=normalizeRewardPrices(rewardPrices);
+  const lvls=[80,90,100,110,120,130,140,150];
+  const wan=v=>((Number(v)||0)/10000).toFixed(0);
+  overlay.innerHTML=`<div class="modal" style="max-width:660px;">
+    <h3>🏷️ 奖励价目表 <span style="font-size:10px;font-weight:400;color:var(--text2);">单位：万两 · 参考价，按你的区服改</span></h3>
+    <div class="detail-sec" style="margin-top:0;padding-top:0;border:none;">
+      <h4>制造指南书</h4><div class="price-grid">${lvls.map(l=>`<div class="price-row"><label>${l}级</label><input type="number" data-k="books" data-l="${l}" value="${wan(p.books[l])}" min="0"></div>`).join('')}</div>
+      <h4 style="margin-top:8px;">百炼精铁</h4><div class="price-grid">${lvls.map(l=>`<div class="price-row"><label>${l}级</label><input type="number" data-k="irons" data-l="${l}" value="${wan(p.irons[l])}" min="0"></div>`).join('')}</div>
+      <h4 style="margin-top:8px;">其他奖励</h4><div class="price-grid">
+        <div class="price-row"><label>战魄</label><input type="number" data-k="zhanpo" value="${wan(p.zhanpo)}" min="0"></div>
+        <div class="price-row"><label>120灵饰/晶石</label><input type="number" data-k="lingshi" data-l="120" value="${wan(p.lingshi[120])}" min="0"></div>
+        <div class="price-row"><label>140灵饰/晶石</label><input type="number" data-k="lingshi" data-l="140" value="${wan(p.lingshi[140])}" min="0"></div>
+        <div class="price-row"><label>修炼果</label><input type="number" data-k="items" data-l="xiulian_guo" value="${wan(p.items.xiulian_guo)}" min="0"></div>
+        <div class="price-row"><label>200修炼点</label><input type="number" data-k="items" data-l="xiulian_200" value="${wan(p.items.xiulian_200)}" min="0"></div>
+        <div class="price-row"><label>3级家具图</label><input type="number" data-k="items" data-l="furniture3" value="${wan(p.items.furniture3)}" min="0"></div>
+      </div>
+      <div style="margin-top:8px;font-size:9px;color:var(--text2);line-height:1.6;">改价只影响之后新结算的轮次，已结算的历史按当时记下的数字。金价比例在首页「金价计算器」里改。</div>
+    </div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="rp-save">保存</button><button class="btn btn-xs" id="rp-reset">恢复默认</button><button class="btn btn-xs" style="color:var(--text2);" id="rp-cancel">取消</button></div>
+  </div>`;
+  document.body.appendChild(overlay);
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  overlay.querySelector('#rp-cancel').addEventListener('click',close);
+  overlay.querySelector('#rp-reset').addEventListener('click',()=>{
+    rewardPrices=normalizeRewardPrices(null);saveRewardPrices();close();renderAll();toast('价目表已恢复默认');
+  });
+  overlay.querySelector('#rp-save').addEventListener('click',()=>{
+    const next=normalizeRewardPrices(null);
+    overlay.querySelectorAll('input[data-k]').forEach(inp=>{
+      const v=Math.round((parseFloat(inp.value)||0)*10000);
+      const k=inp.dataset.k,l=inp.dataset.l;
+      if(k==='zhanpo')next.zhanpo=v;else if(l)next[k][l]=v;
+    });
+    rewardPrices=normalizeRewardPrices(next);saveRewardPrices();close();renderAll();toast('价目表已保存');
+  });
+}
+
+function showLedgerDetail(id,tool){
+  const list=tool==='pet'?pHist:cHist;
+  const run=list.find(r=>String(r.id)===String(id));if(!run)return;
+  const booked=isBooked(run);
+  const costItems=(Array.isArray(run.costItems)&&run.costItems.length)?run.costItems
+    :buildCostItems(run.rings,tool==='pet'?pPrices:cPrices,tool==='pet'?P_DEFAULT_PRICES:C_DEFAULT_PRICES);
+  const cost=costItems.reduce((s,x)=>s+x.amount,0)+toAmount(run.extraCost);
+  const incomeItems=booked?valueIncomeItems(run.incomeItems,rewardPrices):[];
+  const income=booked?toAmount(run.income):0;
+  const profit=booked?income-cost:null;
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  overlay.innerHTML=`<div class="modal" style="max-width:480px;">
+    <h3>${tool==='pet'?'🐾 宠环':'📜 人环'} #${run.id} <span style="font-size:10px;font-weight:400;color:var(--text2);">${fmtDate(run.startedAt)}</span></h3>
+    <div class="stat-row"><span>角色等级 / 完成</span><span class="val">Lv.${run.level||'?'} · ${run.rings?run.rings.filter(r=>r.t).length:0}/${tool==='pet'?100:300}</span></div>
+    ${tool==='pet'&&run.totalScore!==undefined?`<div class="stat-row"><span>总分 / 书铁</span><span class="val">${run.totalScore} 分 · ${run.bookLevel||pBookLevel(run.totalScore||0,run.level)} 级</span></div>`:''}
+    <div class="detail-sec"><h4>成本明细</h4>${costItems.length?costItems.sort((a,b)=>b.amount-a.amount).map(x=>`<div class="stat-row" style="font-size:10px;"><span>${x.name} ×${x.qty}</span><span class="val">${formatAmount(x.amount,moneyCfg,ledgerCurrency)}</span></div>`).join(''):'<div class="stat-row" style="font-size:10px;"><span>无成本记录</span><span class="val">—</span></div>'}${toAmount(run.extraCost)?`<div class="stat-row" style="font-size:10px;"><span>额外成本</span><span class="val">${formatAmount(run.extraCost,moneyCfg,ledgerCurrency)}</span></div>`:''}<div class="stat-row"><span><b>成本合计</b></span><span class="val" style="color:#f472b6;"><b>${formatAmount(cost,moneyCfg,ledgerCurrency)}</b></span></div></div>
+    <div class="detail-sec"><h4>收入明细</h4>${booked?(incomeItems.length?incomeItems.map(x=>`<div class="stat-row" style="font-size:10px;"><span>${x.name}</span><span class="val">${formatAmount(x.amount,moneyCfg,ledgerCurrency)}</span></div>`).join(''):'<div class="stat-row" style="font-size:10px;"><span>未选奖励</span><span class="val">—</span></div>'):`<div class="stat-row" style="font-size:10px;"><span class="tag-un">未记账</span><span class="val">—</span></div>`}<div class="stat-row"><span><b>收入合计</b></span><span class="val" style="color:var(--accent2);"><b>${formatAmount(income,moneyCfg,ledgerCurrency)}</b></span></div></div>
+    <div class="detail-sec"><h4>本轮结论</h4>
+      <div class="stat-row"><span>利润</span><span class="val" style="color:${profit===null?'var(--text2)':profit>0?'var(--accent)':'var(--danger)'};">${profit===null?'—':formatAmount(profit,moneyCfg,ledgerCurrency)}</span></div>
+      <div class="stat-row"><span>ROI / 净收益率</span><span class="val">${booked&&run.roi!==null?('1 : '+Number(run.roi).toFixed(2)):'—'} / ${booked&&run.netRate!==null&&run.netRate!==undefined?(Number(run.netRate)*100).toFixed(0)+'%':'—'}</span></div>
+      <div class="stat-row"><span>用时 / 时薪</span><span class="val">${run.durationMin===null||run.durationMin===undefined?'—':run.durationMin+' 分钟'} / ${run.hourly===null||run.hourly===undefined?'—':formatAmount(run.hourly,moneyCfg,ledgerCurrency)}</span></div>
+      ${run.reward&&run.reward.length?`<div class="stat-row"><span>奖励记录</span><span class="val" style="font-size:10px;">${run.reward.join(', ')}</span></div>`:''}
+    </div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-a btn-xs" data-act="backfill">${booked?'重算收入':'补录收入'}</button><button class="btn btn-xs" style="color:var(--danger);border-color:var(--danger);" data-act="del">删除</button><button class="btn btn-xs" style="color:var(--text2);" data-act="close">关闭</button></div>
+  </div>`;
+  document.body.appendChild(overlay);
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{
+    if(e.target===overlay){close();return;}
+    const btn=e.target.closest('[data-act]');if(!btn)return;
+    const act=btn.dataset.act;
+    if(act==='close'){close();return;}
+    if(act==='backfill'){close();showBackfillModal(id,tool);return;}
+    if(act==='del'){
+      if(!confirm('删除这条记录？'))return;
+      if(tool==='pet'){pHist=pHist.filter(r=>String(r.id)!==String(id));pSave('runs',pHist);}
+      else{cHist=cHist.filter(r=>String(r.id)!==String(id));cSave('runs',cHist);}
+      close();renderAll();toast('已删除');
+    }
+  });
+}
+
+function showBackfillModal(id,tool){
+  const list=tool==='pet'?pHist:cHist;
+  const run=list.find(r=>String(r.id)===String(id));if(!run)return;
+  const booked=isBooked(run);
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const costItems=(Array.isArray(run.costItems)&&run.costItems.length)?run.costItems
+    :buildCostItems(run.rings,tool==='pet'?pPrices:cPrices,tool==='pet'?P_DEFAULT_PRICES:C_DEFAULT_PRICES);
+  const baseCost=costItems.reduce((s,x)=>s+x.amount,0);
+  overlay.innerHTML=`<div class="modal" style="max-width:420px;">
+    <h3>📝 ${booked?'重算':'补录'}收入 — ${tool==='pet'?'宠环':'人环'} #${run.id}</h3>
+    <div style="padding:6px 8px;background:var(--surface2);border-radius:4px;font-size:10px;color:var(--text2);line-height:1.6;">成本按当前价格重算为 ${formatAmount(baseCost,moneyCfg,ledgerCurrency)}。补录只需填本轮实际到手值多少钱，不用再选书铁等级。</div>
+    <div class="gold-row" style="margin-top:8px;flex-wrap:wrap;">
+      <label style="font-size:10px;color:var(--text2);">收入(万两)</label><input type="number" id="bf-income" value="${booked?(toAmount(run.income)/10000).toFixed(0):''}" min="0" style="width:80px;">
+      <label style="font-size:10px;color:var(--text2);">额外成本(万两)</label><input type="number" id="bf-extra" value="${(toAmount(run.extraCost)/10000).toFixed(0)}" min="0" style="width:70px;">
+      <label style="font-size:10px;color:var(--text2);">用时(分)</label><input type="number" id="bf-dur" value="${run.durationMin===null||run.durationMin===undefined?effectiveDurationMin({startedAt:run.startedAt,doneAt:run.doneAt||Date.now()},Date.now())||'':run.durationMin}" min="0" style="width:60px;">
+    </div>
+    <div id="bf-preview" style="margin-top:6px;font-size:10px;color:var(--text2);"></div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:10px;"><button class="btn btn-a btn-xs" id="bf-save">保存</button><button class="btn btn-xs" style="color:var(--text2);" id="bf-cancel">取消</button></div>
+  </div>`;
+  document.body.appendChild(overlay);
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  overlay.querySelector('#bf-cancel').addEventListener('click',close);
+  function summary(){
+    const incomeWan=parseFloat(overlay.querySelector('#bf-income')?.value)||0;
+    const extraWan=parseFloat(overlay.querySelector('#bf-extra')?.value)||0;
+    const durRaw=parseFloat(overlay.querySelector('#bf-dur')?.value);
+    const extraCost=Math.round(extraWan*10000);
+    const cost=baseCost+extraCost;
+    const income=Math.round(incomeWan*10000);
+    const profit=income-cost;
+    const durationMin=Number.isFinite(durRaw)?durRaw:null;
+    return{cost,income,profit,extraCost,durationMin,
+      roi:cost>0?income/cost:null,netRate:cost>0?profit/cost:null,
+      hourly:durationMin!==null&&durationMin>=5?profit/(durationMin/60):null};
+  }
+  function upd(){
+    const s=summary(),box=overlay.querySelector('#bf-preview');if(!box)return;
+    box.innerHTML=`利润 <b class="${s.profit>0?'pos':'neg'}">${formatAmount(s.profit,moneyCfg,ledgerCurrency)}</b> · ROI ${s.roi===null?'—':'1 : '+s.roi.toFixed(2)} · 时薪 ${s.hourly===null?'—':formatAmount(s.hourly,moneyCfg,ledgerCurrency)}`;
+  }
+  overlay.addEventListener('input',upd);upd();
+  overlay.querySelector('#bf-save').addEventListener('click',()=>{
+    const s=summary();
+    const now=Date.now();
+    run.costItems=costItems;run.incomeItems=[{kind:'other',name:'补录收入',unitPrice:s.income,qty:1}];
+    run.income=s.income;run.extraCost=s.extraCost;run.cost=s.cost;run.totalCost=s.cost;
+    run.profit=s.profit;run.roi=s.roi;run.netRate=s.netRate;
+    run.durationMin=s.durationMin;run.hourly=s.hourly;run.settledAt=now;
+    if(tool==='pet')pSave('runs',pHist);else cSave('runs',cHist);
+    close();renderAll();toast('已记账 · 利润 '+formatAmount(s.profit,moneyCfg,'wan'));
+  });
+}
+
+// ==================== EDIT/BATCH MODALS ====================
+function showPetEditModal(rn){
+  if(!pCur)return;const ring=pCur.rings[rn-1];
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  overlay.innerHTML=`<div class="modal" style="max-width:400px;"><h3>编辑第${rn}环</h3>
+    <div class="modal-grid">${PT.map(t=>`<div class="modal-item${ring.t===t.id?' sel':''}" data-tid="${t.id}">${t.icon}${t.name}<span style="font-size:9px;color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span></div>`).join('')}</div>
+    <input type="text" id="em-item" value="${ring.item||''}" placeholder="物品名称（选填）" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-bottom:2px;">
+    ${ring.t?`<div style="font-size:9px;color:var(--text2);margin-bottom:8px;">预估费用：${(pCost(ring)/10000).toFixed(0)}万</div>`:''}
+    <div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="em-save">保存</button>${ring.t?`<button class="btn btn-xs btn-d" id="em-clear">清除</button>`:''}<button class="btn btn-xs" style="color:var(--text2);" id="em-cancel">取消</button></div></div>`;
+  document.body.appendChild(overlay);
+  let selTid=ring.t;
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  overlay.querySelector('#em-cancel').addEventListener('click',close);
+  overlay.querySelectorAll('.modal-item').forEach(el=>{el.addEventListener('click',function(){overlay.querySelectorAll('.modal-item').forEach(e=>e.classList.remove('sel'));this.classList.add('sel');selTid=this.dataset.tid;});});
+  overlay.querySelector('#em-save').addEventListener('click',()=>{const tid=selTid||ring.t;if(tid){pSetRing(rn,tid,overlay.querySelector('#em-item')?.value||'');close();renderAll();pCheckComplete();}});
+  overlay.querySelector('#em-clear')?.addEventListener('click',()=>{pCur.rings[rn-1]={t:null,sc:0,item:''};pSave('cur',pCur);close();renderAll();});
+}
+
+function showChainEditModal(rn){
+  if(!cCur)return;const ring=cCur.rings[rn-1];
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  overlay.innerHTML=`<div class="modal" style="max-width:420px;"><h3>编辑第${rn}环</h3>
+    <div class="modal-grid" style="grid-template-columns:repeat(3,1fr);">${CT.map(t=>`<div class="modal-item${ring.t===t.id?' sel':''}" data-tid="${t.id}">${t.icon}${t.name}<br><span style="font-size:8px;color:var(--text2);">${t.cost?((t.cost/10000).toFixed(0)+'万'):'免费'}</span></div>`).join('')}</div>
+    <input type="text" id="em-item" value="${ring.item||''}" placeholder="物品名称（选填）" style="width:100%;padding:4px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;margin-bottom:2px;">
+    ${ring.t?`<div style="font-size:9px;color:var(--text2);margin-bottom:8px;">预估费用：${(cCost(ring)/10000).toFixed(0)}万</div>`:''}
+    <div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="em-save">保存</button>${ring.t?`<button class="btn btn-xs btn-d" id="em-clear">清除</button>`:''}<button class="btn btn-xs" style="color:var(--text2);" id="em-cancel">取消</button></div></div>`;
+  document.body.appendChild(overlay);
+  let selTid=ring.t;
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  overlay.querySelector('#em-cancel').addEventListener('click',close);
+  overlay.querySelectorAll('.modal-item').forEach(el=>{el.addEventListener('click',function(){overlay.querySelectorAll('.modal-item').forEach(e=>e.classList.remove('sel'));this.classList.add('sel');selTid=this.dataset.tid;});});
+  overlay.querySelector('#em-save').addEventListener('click',()=>{const tid=selTid||ring.t;if(tid){cSetRing(rn,tid,overlay.querySelector('#em-item')?.value||'');close();renderAll();cCheckSeg(100);cCheckSeg(200);cCheckSeg(300);}});
+  overlay.querySelector('#em-clear')?.addEventListener('click',()=>{cCur.rings[rn-1]={t:null,item:''};cSave('cur',cCur);close();renderAll();});
+}
+
+function showBatchModal(isPet){
+  const cur=isPet?pCur:cCur;if(!cur)return;
+  const TYPES=isPet?PT:CT, TOTAL=isPet?100:300;
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const firstEmpty=cur.rings.findIndex(r=>!r.t)+1||1;
+  let selStart=firstEmpty,selEnd=Math.min(firstEmpty+9,TOTAL),selTid=modalTask||TYPES[0].id,dragging=null;
+  const TRACK_PAD=8;
+
+  overlay.innerHTML=`<div class="modal" style="max-width:520px;"><h3>📦 批量填充</h3>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;font-size:12px;flex-wrap:wrap;gap:4px;"><span>第<strong style="color:var(--accent);" id="bf-from">${selStart}</strong>环</span><span style="color:var(--text2);">—</span><span>第<strong style="color:var(--accent);" id="bf-to">${selEnd}</strong>环</span><span style="color:var(--text2);font-size:11px;">共<strong style="color:var(--warn);" id="bf-count">${selEnd-selStart+1}</strong>环</span></div>
+    <div style="width:100%;margin-bottom:8px;"><div id="bf-track" style="position:relative;width:100%;height:36px;background:var(--bg);border:1px solid var(--border);border-radius:4px;cursor:pointer;user-select:none;"><canvas id="bf-canvas" height="36" style="position:absolute;inset:0;width:100%;height:100%;border-radius:3px;"></canvas><div id="bf-sel" style="position:absolute;top:4px;bottom:4px;background:rgba(0,212,170,0.2);border-left:2px solid var(--accent);border-right:2px solid var(--accent);pointer-events:none;border-radius:1px;"></div><div id="bf-thumb-s" style="position:absolute;top:0;bottom:0;width:10px;background:var(--accent);border-radius:3px;cursor:grab;z-index:2;box-shadow:0 0 4px rgba(0,212,170,0.5);"></div><div id="bf-thumb-e" style="position:absolute;top:0;bottom:0;width:10px;background:var(--accent);border-radius:3px;cursor:grab;z-index:2;box-shadow:0 0 4px rgba(0,212,170,0.5);"></div></div></div>
+    <div style="display:flex;gap:3px;margin-bottom:8px;flex-wrap:wrap;font-size:10px;">${isPet?`<button class="btn btn-xs bf-quick" data-from="1" data-to="33">1-33空环</button><button class="btn btn-xs bf-quick" data-from="34" data-to="66">34-66空环</button><button class="btn btn-xs bf-quick" data-from="67" data-to="100">67-100空环</button>`:`<button class="btn btn-xs bf-quick" data-from="1" data-to="100">1-100空环</button><button class="btn btn-xs bf-quick" data-from="101" data-to="200">101-200空环</button><button class="btn btn-xs bf-quick" data-from="201" data-to="300">201-300空环</button>`}<button class="btn btn-xs bf-quick" data-from="all">全部空环</button></div>
+    <div style="margin-bottom:6px;font-size:11px;color:var(--text2);">选择任务类型：</div><div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:10px;">${TYPES.map(t=>`<button class="btn btn-xs bf-task${selTid===t.id?' btn-a':''}" data-tid="${t.id}">${t.icon}${t.name}${isPet?`<span style="font-size:8px;color:${t.sc>0?'var(--accent)':'var(--danger)'};">${t.sc>0?'+':''}${t.sc}</span>`:''}</button>`).join('')}</div>
+    <div style="display:flex;gap:6px;justify-content:flex-end;"><button class="btn btn-a btn-xs" id="bf-confirm">填充<span id="bf-confirm-n">${selEnd-selStart+1}</span>环</button><button class="btn btn-xs" style="color:var(--text2);" id="bf-cancel">取消</button></div></div>`;
+  document.body.appendChild(overlay);
+
+  const canvas=overlay.querySelector('#bf-canvas'),ctx=canvas.getContext('2d');
+  const trackEl=overlay.querySelector('#bf-track');
+  let RING_W,usableW;
+
+  function resizeTrack(){
+    const rect=trackEl.getBoundingClientRect(),dpr=window.devicePixelRatio||1,tw=rect.width;
+    usableW=tw-TRACK_PAD*2;RING_W=usableW/(TOTAL-1);
+    canvas.width=tw*dpr;canvas.height=36*dpr;canvas.style.width=tw+'px';canvas.style.height='36px';
+    ctx.setTransform(dpr,0,0,dpr,0,0);drawTrack();
+  }
+  function drawTrack(){
+    ctx.clearRect(0,0,trackEl.getBoundingClientRect().width,36);
+    for(let i=0;i<TOTAL;i++){const x=TRACK_PAD+i*RING_W;ctx.fillStyle=cur.rings[i]?.t?'#00d4aa':'#1a2740';ctx.fillRect(x,6,RING_W,24);}
+    ctx.fillStyle='rgba(255,255,255,0.2)';
+    if(!isPet){ctx.fillRect(TRACK_PAD+100*RING_W,4,1.5,28);ctx.fillRect(TRACK_PAD+200*RING_W,4,1.5,28);}
+    else{ctx.fillRect(TRACK_PAD+33*RING_W,4,1.5,28);ctx.fillRect(TRACK_PAD+66*RING_W,4,1.5,28);}
+  }
+  const thumbS=overlay.querySelector('#bf-thumb-s'),thumbE=overlay.querySelector('#bf-thumb-e'),selDiv=overlay.querySelector('#bf-sel');
+  function ringToX(rn){return TRACK_PAD+(rn-1)*RING_W;}
+  function ringToPct(rn){const tw=trackEl.getBoundingClientRect().width;return((ringToX(rn)-5)/tw*100).toFixed(3)+'%';}
+  function ringRangePct(rn){const tw=trackEl.getBoundingClientRect().width;return(ringToX(rn)/tw*100).toFixed(3)+'%';}
+  function updateUI(){
+    thumbS.style.left=ringToPct(selStart);thumbE.style.left=ringToPct(selEnd);
+    selDiv.style.left=ringRangePct(selStart);selDiv.style.width=((ringToX(selEnd)-ringToX(selStart))/trackEl.getBoundingClientRect().width*100).toFixed(3)+'%';
+    overlay.querySelector('#bf-from').textContent=selStart;overlay.querySelector('#bf-to').textContent=selEnd;
+    const cnt=selEnd-selStart+1;overlay.querySelector('#bf-count').textContent=cnt;overlay.querySelector('#bf-confirm-n').textContent=cnt;
+  }
+  function xToRing(cx){const r=trackEl.getBoundingClientRect();const x=cx-r.left-TRACK_PAD;return Math.max(1,Math.min(TOTAL,Math.round(x/RING_W)+1));}
+  function onDown(e,w){e.preventDefault();dragging=w;thumbS.style.cursor='grabbing';thumbE.style.cursor='grabbing';}
+  function onMove(e){if(!dragging)return;const rn=xToRing(e.clientX);if(dragging==='start')selStart=Math.min(rn,selEnd);else selEnd=Math.max(rn,selStart);updateUI();}
+  function onUp(){if(dragging){dragging=null;thumbS.style.cursor='grab';thumbE.style.cursor='grab';}}
+  function onTMove(e){if(!dragging)return;const rn=xToRing(e.touches[0].clientX);if(dragging==='start')selStart=Math.min(rn,selEnd);else selEnd=Math.max(rn,selStart);updateUI();}
+
+  thumbS.addEventListener('mousedown',e=>onDown(e,'start'));thumbE.addEventListener('mousedown',e=>onDown(e,'end'));
+  thumbS.addEventListener('touchstart',e=>{e.preventDefault();dragging='start';thumbS.style.cursor='grabbing';thumbE.style.cursor='grabbing';},{passive:false});
+  thumbE.addEventListener('touchstart',e=>{e.preventDefault();dragging='end';thumbS.style.cursor='grabbing';thumbE.style.cursor='grabbing';},{passive:false});
+  trackEl.addEventListener('mousedown',function(e){if(e.target===thumbS||e.target===thumbE)return;const rn=xToRing(e.clientX),dS=Math.abs(rn-selStart),dE=Math.abs(rn-selEnd);if(dS<=dE){selStart=rn;if(selStart>selEnd)selStart=selEnd;dragging='start';}else{selEnd=rn;if(selEnd<selStart)selEnd=selStart;dragging='end';}updateUI();e.preventDefault();});
+
+  document.addEventListener('mousemove',onMove);document.addEventListener('mouseup',onUp);
+  document.addEventListener('touchmove',onTMove,{passive:false});document.addEventListener('touchend',onUp);
+
+  overlay.querySelectorAll('.bf-quick').forEach(b=>b.addEventListener('click',function(){const f=this.dataset.from;if(f==='all'){selStart=1;selEnd=TOTAL;}else{selStart=parseInt(f);selEnd=parseInt(this.dataset.to);}updateUI();}));
+  overlay.querySelectorAll('.bf-task').forEach(b=>b.addEventListener('click',function(){selTid=this.dataset.tid;overlay.querySelectorAll('.bf-task').forEach(x=>x.classList.remove('btn-a'));this.classList.add('btn-a');}));
+  overlay.querySelector('#bf-confirm').addEventListener('click',()=>{
+    let effEnd=selEnd;
+    if(!isPet&&cCur){
+      if(selStart<=100&&selEnd>100&&(!cCur.rewards[100]||cCur.rewards[100].length===0)){effEnd=100;toast('已限制到第100环，请先结算第100环奖励再继续填充');}
+      else if(selStart<=200&&selEnd>200&&(!cCur.rewards[200]||cCur.rewards[200].length===0)){effEnd=200;toast('已限制到第200环，请先结算第200环奖励再继续填充');}
+    }
+    if(isPet)pQuickFill(selStart,effEnd,selTid);else cQuickFill(selStart,effEnd,selTid);
+    overlay.remove();renderAll();toast(`已填充${selStart}-${effEnd}环`);
+    if(isPet)pCheckComplete();else{cCheckSeg(100);cCheckSeg(200);cCheckSeg(300);}
+  });
+  const close=()=>{document.removeEventListener('mousemove',onMove);document.removeEventListener('mouseup',onUp);document.removeEventListener('touchmove',onTMove);document.removeEventListener('touchend',onUp);window.removeEventListener('resize',resizeTrack);overlay.remove();};
+  overlay.querySelector('#bf-cancel').addEventListener('click',close);overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  resizeTrack();updateUI();window.addEventListener('resize',resizeTrack);
+}
+
+// ==================== USER & HELP MODALS ====================
+function showUserModal(){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  overlay.innerHTML=`<div class="modal" style="max-width:420px;"><h3>👥 角色管理</h3>
+    <div style="max-height:240px;overflow-y:auto;margin-bottom:10px;">${users.map(u=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 8px;background:var(--surface2);border-radius:4px;margin-bottom:3px;${u.id===activeUser?'border:1px solid var(--accent);':''}"><div><div style="font-weight:600;font-size:12px;${u.id===activeUser?'color:var(--accent);':''}">${u.name}${u.id===activeUser?' (当前)':''}</div><div style="font-size:9px;color:var(--text2);">创建于${fmtDate(u.createdAt)}</div></div><div style="display:flex;gap:3px;">${u.id!==activeUser?`<button class="btn btn-xs btn-a um-switch" data-uid="${u.id}">切换</button>`:''}<button class="btn btn-xs btn-d um-del" data-uid="${u.id}"${users.length<=1?' disabled style="opacity:0.3;pointer-events:none;"':''}>删除</button></div></div>`).join('')}</div>
+    <div style="display:flex;gap:4px;margin-bottom:10px;"><input type="text" id="um-name" placeholder="新角色名称" maxlength="12" style="flex:1;padding:4px 6px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:12px;"><button class="btn btn-a btn-xs" id="um-create">+创建</button></div>
+    <div style="display:flex;gap:5px;justify-content:flex-end;"><button class="btn btn-xs" style="color:var(--text2);" id="um-close">关闭</button></div></div>`;
+  document.body.appendChild(overlay);
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  overlay.querySelector('#um-close').addEventListener('click',close);
+  overlay.querySelector('#um-create').addEventListener('click',()=>{const nm=overlay.querySelector('#um-name')?.value.trim();if(!nm){toast('请输入角色名称');return;}createUser(nm);close();});
+  overlay.querySelectorAll('.um-switch').forEach(b=>b.addEventListener('click',function(){const uid=this.dataset.uid;close();switchUser(uid);}));
+  overlay.querySelectorAll('.um-del').forEach(b=>b.addEventListener('click',function(){const uid=this.dataset.uid,u=users.find(x=>x.id===uid);if(!confirm(`确定删除角色「${u?.name||uid}」？\n该角色的所有跑环数据将被永久删除。`))return;deleteUser(uid);close();renderAll();}));
+}
+
+function showPricesModal(isPet){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const TYPES=isPet?PT:CT, prices=isPet?pPrices:cPrices, defP=isPet?P_DEFAULT_PRICES:C_DEFAULT_PRICES;
+  overlay.innerHTML=`<div class="modal" style="max-width:500px;"><h3>💰 物品参考价格设置</h3><div style="font-size:10px;color:var(--text2);margin-bottom:8px;">修改价格后保存，用于计算费用</div><div style="max-height:50vh;overflow-y:auto;">${TYPES.map(t=>`<div style="display:flex;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid rgba(26,39,64,0.3);"><span style="width:90px;font-size:11px;">${t.icon}${t.name}</span><input type="number" class="price-inp" data-tid="${t.id}" value="${prices[t.id]||defP[t.id]||0}" style="width:100px;padding:3px;background:var(--bg);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:11px;text-align:right;"><span style="font-size:10px;color:var(--text2);">两银子</span></div>`).join('')}</div>
+    <div style="display:flex;gap:5px;justify-content:flex-end;margin-top:8px;"><button class="btn btn-a btn-xs" id="pr-save">保存</button><button class="btn btn-xs" id="pr-reset">恢复默认</button><button class="btn btn-xs" style="color:var(--text2);" id="pr-cancel">取消</button></div></div>`;
+  document.body.appendChild(overlay);
+  const close=()=>overlay.remove();
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  overlay.querySelector('#pr-cancel').addEventListener('click',close);
+  overlay.querySelector('#pr-save').addEventListener('click',()=>{overlay.querySelectorAll('.price-inp').forEach(inp=>{prices[inp.dataset.tid]=parseInt(inp.value)||0;});if(isPet)pSave('prices',pPrices);else cSave('prices',cPrices);close();renderAll();toast('价格已保存');});
+  overlay.querySelector('#pr-reset').addEventListener('click',()=>{if(!confirm('恢复默认价格？'))return;if(isPet){pPrices={...P_DEFAULT_PRICES};pSave('prices',pPrices);}else{cPrices={...C_DEFAULT_PRICES};cSave('prices',cPrices);}close();renderAll();toast('已恢复默认价格');});
+}
+
+
+// ==================== KNOWLEDGE BASE ====================
+function showKnowledgeBase(){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const categories=[
+    {id:'pet_tips',name:'宠环技巧',icon:'🐾',items:[
+      {q:'宠环是什么？',a:'宠环全称"召唤兽修炼任务"，共100环，每环完成获得修炼经验，100环完成获得制造指南书或百炼精铁奖励。'},
+      {q:'如何提高宠环得分？',a:'优先完成高分任务：指定变异(+10分) > 非指定变异/80环装/2级家具(+5分) > 花卉/乐器(+4分) > 70环装(+3分)。变异宠是高分的核心。'},
+      {q:'普通宠替变异是什么意思？',a:'当需要指定变异宠但交普通宠时，扣15分。这是最坏的选项之一，建议跳过（-20分）或购买变异。'},
+      {q:'跳过任务合适吗？',a:'跳过扣20分，通常不建议。除非当前分数已经足够达到目标书铁等级，才考虑跳过节省成本。'},
+      {q:'宠环积分怎么换算书铁等级？',a:'公式：书铁等级 = 总积分 + floor(等级/3) - 130，结果取10的倍数，范围80~150。例如：175级角色，总积分200分 → 200 + 58 - 130 = 128 → 120级书铁。'},
+      {q:'修炼经验怎么算？',a:'每环经验不同：1-10环每环3点，11-20环4点...逐步递增，90-99环12点，第100环13点。100环满可获得751修炼经验（按每环表累加），约等于4.4个修炼果（170点/个）。'},
+      {q:'哪些任务值得做？',a:'找人(+1)免费但分数低；60环装(+2)成本低；花卉(+4)/乐器(+4)性价比高；80环装(+5)成本高但分高；指定变异(+10)最值但价格昂贵。平衡成本和目标分数是关键。'},
+      {q:'宠环奖励有什么？',a:'根据总分获得对应等级制造指南书或百炼精铁：80~150级。总分 ≥170 有几率额外获得修炼果/200修炼点/3级家具设计图。150级及以上有几率获得战魄。'}
+    ]},
+    {id:'chain_tips',name:'跑环攻略',icon:'📜',items:[
+      {q:'任务链是什么？',a:'任务链共300环，分三段（1-100、101-200、201-300），每段完成后找NPC领取奖励：100环=制造指南书，200环=百炼精铁，300环=随机书或铁。'},
+      {q:'奖励等级怎么算？',a:'等级决定奖励书铁区间：等级±10级。例如120级→110~130书铁。等级≥140→130~140固定。等级≥156→300环有几率150书铁/战魄。等级≥110→有几率获得灵饰指南书/元灵晶石。'},
+      {q:'任务链有哪些任务类型？',a:'寻人/战斗/寻宠（免费），60环装(~8万)，70环装(~12万)，80环装(~45万)，烹饪(~1.5万)，三药(~2万)，花卉(~5万)，乐器(~6万)，兽诀(~80万)，宝石(~5万)，金柳露(~8万)。'},
+      {q:'如何降低任务链成本？',a:'善用批量填充快速过找人/战斗段；提前准备常见物品（烹饪、三药、花卉）；关注市场物价波动；200环后无战斗，寻物必80环装（成本高）。'},
+      {q:'任务链和宠环的区别？',a:'宠环100环，积分制，目标是凑分拿高级书铁；任务链300环，等级制（固定奖励），目标是完成三轮领奖励。宠环可跳过，任务链不能跳过。'},
+      {q:'为什么要分三段记录奖励？',a:'每100环就可领取一次奖励，不用等300环全部完成。提前知道100环/200环的奖励有助于评估是否继续。'},
+      {q:'任务链挣钱吗？',a:'总成本约100-500万（取决于兽诀等高价任务数量），奖励书铁价值波动大。运气好出130+好书可赚，运气差出低级书铁可能亏。建议用工具记录历史数据评估收益。'}
+    ]},
+    {id:'price_ref',name:'物价参考',icon:'💰',items:[
+      {q:'宠环物品参考价格',a:'60环装：18万 | 70环装：12万 | 80环装：45万 | 烹饪/三药：2万 | 1级家具：3万 | 2级家具：5万 | 花卉：5万 | 乐器：8万 | 非指定变异：250万 | 指定变异：600万'},
+      {q:'任务链物品参考价格',a:'60环装：8万 | 70环装：12万 | 80环装：45万 | 烹饪：1.5万 | 三药：2万 | 花卉：5万 | 乐器：6万 | 兽诀：80万 | 宝石：5万 | 金柳露：8万 | 寻人/战斗/寻宠：免费'},
+      {q:'如何获取最新物价？',a:'建议在游戏中查看摊位/商会价格，在本工具中点击💰按钮自定义更新价格。不同服务器物价差异较大，默认价格仅供参考。'},
+      {q:'变异宠价格为什么那么贵？',a:'变异宠稀有（普通宠的变异形态），刷新概率低，需求大（宠环高分必备）。不同种类变异价格差异大，稀有变异可达千万以上。提前了解哪些变异便宜可用。'}
+    ]},
+    {id:'faq',name:'常见问题',icon:'❓',items:[
+      {q:'数据存储在哪里？',a:'所有数据存储在浏览器本地（localStorage），不会上传到任何服务器。清除浏览器数据会丢失记录，建议定期使用"导出"功能备份JSON文件。'},
+      {q:'如何备份数据？',a:'在历史标签页点击"📥 导出"按钮，会下载JSON文件。恢复时点击"📤 导入"选择之前的备份文件即可。建议每完成一轮就导出备份。'},
+      {q:'如何创建多个角色？',a:'点击标题栏角色名旁的👥按钮，在角色管理弹窗中输入新角色名创建。每个角色的跑环数据完全独立。'},
+      {q:'PC和手机都能用吗？',a:'是的，本工具为响应式设计，支持PC浏览器和手机浏览器。推荐PC使用获得更好的操作体验（大屏幕方便查看网格）。'},
+      {q:'批量填充怎么用？',a:'点击网格上方的"批量填充"按钮，拖动滑块选择环数范围，选择任务类型，点击填充。对于连续找人/战斗段特别高效。'},
+      {q:'预测不准怎么办？',a:'积分预测只是参考，实际奖励受随机因素影响。结算时可勾选"预估不准"解锁全部等级选项。多次记录后可观察自己的实际出书铁等级规律。'},
+      {q:'收益账本怎么算的？',a:'成本按你设的物品价格逐环累加；收入在结算时按奖励价目表估值，也能手改；利润 = 收入 - 成本；ROI = 收入 ÷ 成本；时薪 = 利润 ÷ 用时。没有收入字段的历史轮次会标「未记账」，点进去可以补录。'},
+      {q:'金价和价目表在哪改？',a:'首页「金价计算器」改万两↔人民币的比例（默认 3000 万两 = 202 元），保存后账本可切两种口径；书铁奖励的参考价在「奖励价目表」里按等级改，单位万两。'}
+    ]}
+  ];
+  let activeCat=categories[0].id;
+
+  function render(){
+    const cat=categories.find(c=>c.id===activeCat);
+    overlay.innerHTML=`<div class="modal" style="max-width:600px;max-height:88vh;display:flex;flex-direction:column;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-shrink:0;">
+        <h3 style="margin:0;">📚 跑环知识库</h3>
+        <button class="btn btn-xs" style="color:var(--text2);" id="kb-close">✕</button>
+      </div>
+      <div style="display:flex;gap:4px;margin-bottom:8px;flex-shrink:0;flex-wrap:wrap;">${categories.map(c=>`<button class="btn btn-xs${activeCat===c.id?' btn-a':''}" data-cat="${c.id}">${c.icon} ${c.name}</button>`).join('')}</div>
+      <div style="flex:1;overflow-y:auto;min-height:0;">${cat.items.map((item,i)=>`<details style="margin-bottom:6px;background:var(--surface2);border-radius:6px;border:1px solid var(--border);"${i===0?' open':''}><summary style="padding:8px 10px;cursor:pointer;font-weight:600;font-size:12px;color:var(--text);">${item.q}</summary><div style="padding:6px 10px 10px;font-size:11px;color:var(--text2);line-height:1.6;">${item.a}</div></details>`).join('')}</div>
+    </div>`;
+    bindKbEvents();
+  }
+
+  function bindKbEvents(){
+    overlay.querySelector('#kb-close')?.addEventListener('click',close);
+    overlay.querySelectorAll('[data-cat]').forEach(b=>b.addEventListener('click',function(){activeCat=this.dataset.cat;render();}));
+  }
+
+  function close(){overlay.remove();}
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  document.body.appendChild(overlay);
+  render();
+}
+
+// ==================== GUIDE MODAL ====================
+function showGuideModal(){
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  const isPet=vw==='pet'; const isHub=vw==='hub';
+  const steps=isHub?[
+    {icon:'🐉',title:'欢迎使用跑环工具',desc:'本工具包含宠环助手和任务链跑环助手两大功能。点击下方卡片进入对应工具。'},
+    {icon:'🐾',title:'宠环助手（100环）',desc:'记录召唤兽修炼任务每环的类型和积分，自动计算总分、预测书铁奖励等级、提供控分策略。'},
+    {icon:'📜',title:'跑环助手（300环）',desc:'记录任务链每环内容，分三段结算奖励（100/200/300环各有不同奖励），按等级预测书铁区间。'},
+    {icon:'👤',title:'多角色管理',desc:'支持创建多个角色，每个角色跑环数据完全独立。点击标题栏角色名或👥按钮管理。'},
+    {icon:'💰',title:'自定义价格',desc:'点击💰按钮设置物品参考价格，用于准确计算每轮费用。不同服务器物价可自行调整。'},
+    {icon:'📚',title:'跑环知识库',desc:'Hub首页底部有知识库入口，包含宠环技巧、跑环攻略、物价参考、常见问题等分类FAQ。'},
+    {icon:'📒',title:'收益账本',desc:'每次结算记下奖励，账本自动算成本、收入、利润、ROI 和时薪；点一行看成本与收益明细，没记收入的老记录可以补录。'},
+    {icon:'💱',title:'金价换算',desc:'首页金价计算器填你区服的比例（默认 3000 万两 = 202 元），账本可在万两和人民币之间切换。'},
+    {icon:'💾',title:'数据安全',desc:'所有数据存储在浏览器本地（localStorage），不上传到任何服务器。支持JSON导出备份、导入恢复。'}
+  ]:isPet?[
+    {icon:'👤',title:'创建角色',desc:'点击标题栏角色名下拉框切换或创建角色，不同角色数据完全隔离。'},
+    {icon:'⚙️',title:'设置等级',desc:'输入你的角色等级（65~175），影响书铁奖励预测和控分计算。点击等级输入框修改。'},
+    {icon:'💰',title:'设置物品价格',desc:'修改60环装/80环装/变异等物品价格，用于准确计算每轮费用。点击💰按钮进入。'},
+    {icon:'▶️',title:'开始跑环',desc:'点击"+ 新跑环"按钮开始新一轮100环宠环记录。'},
+    {icon:'📝',title:'记录每环任务',desc:'在快速栏选择任务类型，点击"记录"录入当前环。每个任务有不同积分（+1~+10或扣分）。'},
+    {icon:'📦',title:'批量填充',desc:'选择范围一键填入相同任务类型，大幅提升记录效率。点击网格上方"批量填充"按钮。'},
+    {icon:'🏆',title:'结算奖励',desc:'全部100环完成后点击"结算"，记录实际获得的书铁等级和额外奖励（修炼果等）。'},
+    {icon:'📒',title:'顺手记账',desc:'结算弹窗里选实际拿到的书铁和额外奖励，按价目表自动估值，实时显示成本/收入/利润/时薪；不想现在记就先结算，之后在账本补录。'},
+    {icon:'📊',title:'查看历史和统计',desc:'在"历史"标签查看所有跑环记录，支持导入/导出JSON备份。"统计"标签查看得分趋势图。'},
+    {icon:'🎯',title:'控分策略',desc:'在"控分"标签查看目标书铁等级所需的每环平均分，合理分配高低分任务。'}
+  ]:[
+    {icon:'👤',title:'创建角色',desc:'点击标题栏角色名下拉框切换或创建角色，不同角色数据完全隔离。'},
+    {icon:'⚙️',title:'设置等级',desc:'输入角色等级（60~175），等级决定三段奖励的书铁等级区间。'},
+    {icon:'💰',title:'设置物品价格',desc:'修改60环装/80环装/兽诀等物品价格，用于准确计算总费用。点击💰按钮进入。'},
+    {icon:'▶️',title:'开始任务链',desc:'点击"+ 新任务链"按钮开始新一轮300环任务链记录。'},
+    {icon:'📝',title:'记录每环任务',desc:'在快速栏选择任务类型（寻人/战斗/寻宠/装备/物品等），点击"记录"录入。'},
+    {icon:'📦',title:'批量填充',desc:'选择100环范围一键填入相同任务，快速处理找人/战斗段。点击"批量填充"按钮。'},
+    {icon:'🏷️',title:'段奖励记录',desc:'每完成100环自动弹出提示，选择实际获得的制造指南书/百炼精铁等级和类型。'},
+    {icon:'🏁',title:'完成结算',desc:'300环全部完成并记录三段奖励后自动结算。也可主动点击"结算"按钮。'},
+    {icon:'📊',title:'查看历史和统计',desc:'在"历史"标签查看所有记录。"统计"标签查看任务类型分布和费用概况。'}
+  ];
+  const tabLabel=isHub?'玩法总览 使用指南':isPet?'宠环助手 操作指南':'人环助手 操作指南';
+  const totalSteps=steps.length;
+  let currentStep=0;
+
+  function render(){
+    const s=steps[currentStep];
+    overlay.innerHTML=`<div class="modal" style="max-width:480px;text-align:center;">
+      <h3 style="margin-bottom:2px;">${tabLabel}</h3>
+      <div style="font-size:10px;color:var(--text2);margin-bottom:10px;">第 ${currentStep+1}/${totalSteps} 步</div>
+      <div style="font-size:52px;margin-bottom:8px;">${s.icon}</div>
+      <div style="font-size:16px;font-weight:700;color:var(--accent);margin-bottom:6px;">${s.title}</div>
+      <p style="font-size:12px;color:var(--text);line-height:1.7;margin-bottom:16px;padding:0 8px;">${s.desc}</p>
+      <div style="display:flex;gap:4px;margin-bottom:12px;justify-content:center;">${steps.map((_,i)=>`<div style="width:${i===currentStep?18:6}px;height:6px;border-radius:3px;background:${i===currentStep?'var(--accent)':'var(--border)'};transition:all .3s;"></div>`).join('')}</div>
+      <div style="display:flex;gap:6px;justify-content:center;flex-wrap:wrap;">
+        ${currentStep>0?`<button class="btn btn-xs" id="guide-prev">← 上一步</button>`:''}
+        ${currentStep<totalSteps-1?`<button class="btn btn-a btn-xs" id="guide-next">下一步 →</button>`:`<button class="btn btn-a btn-xs" id="guide-done">✓ 完成</button>`}
+        <button class="btn btn-xs" style="color:var(--text2);" id="guide-close">关闭</button>
+      </div>
+    </div>`;
+    bindGuideEvents();
+  }
+
+  function bindGuideEvents(){
+    overlay.querySelector('#guide-close')?.addEventListener('click',close);
+    overlay.querySelector('#guide-prev')?.addEventListener('click',()=>{currentStep--;render();});
+    overlay.querySelector('#guide-next')?.addEventListener('click',()=>{currentStep++;render();});
+    overlay.querySelector('#guide-done')?.addEventListener('click',close);
+    // Keyboard navigation
+    const onKey=e=>{if(e.key==='ArrowRight'&&currentStep<totalSteps-1){currentStep++;render();}else if(e.key==='ArrowLeft'&&currentStep>0){currentStep--;render();}else if(e.key==='Escape')close();};
+    document.addEventListener('keydown',onKey,{once:true});
+    overlay.addEventListener('keydown',onKey);
+  }
+
+  function close(){overlay.remove();}
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
+  document.body.appendChild(overlay);
+  render();
+}
+
+// ==================== FIRST-VISIT WELCOME ====================
+function showWelcome(){
+  if(localStorage.getItem('mhxy_welcome_seen'))return;
+  const overlay=document.createElement('div');overlay.className='modal-overlay';
+  overlay.innerHTML=`<div class="modal" style="max-width:460px;text-align:center;">
+    <div style="font-size:48px;margin-bottom:8px;">🐉</div>
+    <h3 style="font-size:20px;margin-bottom:4px;">欢迎使用梦幻搞钱工具箱</h3>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:14px;line-height:1.6;">一站式跑环记录工具，支持宠环（100环）和任务链（300环）<br>多角色数据隔离 · 本地安全存储 · PC移动端通用</p>
+    <div style="display:flex;gap:10px;margin-bottom:14px;justify-content:center;">
+      <div style="text-align:center;"><div style="font-size:28px;">🐾</div><div style="font-size:10px;color:var(--text2);">宠环助手<br>积分追踪·奖励预测</div></div>
+      <div style="text-align:center;"><div style="font-size:28px;">📜</div><div style="font-size:10px;color:var(--text2);">人环助手<br>300环·三段结算</div></div>
+    </div>
+    <p style="font-size:10px;color:var(--text2);margin-bottom:12px;">💡 提示：使用过程中可随时点击 📖 按钮查看操作指南</p>
+    <div style="display:flex;gap:6px;justify-content:center;"><button class="btn btn-a btn-xs" id="wl-start">开始使用</button></div>
+  </div>`;
+  document.body.appendChild(overlay);
+  overlay.addEventListener('click',e=>{if(e.target===overlay){overlay.remove();localStorage.setItem('mhxy_welcome_seen','1');}});
+  overlay.querySelector('#wl-start').addEventListener('click',()=>{overlay.remove();localStorage.setItem('mhxy_welcome_seen','1');});
+  document.body.appendChild(overlay);
+}
+setTimeout(showWelcome,600);
+
+// ==================== EVENTS ====================
+function bindEvents(){
+  // Clock
+  tickClock();
+  // Hub navigation cards
+  document.querySelectorAll('.hub-card').forEach(c=>c.addEventListener('click',function(){vw=this.dataset.nav;renderAll();}));
+  const kbBtn=document.getElementById('btn-kb');if(kbBtn)kbBtn.addEventListener('click',showKnowledgeBase);
+  // Back button
+  const bk=document.getElementById('btn-back');if(bk)bk.addEventListener('click',()=>{vw='hub';renderAll();});
+  // Level
+  const li=document.getElementById('char-level');
+  if(li)li.addEventListener('change',function(){const lv=parseInt(this.value)||175;if(vw==='pet'){pCfg.level=Math.max(65,Math.min(175,lv));this.value=pCfg.level;pSave('cfg',pCfg);if(pCur){pCur.level=pCfg.level;pSave('cur',pCur);}}else{cCfg.level=Math.max(60,Math.min(175,lv));this.value=cCfg.level;cSave('cfg',cCfg);if(cCur){cCur.level=cCfg.level;cSave('cur',cCur);}}renderAll();});
+  // User
+  const us=document.getElementById('user-select');if(us)us.addEventListener('change',function(){if(this.value!==activeUser)switchUser(this.value);});
+  const um=document.getElementById('btn-user-mgr');if(um)um.addEventListener('click',showUserModal);
+  // Tabs
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',function(){if(vw==='pet'){tab=this.dataset.tab;}else{ctab=this.dataset.tab;}renderAll();if(vw==='pet'&&tab==='stats')setTimeout(drawPetChart,200);}));
+  // New run
+  ['btn-new-run','btn-new-run-empty'].forEach(id=>{const b=document.getElementById(id);if(b)b.addEventListener('click',()=>{if(vw==='pet')pStartNew();else cStartNew();});});
+  // Complete/Abandon
+  const bc=document.getElementById('btn-complete');if(bc)bc.addEventListener('click',()=>{if(vw==='pet')pComplete();else cComplete();});
+  const ba=document.getElementById('btn-abandon');if(ba)ba.addEventListener('click',()=>{if(vw==='pet'){if(confirm('放弃当前宠环？')){localStorage.removeItem(ukey('cur'));pCur=null;modalTask=null;renderAll();toast('已放弃');}}else{if(confirm('放弃当前任务链？')){localStorage.removeItem(ukey3('cur'));cCur=null;modalTask=null;renderAll();toast('已放弃');}}});
+  // Help/Prices
+  const bh=document.getElementById('btn-help');if(bh)bh.addEventListener('click',()=>showGuideModal());
+  const bp=document.getElementById('btn-prices');if(bp)bp.addEventListener('click',()=>showPricesModal(vw==='pet'));
+  // Quick
+  document.querySelectorAll('[data-action="qp"]').forEach(b=>b.addEventListener('click',function(){modalTask=this.dataset.task;renderAll();}));
+  const qg=document.getElementById('btn-qb-go');
+  if(qg)qg.addEventListener('click',()=>{const cur=vw==='pet'?pCur:cCur;if(!cur||!modalTask){toast('请先选择任务类型');return;}const nr=cur.rings.findIndex(r=>!r.t)+1;if(!nr){toast('已全部记录');return;}if(vw==='pet'){pSetRing(nr,modalTask,document.getElementById('qb-item')?.value||'');modalTask=null;renderAll();pCheckComplete();}else{cSetRing(nr,modalTask,document.getElementById('qb-item')?.value||'');modalTask=null;renderAll();cCheckSeg(100);cCheckSeg(200);cCheckSeg(300);}});
+  // Skip (pet only)
+  const qs=document.getElementById('btn-qb-skip');
+  if(qs)qs.addEventListener('click',()=>{if(!pCur)return;const nr=pCur.rings.findIndex(r=>!r.t)+1;if(!nr){toast('已全部记录');return;}if(!confirm(`跳过第${nr}环？（扣20分）`))return;pSetRing(nr,'skip','');modalTask=null;renderAll();pCheckComplete();});
+  // Grid
+  const grid=document.getElementById('ring-grid');
+  if(grid)grid.addEventListener('click',function(e){const cell=e.target.closest('.cell');if(!cell)return;const cur=vw==='pet'?pCur:cCur;if(!cur)return;const rn=parseInt(cell.dataset.ring);if(vw==='pet')showPetEditModal(rn);else showChainEditModal(rn);});
+  // Batch
+  const bf=document.getElementById('btn-batch');if(bf)bf.addEventListener('click',()=>showBatchModal(vw==='pet'));
+  // Clear
+  const ca=document.getElementById('btn-clear-all');
+  if(ca)ca.addEventListener('click',()=>{if(vw==='pet'&&pCur){if(confirm('清除所有记录？')){pushUndo();pCur.rings=Array.from({length:100},()=>({t:null,sc:0,item:''}));pSave('cur',pCur);modalTask=null;renderAll();toast('已清除');}}else if(vw==='chain'&&cCur){if(confirm('清除所有记录？')){pushUndo();cCur.rings=Array.from({length:300},()=>({t:null,item:''}));cCur.rewards={100:[],200:[],300:[]};cSave('cur',cCur);modalTask=null;renderAll();toast('已清除');}}});
+  // Export/Import
+  const be=document.getElementById('btn-export');if(be)be.addEventListener('click',()=>{const isPet=vw==='pet';const cu=users.find(u=>u.id===activeUser);const d={time:new Date().toISOString(),user:cu?.name||'',type:isPet?'pet':'chain',cfg:isPet?pCfg:cCfg,hist:isPet?pHist:cHist,prices:isPet?pPrices:cPrices,cur:isPet?pCur:cCur};const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=`mhxy-${isPet?'pet':'chain'}-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(u);toast('已导出');});
+  const bi=document.getElementById('btn-import');if(bi)bi.addEventListener('click',()=>{const inp=document.createElement('input');inp.type='file';inp.accept='.json';inp.onchange=function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){try{const d=JSON.parse(ev.target.result);const imported=d.hist||d.history;if(imported&&Array.isArray(imported)){if(!confirm(`导入${imported.length}条记录？`))return;if(vw==='pet'){pHist=[...imported,...pHist];pSave('runs',pHist);}else{cHist=[...imported,...cHist];cSave('runs',cHist);}renderAll();toast(`已导入${imported.length}条`);}else toast('无效文件');}catch(e){toast('解析失败');}};r.readAsText(f);};inp.click();});
+
+  // ===== 账本：周期 / 币种 / 明细 =====
+  document.querySelectorAll('.seg-btn[data-period]').forEach(b=>b.addEventListener('click',()=>{ledgerPeriod=b.dataset.period;renderAll();}));
+  document.querySelectorAll('.seg-btn[data-currency]').forEach(b=>b.addEventListener('click',()=>{ledgerCurrency=b.dataset.currency;renderAll();}));
+  document.querySelectorAll('.ledger-row[data-row]').forEach(row=>row.addEventListener('click',()=>showLedgerDetail(row.dataset.row,row.dataset.tool)));
+  const ub=document.getElementById('btn-undo');if(ub)ub.addEventListener('click',undoLast);
+  const pb=document.getElementById('btn-pause');if(pb)pb.addEventListener('click',()=>togglePause(vw==='pet'?pCur:cCur,vw==='pet'?'pet':'chain'));
+  document.querySelectorAll('.chip-item').forEach(c=>c.addEventListener('click',()=>{const inp=document.getElementById('qb-item');if(inp){inp.value=c.dataset.item;inp.focus();}}));
+  const jb=document.getElementById('btn-jump');if(jb)jb.addEventListener('click',jumpToRing);
+  const ji=document.getElementById('jump-ring');if(ji)ji.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();jumpToRing();}});
+  const rpb=document.getElementById('btn-reward-prices');if(rpb)rpb.addEventListener('click',showRewardPricesModal);
+  const lnp=document.getElementById('btn-ledger-new-pet');if(lnp)lnp.addEventListener('click',()=>{vw='pet';tab='record';pStartNew();});
+  // ===== 金价计算器：双向换算 + 比例保存 =====
+  const gw=document.getElementById('gold-wan'),gy=document.getElementById('gold-yuan');
+  if(gw&&gy){
+    gw.addEventListener('input',()=>{const y=wanToYuan(parseFloat(gw.value)||0,moneyCfg);gy.value=y===null?'':y.toFixed(2);});
+    gy.addEventListener('input',()=>{const w=yuanToWan(parseFloat(gy.value)||0,moneyCfg);gw.value=w===null?'':w.toFixed(0);});
+  }
+  const gs=document.getElementById('btn-gold-save');
+  if(gs)gs.addEventListener('click',()=>{
+    const rw=parseFloat(document.getElementById('gold-rw')?.value),ry=parseFloat(document.getElementById('gold-ry')?.value);
+    if(!(rw>0&&ry>0)){toast('比例要大于 0');return;}
+    const target=parseFloat(document.getElementById('gold-target')?.value);
+    moneyCfg=normalizeMoneyCfg(Object.assign({},moneyCfg,{ratioWan:rw,ratioYuan:ry,targetHourlyYuan:Number.isFinite(target)&&target>0?target:moneyCfg.targetHourlyYuan}));
+    saveMoneyCfg();renderAll();toast('金价比例与目标时薪已保存');
+  });
+  const gr=document.getElementById('btn-gold-reset');
+  if(gr)gr.addEventListener('click',()=>{moneyCfg=normalizeMoneyCfg(null);saveMoneyCfg();renderAll();toast('已恢复 3000 万两 = 202 元');});
+  // ===== 整账号导出 / 导入 =====
+  const bea=document.getElementById('btn-export-all');if(bea)bea.addEventListener('click',exportAccount);
+  const bia=document.getElementById('btn-import-all');if(bia)bia.addEventListener('click',()=>{
+    const inp=document.createElement('input');inp.type='file';inp.accept='.json';
+    inp.onchange=function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();
+      r.onload=function(ev){try{importAccount(JSON.parse(ev.target.result));}catch(err){toast('解析失败：不是有效的 JSON');}};r.readAsText(f);};
+    inp.click();
+  });
+
+  window.pShowReport=id=>{const r=pHist.find(x=>x.id===id);if(r)showReport(r,'pet');};
+  window.cShowReport=id=>{const r=cHist.find(x=>x.id===id);if(r)showReport(r,'chain');};
+  window.pDelete=id=>{if(!confirm('确定删除？'))return;pHist=pHist.filter(r=>r.id!==id);pSave('runs',pHist);renderAll();toast('已删除');};
+  window.cDelete=id=>{if(!confirm('确定删除？'))return;cHist=cHist.filter(r=>r.id!==id);cSave('runs',cHist);renderAll();toast('已删除');};
+}
+
+// ==================== CLOCK & CHART ====================
+function tickClock(){
+  document.querySelectorAll('#live-clock,.clock').forEach(el=>{const n=new Date();el.textContent=n.toLocaleDateString('zh-CN',{month:'2-digit',day:'2-digit'})+' '+n.toLocaleTimeString('zh-CN',{hour12:false});});
+  document.querySelectorAll('[data-elapsed]').forEach(el=>{const cur=el.dataset.elapsed==='pet'?pCur:cCur;if(cur)el.textContent=elapsedText(cur);});
+  const hc=document.getElementById('hub-clock');if(hc){const n=new Date();hc.textContent=n.toLocaleDateString('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit'})+' '+n.toLocaleTimeString('zh-CN',{hour12:false});}
+}
+function drawPetChart(){
+  const canvas=document.getElementById('scoreChart');if(!canvas||pHist.length===0)return;
+  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  const scores=pHist.map(r=>r.totalScore||0).reverse(),max=Math.max(...scores,220),min=Math.min(...scores,100),range=max-min||1;
+  const pad={t:20,r:12,b:24,l:36},pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+  ctx.clearRect(0,0,w,h);ctx.fillStyle='#0f1623';ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#1a2740';ctx.lineWidth=0.5;
+  for(let i=0;i<=4;i++){const y=pad.t+(ph/4)*i,val=Math.round(max-(range/4)*i);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();ctx.fillStyle='#6b7d95';ctx.font='8px sans-serif';ctx.fillText(val,2,y+3);}
+  if(scores.length>1){ctx.strokeStyle='#00d4aa';ctx.lineWidth=1.5;ctx.beginPath();scores.forEach((s,i)=>{const x=pad.l+(pw/(scores.length-1||1))*i,y=pad.t+ph-((s-min)/range)*ph;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});ctx.stroke();}
+  scores.forEach((s,i)=>{const x=pad.l+(pw/(scores.length-1||1))*i,y=pad.t+ph-((s-min)/range)*ph;ctx.fillStyle='#00d4aa';ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='8px sans-serif';ctx.textAlign='center';ctx.fillText(s,x,y-7);ctx.fillStyle='#6b7d95';ctx.fillText('#'+(i+1),x,h-6);});
+}
+
+// ==================== INIT ====================
+function init(){renderAll();setInterval(tickClock,1000);document.addEventListener('keydown',onGlobalKey);}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
