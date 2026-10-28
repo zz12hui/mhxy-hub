@@ -104,6 +104,8 @@ window.__measureUI = function(){
   var q=document.querySelector('.quick-bar');out.quick=q?box(q):null;
   var st=document.querySelector('.strip');out.strip=st?box(st):null;
   var hm=document.querySelector('.hub-main');out.hubMain=hm?box(hm):null;
+  var appEl=document.querySelector('.app');out.app=appEl?box(appEl):null;
+  out.skinLayers=document.querySelectorAll('#skin-bg,#skin-scrim').length;
   return out;
 };
 `
@@ -226,10 +228,10 @@ function ok(cond, label) {
 ;(async () => {
   const chrome = findChrome()
   const server = await serve()
-  const base = `http://127.0.0.1:${server.address().port}/index.html`
+  const base = `http://127.0.0.1:${server.address().port}/index.html?noskin=1`
   const cases = [
-    ['hub', 1366, 768], ['hub', 1440, 900], ['hub', 1920, 1080], ['hub', 2560, 1440],
-    ['pet', 1440, 900], ['pet', 1920, 1080],
+    ['hub', 1366, 768], ['hub', 1440, 900], ['hub', 1920, 1080], ['hub', 2560, 1440], ['hub', 3440, 1440],
+    ['pet', 1440, 900], ['pet', 1920, 1080], ['pet', 2560, 1440],
     ['chain', 1440, 900],
     ['ledger', 1440, 900], ['ledger', 1920, 1080],
     ['pet:history', 1440, 900], ['pet:stats', 1440, 900],
@@ -239,15 +241,23 @@ function ok(cond, label) {
   try {
     for (const [v, w, h] of cases) {
       console.log(`\n【${v} ${w}×${h}】`)
-      const m = await measureOnce(chrome, `${base}?view=${v}`, w, h, `${v.replace(/[:]/g,'-')}-${w}x${h}`)
+      const m = await measureOnce(chrome, `${base}&view=${v}`, w, h, `${v.replace(/[:]/g,'-')}-${w}x${h}`)
       console.log(`  视口 ${m.vw}×${m.vh}`)
       ok(m.sw <= m.vw + 1, `无横向溢出（scrollWidth ${m.sw} ≤ ${m.vw}）`)
       ok(m.badX.length === 0, `没有元素越过右边界${m.badX.length ? '：' + m.badX.join(' , ') : ''}`)
       ok(m.sh <= m.vh + 2, `页面本身不滚动（scrollHeight ${m.sh} ≤ ${m.vh}）`)
+      if (m.app) {
+        ok(m.app.w <= 1401, `内容栏不超宽（${m.app.w} ≤ 1400）`)
+        if (m.vw > 1400) {
+          ok(Math.abs(m.app.l - (m.vw - m.app.r)) <= 2, `内容栏居中（左 ${m.app.l} / 右距 ${(m.vw - m.app.r).toFixed(1)}）`)
+          ok(m.app.l >= 8, `左右留白（左 ${m.app.l} / 右 ${(m.vw - m.app.r).toFixed(1)}）`)
+        }
+      }
 
       const tool = v.split(':')[0]
       if (tool === 'hub') {
         const g = m.gold
+        ok(m.skinLayers === 2, '换肤图层存在（背景 + 压暗层）')
         ok(!!g.card, '金价卡存在')
         if (g.card) {
           ok(Math.abs(g.wan.l - g.rw.l) < 0.6 && Math.abs(g.rw.l - g.target.l) < 0.6,

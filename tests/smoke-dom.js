@@ -64,6 +64,7 @@ const byText = (sel, txt) => qa(sel).find(e => e.textContent.indexOf(txt) >= 0)
   ok(app().indexOf('收益账本') >= 0, '账本卡片存在')
   ok(!!q('#gold-wan'), '金价计算器存在')
   ok(qa('.hub-card[data-nav]').length === 3, '三张工具卡')
+  ok(!!document.getElementById('skin-bg') && !!document.getElementById('skin-scrim'), '换肤图层在 DOM 里')
 
   console.log('2. 宠环：开轮 / 环格 / 记一环')
   await click(q('.hub-card[data-nav="pet"]'))

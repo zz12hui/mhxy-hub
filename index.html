@@ -7,6 +7,7 @@
 <meta name="description" content="梦幻西游跑环记录与收益核算工具：宠环 100 环、人环 300 环逐环记录，书铁奖励预测与控分，结算即记账，自动算出成本、收入、利润、ROI 和时薪。多角色独立存档，数据只存本地。">
 <meta name="keywords" content="梦幻西游跑环,梦幻西游宠环,梦幻西游宝宝环,梦幻西游任务链,跑环工具,跑环记录,跑环大全,跑环助手,宠环积分,宠环奖励,任务链300环,书铁等级计算,修炼经验,召唤兽修炼,制造指南书,百炼精铁,战魄,跑环积分计算器,梦幻跑环记录工具">
 <meta name="robots" content="index,follow">
+<meta name="referrer" content="no-referrer">
 <meta name="author" content="mhxy-tools">
 <link rel="canonical" href="https://mhxy-tools.github.io/">
 <meta property="og:title" content="梦幻搞钱工具箱 — 跑环记录 · 收益账本">
@@ -39,8 +40,18 @@ body::before{
   background:radial-gradient(ellipse at 20% 10%,rgba(0,212,170,0.04) 0%,transparent 60%),
              radial-gradient(ellipse at 80% 90%,rgba(0,180,216,0.03) 0%,transparent 60%);
 }
-.app{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;padding:6px 10px;}
+.app{position:relative;z-index:1;height:100vh;display:flex;flex-direction:column;width:100%;max-width:1400px;margin:0 auto;padding:14px 20px;}
 
+/* ===== 官网壁纸换肤（外链，不落地） ===== */
+#skin-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-size:cover;background-position:center;background-repeat:no-repeat;opacity:0;transition:opacity .5s ease;filter:blur(1.5px) saturate(1.05);}
+#skin-scrim{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .5s ease;
+  background:
+    radial-gradient(ellipse at 50% 32%,rgba(8,12,20,.10) 0%,rgba(8,12,20,.52) 72%),
+    linear-gradient(180deg,rgba(8,12,20,.86) 0%,rgba(8,12,20,.70) 45%,rgba(8,12,20,.92) 100%);}
+body.skin-on #skin-bg{opacity:.52;}
+body.skin-on #skin-scrim{opacity:1;}
+body.skin-on{--surface:rgba(15,22,35,.92);--surface2:rgba(21,29,46,.9);}
+body.skin-on .modal{background:#0f1623;}
 /* ===== Header ===== */
 .header{display:flex;align-items:center;justify-content:space-between;min-height:46px;padding:0 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);flex-shrink:0;margin-bottom:4px;gap:6px;}
 .header-l{display:flex;align-items:center;gap:8px;flex-shrink:0;}
@@ -133,7 +144,7 @@ body::before{
 .hub-bg .orb:nth-child(1){width:600px;height:600px;background:radial-gradient(circle,rgba(79,110,246,0.2),transparent);top:-200px;left:-100px;}
 .hub-bg .orb:nth-child(2){width:500px;height:500px;background:radial-gradient(circle,rgba(124,92,252,0.15),transparent);bottom:-150px;right:-100px;}
 .hub-bg .orb:nth-child(3){width:300px;height:300px;background:radial-gradient(circle,rgba(0,212,170,0.1),transparent);top:50%;left:50%;transform:translate(-50%,-50%);}
-.hub-main{position:relative;z-index:1;text-align:center;padding:16px 24px;max-width:700px;width:100%;margin:auto 0;}
+.hub-main{position:relative;z-index:1;text-align:center;padding:16px 24px;max-width:1000px;width:100%;margin:auto 0;}
 .hub-icon{display:inline-block;width:60px;height:60px;line-height:60px;font-size:33px;background:linear-gradient(135deg,var(--accent3),var(--accent4));border-radius:18px;margin-bottom:12px;box-shadow:0 8px 28px rgba(79,110,246,0.25);}
 .hub-title{font-size:33px;font-weight:800;letter-spacing:-0.02em;background:linear-gradient(135deg,#e8e8ed,#a0a0c0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;word-break:break-all;}
 .hub-sub{font-size:15px;color:var(--text2);margin-top:6px;}
@@ -352,7 +363,7 @@ body::before{
 .cell.jump-hl{animation:jumpFlash .9s ease-out;}
 .pause-tag{font-size:11px;color:var(--warn);border:1px solid rgba(245,158,11,.4);border-radius:3px;padding:0 4px;}
 @media(pointer:coarse){.kbd-hint{display:none;}}
-.gold-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;margin-top:12px;max-width:760px;width:100%;text-align:left;}
+.gold-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;margin-top:12px;max-width:1000px;width:100%;text-align:left;}
 .gold-card .gt{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13px;font-weight:600;margin-bottom:8px;flex-wrap:wrap;}
 .gold-card .gsub{font-size:11px;color:var(--text2);font-weight:400;}
 .gold-grid{display:grid;grid-template-columns:52px 96px 34px 16px 96px 26px minmax(150px,1fr);gap:6px 8px;align-items:center;}
@@ -365,8 +376,6 @@ body::before{
 .gold-grid .ghint{grid-column:4 / -1;font-size:11px;color:var(--text2);}
 /* 矮屏（≤820px）时把首页压扁，保证一屏装下 */
 @media(min-width:1800px){
-  .hub-main{max-width:880px;}
-  .gold-card{max-width:880px;}
   .hub-title{font-size:36px;}
   .hub-card .cd{font-size:13px;}
   .hub-card .ct{font-size:19px;}
@@ -392,6 +401,8 @@ body::before{
 </style>
 </head>
 <body>
+<div id="skin-bg"></div>
+<div id="skin-scrim"></div>
 <div class="app" id="app"></div>
 <div id="toast-container"></div>
 
@@ -690,6 +701,28 @@ function togglePause(cur,tool){
 }
 function modalOpen(){return !!document.querySelector('.modal-overlay');}
 
+// ===== 官网壁纸换肤：每次进入随机一张，只引外链不落地 =====
+const SKINS=["https://nie.res.netease.com/r/pic/20210811/79751894-0679-4c5c-b1e0-eecab021eee0.png", "https://nie.res.netease.com/r/pic/20210811/5563e364-77dd-49f9-91c4-22fda15f601e.png", "https://nie.res.netease.com/r/pic/20210811/bbcff7cb-c35a-4878-bcc8-6c4830134bfd.png", "https://nie.res.netease.com/r/pic/20210811/b7a96ed4-5b8f-4263-9334-defa62c01d81.png", "https://nie.res.netease.com/r/pic/20210811/806625db-51a6-4cc6-a2ab-e9b7f07aadf2.png", "https://nie.res.netease.com/r/pic/20210811/4ad82ca6-93d8-4fa6-af85-82d2c221e7ea.png", "https://nie.res.netease.com/r/pic/20210811/604ce01f-a83c-4c7a-8bef-c4eda840fc70.png", "https://nie.res.netease.com/r/pic/20210811/12e43ad0-bf0b-4545-8d01-67a58b0d2682.png", "https://nie.res.netease.com/r/pic/20210811/3eb55118-7cdd-48aa-ba9b-a2084864727a.png", "https://nie.res.netease.com/r/pic/20210811/50caf368-da59-455a-acca-eb091801fb90.png", "https://nie.res.netease.com/r/pic/20210811/93ba1c52-dc18-4b70-855d-7b91485b182e.png", "https://nie.res.netease.com/r/pic/20210811/1316eb4e-fa99-4fa4-84aa-8341503a26e5.png", "https://nie.res.netease.com/r/pic/20210410/c27c1d64-c578-497e-8a89-47e2e8b23801.jpg", "https://nie.res.netease.com/r/pic/20210301/84678f99-7171-4440-8016-2ee05ad99061.jpg", "https://nie.res.netease.com/r/pic/20210205/16950dbe-5f19-49e2-a6a7-de559d4050bf.jpg", "https://nie.res.netease.com/r/pic/20171228/82d86abd-63cf-41ea-8c8f-e022cb2801a1.jpg"];
+function applySkin(){
+  if(!SKINS.length)return;
+  if(location.search.indexOf('noskin')>=0)return; // 布局测试用，避免网络图片影响测量
+  var last=-1;
+  try{last=parseInt(sessionStorage.getItem('mhxy_skin_idx')||'-1',10);}catch(e){}
+  var idx=Math.floor(Math.random()*SKINS.length);
+  if(SKINS.length>1&&idx===last)idx=(idx+1)%SKINS.length;
+  try{sessionStorage.setItem('mhxy_skin_idx',String(idx));}catch(e){}
+  var img=new Image();
+  img.onload=function(){
+    var el=document.getElementById('skin-bg');
+    if(el){el.style.backgroundImage='url("'+SKINS[idx]+'")';}
+    document.body.classList.add('skin-on');
+    document.body.setAttribute('data-skin',String(idx+1));
+  };
+  img.onerror=function(){document.body.classList.remove('skin-on');};
+  img.src=SKINS[idx];
+}
+
+
 function pSave(k,d){sv(ukey(k),d);}
 function cSave(k,d){sv(ukey3(k),d);}
 
@@ -977,7 +1010,7 @@ function renderHub(){
         <span class="ghint">账本会把平均时薪和这个目标比一下，标出达标没有</span>
       </div>
     </div>
-    <div class="hub-ft">梦幻搞钱工具箱<i>·</i>数据只存本地浏览器<i>·</i>PC &amp; 移动端通用<i>·</i><span id="hub-clock"></span><br><button class="btn btn-xs" id="btn-kb" onclick="showKnowledgeBase()" style="margin-top:8px;border-color:var(--accent2);color:var(--accent2);">跑环知识库</button> <button class="btn btn-xs" id="btn-hub-prices" onclick="showRewardPricesModal()" style="margin-top:8px;border-color:var(--purple);color:var(--purple);">奖励价目表</button></div>
+    <div class="hub-ft">梦幻搞钱工具箱<i>·</i>数据只存本地浏览器<i>·</i>壁纸取自梦幻西游官网<i>·</i>PC &amp; 移动端通用<i>·</i><span id="hub-clock"></span><br><button class="btn btn-xs" id="btn-kb" onclick="showKnowledgeBase()" style="margin-top:8px;border-color:var(--accent2);color:var(--accent2);">跑环知识库</button> <button class="btn btn-xs" id="btn-hub-prices" onclick="showRewardPricesModal()" style="margin-top:8px;border-color:var(--purple);color:var(--purple);">奖励价目表</button></div>
   </div></div>`;
 }
 
@@ -1923,7 +1956,7 @@ function showWelcome(){
       <div style="text-align:center;"><div style="font-size:30px;">🐾</div><div style="font-size:12px;color:var(--text2);">宠环助手<br>积分追踪·奖励预测</div></div>
       <div style="text-align:center;"><div style="font-size:30px;">📜</div><div style="font-size:12px;color:var(--text2);">人环助手<br>300环·三段结算</div></div>
     </div>
-    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;">💡 提示：使用过程中可随时点击 📖 按钮查看操作指南</p>
+    <p style="font-size:12px;color:var(--text2);margin-bottom:12px;">提示：随时点右上角「帮助」看操作指南；每次打开会从官网壁纸随机换一张背景</p>
     <div style="display:flex;gap:6px;justify-content:center;"><button class="btn btn-a btn-xs" id="wl-start">开始使用</button></div>
   </div>`;
   document.body.appendChild(overlay);
@@ -2038,7 +2071,7 @@ function drawPetChart(){
 }
 
 // ==================== INIT ====================
-function init(){renderAll();setInterval(tickClock,1000);document.addEventListener('keydown',onGlobalKey);}
+function init(){applySkin();renderAll();setInterval(tickClock,1000);document.addEventListener('keydown',onGlobalKey);}
 document.addEventListener('DOMContentLoaded',init);
 </script>
 </body>
