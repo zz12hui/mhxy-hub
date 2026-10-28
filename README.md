@@ -5,6 +5,7 @@
   <img src="https://img.shields.io/badge/形态-单文件%20index.html-blue" alt="single file">
   <img src="https://img.shields.io/badge/测试-18%20单测%20%7C%2062%20冒烟%20%7C%2019%20视口-brightgreen" alt="tests">
   <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  <a href="https://mhxy.4si.cc/"><img src="https://img.shields.io/badge/在线演示-mhxy.4si.cc-2ea043" alt="demo"></a>
 </p>
 
 ---
@@ -57,6 +58,7 @@
 
 | 方式 | 命令 | 说明 |
 |---|---|---|
+| 在线试用 | https://mhxy.4si.cc/ | 免安装，手机电脑都能开 |
 | 直接打开 | 双击 `index.html` | 最快，`file://` 下功能完整（含官网壁纸） |
 | 本地服务 | `python -m http.server 8899` | 然后访问 `http://127.0.0.1:8899/index.html` |
 | 跑测试 | `npm install` → `npm test` | 单测需要 Node 18+；冒烟与 UI 测试见第 8 节 |
