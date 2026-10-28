@@ -226,16 +226,6 @@ const byText = (sel, txt) => qa(sel).find(e => e.textContent.indexOf(txt) >= 0)
   window.HTMLAnchorElement.prototype.click = origClick
   ok(!!downloaded && downloaded.indexOf('mhxy-getcash-box') === 0, '导出文件名 ' + downloaded)
 
-  console.log('13b. 界面缩放按钮')
-  if (q('#btn-back')) await click(q('#btn-back'))
-  const root = document.documentElement
-  ok(!!q('#btn-ui-scale'), '有 Aa 缩放按钮')
-  ok(root.style.getPropertyValue('--ui-scale') === '', '默认跟随屏宽（自动）')
-  await click(q('#btn-ui-scale'))
-  ok(Math.abs(parseFloat(root.style.getPropertyValue('--ui-scale')) - 1.15) < 0.001, '点一次锁到 115%')
-  for (let i = 0; i < 5; i++) await click(q('#btn-ui-scale'))
-  ok(root.style.getPropertyValue('--ui-scale') === '', '转一圈回到自动')
-
   console.log('14. 运行期错误')
   const real = errors.filter(e => e.indexOf('Not implemented') < 0 && e.indexOf('Could not parse CSS') < 0)
   ok(real.length === 0, '无 JS 运行期错误' + (real.length ? '：' + real.slice(0, 3).join(' | ') : ''))

@@ -3,3 +3,7 @@ package-lock.json
 preview-*.html
 *.log
 .DS_Store
+_*.js
+_*.html
+preview-*.html
+shot-*.png
