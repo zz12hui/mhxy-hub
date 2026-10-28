@@ -56,7 +56,8 @@ const byText = (sel, txt) => qa(sel).find(e => e.textContent.indexOf(txt) >= 0)
 
 ;(async () => {
   await sleep(150)
-  // 首访欢迎页会盖住界面，先点「开始使用」
+  // 首访欢迎页 600ms 后才出现，等它出来再关
+  await sleep(700)
   if (document.getElementById('wl-start')) { document.getElementById('wl-start').click(); await sleep(60) }
 
   console.log('1. 首页')
@@ -101,6 +102,34 @@ const byText = (sel, txt) => qa(sel).find(e => e.textContent.indexOf(txt) >= 0)
   ok(q('.strip').textContent.indexOf('已暂停') >= 0, '暂停后显示已暂停')
   await click(q('#btn-pause'))
   ok(q('.strip').textContent.indexOf('已暂停') < 0, '继续后恢复计时')
+
+  console.log('3c. 外观设置：宽屏/窄屏 + 壁纸参数')
+  if (q('#btn-back')) await click(q('#btn-back'))
+  await click(q('#btn-settings'))
+  ok(!!q('.modal') && app().indexOf('外观设置') >= 0, '设置弹窗打开')
+  await click(q('.modal [data-w="1150"]'))
+  const saved = JSON.parse(window.localStorage.getItem('mhxy_view') || '{}')
+  ok(saved.width === 1150, '窄屏写入本地：' + JSON.stringify(saved))
+  ok(document.documentElement.style.getPropertyValue('--app-max') === '1150px', '窄屏立即生效')
+  await click(q('.modal [data-w="1400"]'))
+  ok(JSON.parse(window.localStorage.getItem('mhxy_view')).width === 1400, '切回宽屏')
+  const op = q('#set-opacity')
+  op.value = '80'
+  op.dispatchEvent(new window.Event('input', { bubbles: true }))
+  op.dispatchEvent(new window.Event('change', { bubbles: true }))
+  ok(document.documentElement.style.getPropertyValue('--skin-opacity') === '0.80', '不透明度生效')
+  ok(JSON.parse(window.localStorage.getItem('mhxy_view')).skinOpacity === 80, '不透明度记住')
+  const bl = q('#set-blur')
+  bl.value = '0'
+  bl.dispatchEvent(new window.Event('input', { bubbles: true }))
+  bl.dispatchEvent(new window.Event('change', { bubbles: true }))
+  ok(document.documentElement.style.getPropertyValue('--skin-blur') === '0px', '模糊可调到 0')
+  await click(q('#set-reset'))
+  const afterReset = JSON.parse(window.localStorage.getItem('mhxy_view'))
+  ok(afterReset.width === 1400 && afterReset.skinOpacity === 52 && afterReset.skinBlur === 1, '恢复默认')
+  await click(q('.modal [data-act="close"]'))
+  ok(qa('.modal-overlay').length === 0, '设置弹窗已关闭')
+  await click(q('.hub-card[data-nav="pet"]'))
 
   console.log('4. 批量填充（Canvas 轨道）')
   await click(q('#btn-batch'))

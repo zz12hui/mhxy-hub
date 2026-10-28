@@ -67,6 +67,7 @@ function demoSeed() {
       rings: Array.from({ length: 300 }, (_, i) => i < 120 ? { t: types[i % types.length], item: '' } : { t: null, item: '' }),
       rewards: { 100: ['120级制造指南书-刀'], 200: [], 300: [] }, notes: '', done: false, doneAt: null, totalCost: 0
     },
+    mhxy_view: { width: 1400, skinOpacity: 52, skinBlur: 1 },
     mhxy_welcome_seen: '1'
   }
 }
@@ -112,6 +113,7 @@ window.__measureUI = function(){
 
 function buildHtml(view) {
   const seed = demoSeed()
+  if (view === 'hub1150') { seed.mhxy_view = { width: 1150, skinOpacity: 52, skinBlur: 1 }; view = 'hub' }
   const seedJs = '<script>' + Object.entries(seed)
     .map(([k, v]) => `localStorage.setItem(${JSON.stringify(k)},${JSON.stringify(JSON.stringify(v))});`).join('') + '</script>\n'
   let html = INDEX.replace('<style>', seedJs + '<style>')
@@ -126,7 +128,7 @@ ${MEASURE_JS}
 function serve() {
   return new Promise(resolve => {
     const server = http.createServer((req, res) => {
-      const view = (req.url.match(/[?&]view=([a-z:]+)/) || [])[1] || 'hub'
+      const view = (req.url.match(/[?&]view=([a-z0-9:]+)/) || [])[1] || 'hub'
       if (req.url.split('?')[0] === '/index.html' || req.url === '/') {
         res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8', 'Connection': 'close', 'Cache-Control': 'no-store' })
         res.end(buildHtml(view)); return
@@ -230,7 +232,7 @@ function ok(cond, label) {
   const server = await serve()
   const base = `http://127.0.0.1:${server.address().port}/index.html?noskin=1`
   const cases = [
-    ['hub', 1366, 768], ['hub', 1440, 900], ['hub', 1920, 1080], ['hub', 2560, 1440], ['hub', 3440, 1440],
+    ['hub', 1366, 768], ['hub', 1440, 900], ['hub', 1920, 1080], ['hub', 2560, 1440], ['hub', 3440, 1440], ['hub1150', 1920, 1080],
     ['pet', 1440, 900], ['pet', 1920, 1080], ['pet', 2560, 1440],
     ['chain', 1440, 900],
     ['ledger', 1440, 900], ['ledger', 1920, 1080],
@@ -248,13 +250,16 @@ function ok(cond, label) {
       ok(m.sh <= m.vh + 2, `页面本身不滚动（scrollHeight ${m.sh} ≤ ${m.vh}）`)
       if (m.app) {
         ok(m.app.w <= 1401, `内容栏不超宽（${m.app.w} ≤ 1400）`)
-        if (m.vw > 1400) {
+        if (v === 'hub1150') {
+          ok(Math.abs(m.app.w - 1150) <= 2, `窄屏档位生效（${m.app.w} ≈ 1150）`)
+        }
+        if (m.vw > 1400 && v !== 'hub1150') {
           ok(Math.abs(m.app.l - (m.vw - m.app.r)) <= 2, `内容栏居中（左 ${m.app.l} / 右距 ${(m.vw - m.app.r).toFixed(1)}）`)
           ok(m.app.l >= 8, `左右留白（左 ${m.app.l} / 右 ${(m.vw - m.app.r).toFixed(1)}）`)
         }
       }
 
-      const tool = v.split(':')[0]
+      const tool = v.indexOf('hub') === 0 ? 'hub' : v.split(':')[0]
       if (tool === 'hub') {
         const g = m.gold
         ok(m.skinLayers === 2, '换肤图层存在（背景 + 压暗层）')
