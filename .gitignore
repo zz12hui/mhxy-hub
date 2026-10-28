@@ -1,1 +1,8 @@
+node_modules/
+package-lock.json
+preview-*.html
+*.log
 .DS_Store
+_*.js
+_*.html
+shot-*.png
