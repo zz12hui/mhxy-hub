@@ -254,7 +254,7 @@ const byText = (sel, txt) => qa(sel).find(e => e.textContent.indexOf(txt) >= 0)
   window.HTMLAnchorElement.prototype.click = function () { downloaded = this.download }
   window.exportAccount()
   window.HTMLAnchorElement.prototype.click = origClick
-  ok(!!downloaded && downloaded.indexOf('mhxy-getcash-box') === 0, '导出文件名 ' + downloaded)
+  ok(!!downloaded && downloaded.indexOf('mhxy-hub') === 0, '导出文件名 ' + downloaded)
 
   console.log('14. 运行期错误')
   const real = errors.filter(e => e.indexOf('Not implemented') < 0 && e.indexOf('Could not parse CSS') < 0)

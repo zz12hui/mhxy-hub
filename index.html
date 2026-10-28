@@ -848,14 +848,14 @@ function exportAccount(){
   pSave('cfg',pCfg);pSave('cur',pCur);pSave('runs',pHist);pSave('prices',pPrices);
   cSave('cfg',cCfg);cSave('cur',cCur);cSave('runs',cHist);cSave('prices',cPrices);
   saveRewardPrices();saveMoneyCfg();
-  const data={schemaVersion:2,app:'mhxy-getcash-box',appVersion:'0.1',exportedAt:new Date().toISOString(),activeUser,money:moneyCfg,
+  const data={schemaVersion:2,app:'mhxy-hub',appVersion:'0.3.2',exportedAt:new Date().toISOString(),activeUser,money:moneyCfg,
     roles:users.map(u=>({id:u.id,name:u.name,createdAt:u.createdAt,
       pet:{cfg:ld('mhxy_cfg_'+u.id,{level:175}),prices:ld('mhxy_prices_'+u.id,{...P_DEFAULT_PRICES}),runs:ld('mhxy_runs_'+u.id,[]),cur:ld('mhxy_cur_'+u.id,null)},
       chain:{cfg:ld('mhxy3_cfg_'+u.id,{level:175}),prices:ld('mhxy3_prices_'+u.id,{...C_DEFAULT_PRICES}),runs:ld('mhxy3_runs_'+u.id,[]),cur:ld('mhxy3_cur_'+u.id,null)},
       rewardPrices:normalizeRewardPrices(ld('mhxy_reward_prices_'+u.id,null))}))};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');a.href=url;a.download='mhxy-getcash-box-'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  const a=document.createElement('a');a.href=url;a.download='mhxy-hub-'+new Date().toISOString().slice(0,10)+'.json';a.click();
   URL.revokeObjectURL(url);
   toast('已导出 '+data.roles.length+' 个角色');
 }
